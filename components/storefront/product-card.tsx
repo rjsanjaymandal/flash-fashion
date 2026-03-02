@@ -76,10 +76,10 @@ export function ProductCard({
   // Memoize initial stock to prevent unnecessary re-renders
   const initialStock = useMemo(() => {
     return (product.product_stock || [])
-      .filter((item): item is typeof item & { product_id: string } =>
+      .filter((item: any) =>
         Boolean(item.product_id),
       )
-      .map((item) => ({
+      .map((item: any) => ({
         ...item,
         product_id: item.product_id,
         quantity: item.quantity ?? 0,
@@ -189,7 +189,7 @@ export function ProductCard({
     }
 
     // Pick first available variant
-    const firstStock = realTimeStock.find((s) => s.quantity > 0);
+    const firstStock = realTimeStock.find((s: any) => s.quantity > 0);
     if (!firstStock) {
       toast.error("No stock available");
       return;
@@ -199,7 +199,7 @@ export function ProductCard({
     try {
       await addToCart(
         {
-          variantId: firstStock.id!,
+          variantId: (firstStock as any).id as string,
           productId: product.id,
           name: product.name,
           price: product.price,
@@ -234,7 +234,7 @@ export function ProductCard({
     }
 
     // Pick first available variant
-    const firstStock = realTimeStock.find((s) => s.quantity > 0);
+    const firstStock = realTimeStock.find((s: any) => s.quantity > 0);
     if (!firstStock) {
       togglePreorder(product.id); // If no stock, offer preorder
       return;
@@ -246,7 +246,7 @@ export function ProductCard({
     setIsAddingToCart(true);
     try {
       await addToCart({
-        variantId: firstStock.id!,
+        variantId: (firstStock as any).id as string,
         productId: product.id,
         name: product.name,
         price: product.price,
@@ -291,7 +291,7 @@ export function ProductCard({
       setIsLoadingWaitlist(true);
       const guestId = getGuestId();
       // Pass savedEmail and guestId to check if this specific guest is on the list
-      checkPreorderStatus(product.id, savedEmail || undefined, guestId).then(
+      checkPreorderStatus(product.id, savedEmail || undefined).then(
         (serverStatus) => {
           if (serverStatus) {
             // Confirmed by server (User OR Guest with matching email OR GuestID)

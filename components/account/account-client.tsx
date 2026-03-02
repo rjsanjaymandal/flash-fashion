@@ -50,6 +50,8 @@ interface AccountClientProps {
     phone: string;
     city: string;
     state: string;
+    address_line1: string;
+    address_line2?: string | null;
     pincode: string;
     is_default: boolean;
   }[];

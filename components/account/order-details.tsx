@@ -21,11 +21,18 @@ import { BrandGlow } from "@/components/storefront/brand-glow";
 import FlashImage from "@/components/ui/flash-image";
 import { toast } from "sonner";
 
-import { Tables } from "@/types/supabase";
 import { TrackingTimeline } from "@/components/storefront/tracking-timeline";
 
-interface OrderItemWithProduct extends Tables<"order_items"> {
+export interface OrderItemWithProduct {
+  id: string;
+  order_id: string;
+  product_id: string;
+  quantity: number;
+  unit_price: number;
+  size: string | null;
+  color: string | null;
   fit: string | null;
+  name_snapshot: string | null;
   products: {
     name: string;
     main_image_url: string | null;
@@ -34,8 +41,27 @@ interface OrderItemWithProduct extends Tables<"order_items"> {
   } | null;
 }
 
+export interface OrderType {
+  id: string;
+  user_id: string;
+  status: string;
+  total: number;
+  subtotal: number;
+  shipping_fee: number | null;
+  discount_amount: number | null;
+  created_at: string | null;
+  tracking_number: string | null;
+  shipping_name: string | null;
+  address_line1: string | null;
+  address_line2: string | null;
+  city: string | null;
+  state: string | null;
+  pincode: string | null;
+  country: string | null;
+}
+
 interface OrderDetailsProps {
-  order: Tables<"orders">;
+  order: OrderType;
   items: OrderItemWithProduct[];
 }
 
@@ -207,45 +233,45 @@ export function OrderDetails({ order, items }: OrderDetailsProps) {
               {(order.status === "shipped" ||
                 order.status === "delivered" ||
                 order.tracking_number) && (
-                <div className="mt-8 md:mt-12 pt-8 md:pt-12 border-t-2 border-dashed border-zinc-100 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="h-12 w-12 bg-zinc-950 rounded-2xl flex items-center justify-center shadow-xl">
-                      <Truck className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-black uppercase italic tracking-tighter">
-                        Live Shipment History
-                      </h3>
-                      <p className="text-zinc-500 text-[10px] font-black uppercase tracking-widest">
-                        {order.tracking_number
-                          ? `Granular status from central logistics`
-                          : `Synchronization in progress`}
-                      </p>
-                    </div>
-                  </div>
-
-                  {order.tracking_number ? (
-                    <div className="bg-zinc-50/50 rounded-4xl border-2 border-zinc-100 overflow-hidden">
-                      <TrackingTimeline
-                        awb={order.tracking_number}
-                        className="p-4 md:p-6"
-                      />
-                    </div>
-                  ) : (
-                    <div className="bg-zinc-50/30 rounded-4xl border-2 border-dashed border-zinc-100 p-12 text-center">
-                      <div className="h-16 w-16 bg-zinc-100 rounded-full flex items-center justify-center mx-auto mb-6 opacity-50 relative">
-                        <Truck className="h-8 w-8 text-zinc-400" />
-                        <div className="absolute inset-0 rounded-full border-2 border-zinc-200 animate-ping opacity-20" />
+                  <div className="mt-8 md:mt-12 pt-8 md:pt-12 border-t-2 border-dashed border-zinc-100 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+                    <div className="flex items-center gap-4 mb-8">
+                      <div className="h-12 w-12 bg-zinc-950 rounded-2xl flex items-center justify-center shadow-xl">
+                        <Truck className="h-6 w-6 text-white" />
                       </div>
-                      <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 leading-relaxed max-w-[200px] mx-auto">
-                        Shipment has been initialized. <br />
-                        Real-time telemetry will <br />
-                        appear here shortly.
-                      </p>
+                      <div>
+                        <h3 className="text-xl font-black uppercase italic tracking-tighter">
+                          Live Shipment History
+                        </h3>
+                        <p className="text-zinc-500 text-[10px] font-black uppercase tracking-widest">
+                          {order.tracking_number
+                            ? `Granular status from central logistics`
+                            : `Synchronization in progress`}
+                        </p>
+                      </div>
                     </div>
-                  )}
-                </div>
-              )}
+
+                    {order.tracking_number ? (
+                      <div className="bg-zinc-50/50 rounded-4xl border-2 border-zinc-100 overflow-hidden">
+                        <TrackingTimeline
+                          awb={order.tracking_number}
+                          className="p-4 md:p-6"
+                        />
+                      </div>
+                    ) : (
+                      <div className="bg-zinc-50/30 rounded-4xl border-2 border-dashed border-zinc-100 p-12 text-center">
+                        <div className="h-16 w-16 bg-zinc-100 rounded-full flex items-center justify-center mx-auto mb-6 opacity-50 relative">
+                          <Truck className="h-8 w-8 text-zinc-400" />
+                          <div className="absolute inset-0 rounded-full border-2 border-zinc-200 animate-ping opacity-20" />
+                        </div>
+                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 leading-relaxed max-w-[200px] mx-auto">
+                          Shipment has been initialized. <br />
+                          Real-time telemetry will <br />
+                          appear here shortly.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
             </div>
           </div>
         </div>

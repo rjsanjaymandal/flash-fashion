@@ -5,6 +5,12 @@ import { FlaskConical, Info, Sparkles, TrendingUp, Users } from "lucide-react";
 import { ConceptCard } from "@/components/lab/concept-card";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+interface LabClientViewProps {
+  concepts: any[];
+  user?: any;
+  userVotes: string[];
+}
+
 export function LabClientView({
   concepts,
   user,
@@ -133,7 +139,7 @@ export function LabClientView({
           initial="hidden"
           animate="show"
         >
-          {currentConcepts.map((concept) => (
+          {currentConcepts.map((concept: any) => (
             <motion.div
               key={concept.id}
               variants={{
@@ -206,7 +212,7 @@ export function LabClientView({
             <StatCard
               icon={Users}
               label="Total Backers"
-              value={currentConcepts.reduce((acc, c) => acc + c.vote_count, 0)}
+              value={currentConcepts.reduce((acc: number, c: any) => acc + (c.vote_count || 0), 0)}
             />
             <StatCard
               icon={TrendingUp}
@@ -217,14 +223,14 @@ export function LabClientView({
               icon={FlaskConical}
               label="Production Ready"
               value={
-                currentConcepts.filter((c) => c.status !== "voting").length
+                currentConcepts.filter((c: any) => c.status !== "voting").length
               }
               color="emerald"
             />
             <StatCard
               icon={Sparkles}
               label="Success Rate"
-              value={`${Math.round((currentConcepts.filter((c) => c.status !== "voting").length / Math.max(1, currentConcepts.length)) * 100)}%`}
+              value={`${Math.round((currentConcepts.filter((c: any) => c.status !== "voting").length / Math.max(1, currentConcepts.length)) * 100)}%`}
             />
           </motion.div>
         </div>

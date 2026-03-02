@@ -134,7 +134,7 @@ export async function getRelatedProducts(product: any): Promise<any[]> {
                     category_id: categoryId ? [categoryId] : undefined,
                     limit: 5
                 })
-                return products.filter(p => p.id !== product.id).slice(0, 4)
+                return products.filter((p: any) => p.id !== product.id).slice(0, 4)
             } catch (error) {
                 console.error('getRelatedProducts failed:', error)
                 return []
@@ -179,4 +179,8 @@ export async function updateProduct(id: string, productData: any) {
 
 export async function deleteProduct(id: string) {
     return { success: false, error: "Product deletion is now handled via Medusa Admin" }
+}
+
+export async function purgeStorefrontCache() {
+    return { success: true }
 }

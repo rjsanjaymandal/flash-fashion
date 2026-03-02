@@ -12,11 +12,13 @@ export async function notifyWaitlistUser(variantId: string, email: string) {
     if (!customer || customer.metadata?.role !== 'admin') return { error: 'Unauthorized' }
 
     // 1. Fetch Variant and Product Details
-    const { variant } = await medusaClient.store.product.retrieveVariant(variantId, {
+    const { variants } = await (medusaClient.store.product as any).listVariants({
+        id: variantId,
         fields: ["*", "product.*"]
-    })
+    });
 
-    if (!variant) return { error: 'Variant not found' }
+    if (!variants || variants.length === 0) return { error: 'Variant not found' }
+    const variant = variants[0];
 
     // 2. Extract Waitlist
     const waitlist = (variant.metadata?.waitlist as any[]) || []

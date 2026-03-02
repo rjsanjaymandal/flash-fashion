@@ -432,7 +432,7 @@ export function ProductDetailClient({
     try {
       await addToCart(
         {
-          variantId: (stockItem as any).id || product.variants?.[0]?.id || product.id,
+          variantId: (stockItem as any).id || (product as any).variants?.[0]?.id || product.id,
           productId: product.id,
           categoryId: product.category_id || "",
           name: product.name,
@@ -444,8 +444,7 @@ export function ProductDetailClient({
           quantity: quantity,
           maxQuantity: maxQty,
           slug: product.slug || "",
-        },
-        options,
+        }
       );
       return true;
     } catch {

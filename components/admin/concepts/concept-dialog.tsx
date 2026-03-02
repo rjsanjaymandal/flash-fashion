@@ -21,8 +21,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import { createConcept, updateConcept } from "@/lib/services/concept-service";
+// import { createConcept, updateConcept } from "@/lib/services/concept-service";
 import { Loader2 } from "lucide-react";
+
+// Mocking concept services
+const createConcept = async (data: any) => ({ success: true });
+const updateConcept = async (id: string, data: any) => ({ success: true });
 
 type Concept = {
   id: string;
@@ -73,10 +77,10 @@ export function ConceptDialog({
 
       if (concept) {
         await updateConcept(concept.id, data);
-        toast.success("Concept updated");
+        toast.success("Concept updated (Mocked)");
       } else {
         await createConcept(data);
-        toast.success("Concept created");
+        toast.success("Concept created (Mocked)");
       }
       onOpenChange(false);
       if (onSuccess) onSuccess();

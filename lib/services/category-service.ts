@@ -18,12 +18,12 @@ export async function getCategoriesTree(): Promise<Category[]> {
         const categoryMap = new Map();
         const roots: any[] = [];
 
-        product_categories.forEach(cat => {
+        product_categories.forEach((cat: any) => {
             categoryMap.set(cat.id, { ...cat, children: [] });
         });
 
-        product_categories.forEach(cat => {
-            const node = categoryMap.get(cat.id);
+        product_categories.forEach((cat: any) => {
+            const node: any = categoryMap.get(cat.id);
             if (cat.parent_category_id && categoryMap.has(cat.parent_category_id)) {
                 categoryMap.get(cat.parent_category_id).children.push(node);
             } else {
@@ -56,10 +56,31 @@ export async function getRootCategories(limit?: number): Promise<any[]> {
         const { product_categories } = await medusaClient.store.category.list({
             // Filter roots (parent_category_id: null)
         });
-        const roots = product_categories.filter(c => !c.parent_category_id);
+        const roots = product_categories.filter((c: any) => !c.parent_category_id);
         return limit ? roots.slice(0, limit) : roots;
     } catch (error) {
         console.error('[getRootCategories] Failed:', error);
+        return [];
+    }
+}
+
+export const getCategories = async () => {
+    try {
+        const { product_categories } = await medusaClient.store.category.list();
+
+        return product_categories.map((cat: any) => ({
+            id: cat.id,
+            name: cat.name,
+            description: cat.description,
+            handle: cat.handle,
+            parent_category_id: cat.parent_category_id,
+            category_children: cat.category_children?.map((child: any) => ({
+                id: child.id,
+                name: child.name,
+            })),
+        }));
+    } catch (error) {
+        console.error('[getCategories] Failed:', error);
         return [];
     }
 }

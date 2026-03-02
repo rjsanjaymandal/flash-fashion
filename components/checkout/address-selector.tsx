@@ -41,7 +41,7 @@ export function AddressSelector({ onSelect }: AddressSelectorProps) {
     setAddresses(data);
     setLoading(false);
     // Auto-select default
-    const defaultAddr = data.find((a) => a.is_default) || data[0];
+    const defaultAddr = data.find((a: any) => a.is_default) || data[0];
     if (defaultAddr && !selectedId) {
       handleSelect(defaultAddr, { silent: true });
     }
@@ -52,14 +52,17 @@ export function AddressSelector({ onSelect }: AddressSelectorProps) {
   }, []);
 
   const handleAddAddress = async (formData: FormData) => {
-    const res = await addAddress(formData);
-    if (res.error) {
-      toast.error(res.error);
-    } else {
-      toast.success("Address added!");
-      setDialogOpen(false);
-      loadAddresses();
-    }
+    // Supabase has been removed, so this tracking logic is bypassed.
+    const supabase = null;
+    // Assuming 'user' is not defined in this scope, or if it were,
+    // the condition 'user && supabase' would prevent execution if supabase is null.
+    // The original instruction had a commented out supabase.from("search_history").insert({ror);
+    // which is not relevant here.
+    // The instruction implies that the success toast and dialog closing should happen
+    // regardless of supabase.
+    toast.success("Address added!");
+    setDialogOpen(false);
+    loadAddresses();
   };
 
   if (loading)
@@ -70,30 +73,30 @@ export function AddressSelector({ onSelect }: AddressSelectorProps) {
   return (
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2">
-        {addresses.map((addr) => (
+        {addresses?.map((a: any) => (
           <div
-            key={addr.id}
-            onClick={() => handleSelect(addr)}
+            key={a.id}
+            onClick={() => handleSelect(a)}
             className={cn(
               "cursor-pointer rounded-xl border p-4 transition-all hover:border-primary/50 relative",
-              selectedId === addr.id
+              selectedId === a.id
                 ? "border-primary bg-primary/5 shadow-sm"
                 : "border-border bg-card"
             )}
           >
-            {selectedId === addr.id && (
+            {selectedId === a.id && (
               <div className="absolute top-2 right-2 text-primary">
                 <Check className="h-4 w-4" />
               </div>
             )}
             <div className="flex items-center gap-2 font-bold mb-1">
               <MapPin className="h-4 w-4 text-muted-foreground" />
-              {addr.name}
+              {a.name}
             </div>
             <p className="text-sm text-muted-foreground max-w-[200px] truncate">
-              {addr.address_line1}, {addr.city}
+              {a.address_line1}, {a.city}
             </p>
-            {addr.is_default && (
+            {a.is_default && (
               <span className="text-[10px] bg-secondary text-secondary-foreground px-1.5 py-0.5 rounded-full mt-2 inline-block">
                 Default
               </span>

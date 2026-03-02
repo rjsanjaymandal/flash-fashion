@@ -43,6 +43,7 @@ export function CartUpsell() {
 
   const onAddVariant = (product: any, variant: any) => {
     addItem({
+      variantId: variant.id || `${product.id}-${variant.size}`,
       productId: product.id,
       categoryId: product.category_id,
       name: product.name,

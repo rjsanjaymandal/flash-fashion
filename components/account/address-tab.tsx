@@ -10,11 +10,10 @@ import { useState } from "react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { addAddress } from "@/app/actions/address-actions"
 import { toast } from "sonner"
-import { Tables } from "@/types/supabase"
-import { AddressCard } from "@/components/account/address-card"
+import { AddressCard, AddressType } from "@/components/account/address-card"
 import { Loader2 } from "lucide-react"
 
-export function AddressTab({ addresses }: { addresses: Tables<'addresses'>[] }) {
+export function AddressTab({ addresses }: { addresses: AddressType[] }) {
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -35,8 +34,8 @@ export function AddressTab({ addresses }: { addresses: Tables<'addresses'>[] }) 
         <div className="space-y-8">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                     <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px]">Shipping Profiles</span>
-                     <h2 className="text-3xl font-black tracking-tighter uppercase italic mt-1">Address Book</h2>
+                    <span className="text-primary font-black tracking-[0.4em] uppercase text-[10px]">Shipping Profiles</span>
+                    <h2 className="text-3xl font-black tracking-tighter uppercase italic mt-1">Address Book</h2>
                 </div>
 
                 <Dialog open={open} onOpenChange={setOpen}>
@@ -52,7 +51,7 @@ export function AddressTab({ addresses }: { addresses: Tables<'addresses'>[] }) 
                                 Add a new shipping destination to your vault.
                             </DialogDescription>
                         </DialogHeader>
-                        
+
                         <form action={handleSubmit} className="space-y-4 mt-4">
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
@@ -86,7 +85,7 @@ export function AddressTab({ addresses }: { addresses: Tables<'addresses'>[] }) 
                                 </div>
                             </div>
 
-                             <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="state" className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">State</Label>
                                     <Input id="state" name="state" required className="rounded-xl bg-muted/50 border-border/50" />
@@ -96,7 +95,7 @@ export function AddressTab({ addresses }: { addresses: Tables<'addresses'>[] }) 
                                     <Input id="country" name="country" defaultValue="India" disabled className="rounded-xl bg-muted/50 border-border/50 opacity-60" />
                                 </div>
                             </div>
-                            
+
                             <div className="flex items-center space-x-2 pt-2">
                                 <Checkbox id="is_default" name="is_default" />
                                 <Label htmlFor="is_default" className="text-xs font-bold uppercase tracking-wider cursor-pointer text-muted-foreground">Set as default address</Label>
@@ -112,7 +111,7 @@ export function AddressTab({ addresses }: { addresses: Tables<'addresses'>[] }) 
 
             {/* List */}
             {addresses.length === 0 ? (
-                 <div className="flex flex-col items-center justify-center py-20 text-center rounded-3xl border-2 border-dashed border-border/50 bg-muted/20">
+                <div className="flex flex-col items-center justify-center py-20 text-center rounded-3xl border-2 border-dashed border-border/50 bg-muted/20">
                     <div className="h-16 w-16 bg-card rounded-full flex items-center justify-center mb-4 shadow-xl border border-border/10">
                         <MapPin className="h-8 w-8 text-muted-foreground" />
                     </div>

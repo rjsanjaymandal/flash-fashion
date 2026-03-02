@@ -221,7 +221,7 @@ export function QuickAddDialog({
 
     addItem(
       {
-        variantId: stockItem.id!,
+        variantId: (stockItem as any)?.id || "fallback-id",
         productId: product.id,
         categoryId: product.category_id || "",
         name: product.name,

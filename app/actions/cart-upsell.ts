@@ -16,7 +16,7 @@ export async function getUpsellProducts(
         category_handle: categoryHandles,
         limit: 10
       });
-      products = categoryProducts.filter(p => !inCartIds.includes(p.id));
+      products = categoryProducts.filter((p: any) => !inCartIds.includes(p.id));
     }
 
     // 2. Fallback to featured

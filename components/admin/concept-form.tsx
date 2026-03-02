@@ -16,8 +16,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { createConcept } from "@/app/actions/admin/manage-concepts";
 import { Loader2, UploadCloud } from "lucide-react";
+
+// Mocking createConcept as the service is missing after Supabase removal
+const createConcept = async (data: any) => ({ success: true, error: null });
 
 const conceptSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
@@ -59,7 +61,7 @@ export function ConceptForm({ onSuccess }: ConceptFormProps) {
       const result = await createConcept(formData);
 
       if (result.success) {
-        toast.success("Concept created successfully!");
+        toast.success("Concept created successfully! (Mocked)");
         form.reset();
         onSuccess?.();
       } else {

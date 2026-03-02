@@ -72,7 +72,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [isOpen, supabase]);
+  }, [isOpen]);
 
   // Execute Search
   useEffect(() => {

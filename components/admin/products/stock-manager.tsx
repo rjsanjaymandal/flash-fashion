@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,6 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Plus, Trash2 } from "lucide-react";
+import { toast } from "sonner"; // Assuming sonner is used for toasts
 
 export default function StockManager({ productId }: { productId: string }) {
   const [stock, setStock] = useState<any[]>([]);
@@ -22,19 +22,24 @@ export default function StockManager({ productId }: { productId: string }) {
     quantity: "0",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const supabase = createClient();
 
+  // TODO: Replace with actual Medusa/Backend API calls
   const fetchStock = useCallback(async () => {
     setIsLoading(true);
-    const { data } = await supabase
-      .from("product_stock")
-      .select("*")
-      .eq("product_id", productId)
-      .order("size");
-
-    if (data) setStock(data);
-    setIsLoading(false);
-  }, [productId, supabase]);
+    try {
+      // Implement backend fetch logic here
+      // const response = await fetch(`/api/admin/products/${productId}/variants`);
+      // if(response.ok) {
+      //     const data = await response.json();
+      //     setStock(data);
+      // }
+      console.warn("fetchStock requires Medusa API integration");
+    } catch (e) {
+      toast.error("Failed to load stock");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [productId]);
 
   useEffect(() => {
     fetchStock();
@@ -43,40 +48,24 @@ export default function StockManager({ productId }: { productId: string }) {
   const handleAddStock = async () => {
     if (!newStock.size || !newStock.color) return;
 
-    const { error } = await (supabase.from("product_stock") as any).insert([
-      {
-        product_id: productId,
-        size: newStock.size,
-        color: newStock.color,
-        quantity: parseInt(newStock.quantity),
-      },
-    ] as any);
-
-    if (error) {
-      alert("Error adding stock: " + error.message);
-    } else {
-      setNewStock({ size: "", color: "", quantity: "0" });
-      fetchStock();
-    }
+    // TODO: Connect to backend API
+    // const response = await fetch(`/api/admin/products/${productId}/variants`, { method: 'POST', body: JSON.stringify({...newStock}) });
+    toast.warning("Implementation required to add stock via Medusa API");
+    setNewStock({ size: "", color: "", quantity: "0" });
   };
 
   const handleUpdateQuantity = async (id: string, qty: number) => {
-    const { error } = await (supabase.from("product_stock") as any)
-      .update({ quantity: qty } as any)
-      .eq("id", id);
-
-    if (!error) {
-      setStock(stock.map((s) => (s.id === id ? { ...s, quantity: qty } : s)));
-    }
+    // TODO: Connect to backend API
+    // await fetch(`/api/admin/variants/${id}`, { method: 'PATCH', body: JSON.stringify({ inventory_quantity: qty }) });
+    setStock(stock.map((s) => (s.id === id ? { ...s, quantity: qty } : s)));
+    toast.warning("Implementation required to update stock via Medusa API");
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm("Remove this stock record?")) return;
-    const { error } = await (supabase.from("product_stock") as any)
-      .delete()
-      .eq("id", id);
-
-    if (!error) fetchStock();
+    // TODO: Connect to backend API
+    // await fetch(`/api/admin/variants/${id}`, { method: 'DELETE' });
+    toast.warning("Implementation required to delete stock via Medusa API");
   };
 
   return (

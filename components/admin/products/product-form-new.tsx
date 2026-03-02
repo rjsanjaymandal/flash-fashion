@@ -23,13 +23,15 @@ import {
   Image as ImageIcon,
   Trash2,
 } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+}
+
 import { toast } from "sonner";
 import FlashImage from "@/components/ui/flash-image";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Tables } from "@/types/supabase";
-
-type Category = Tables<"categories">;
 
 const SIZE_OPTIONS = ["XS", "S", "M", "L", "XL", "XXL", "Oversized"];
 const COLOR_OPTIONS = [
@@ -80,7 +82,6 @@ export function ProductForm({
   onSubmit,
   onCancel,
 }: ProductFormProps) {
-  const supabase = createClient();
   const [activeTab, setActiveTab] = useState("details");
   const [formData, setFormData] = useState<ProductFormData>(
     initialData || {

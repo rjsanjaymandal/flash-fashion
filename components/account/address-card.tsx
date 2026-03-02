@@ -5,13 +5,24 @@ import { MapPin, Phone, Trash2, CheckCircle2, Star } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { deleteAddress, setDefaultAddress } from "@/app/actions/address-actions"
 import { toast } from "sonner"
-import { Tables } from "@/types/supabase"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
+export interface AddressType {
+    id: string;
+    is_default: boolean;
+    name: string;
+    city: string;
+    state: string;
+    address_line1: string;
+    address_line2?: string | null;
+    pincode: string;
+    phone: string;
+}
+
 interface AddressCardProps {
-    address: Tables<'addresses'>
+    address: AddressType;
 }
 
 export function AddressCard({ address }: AddressCardProps) {
@@ -37,8 +48,8 @@ export function AddressCard({ address }: AddressCardProps) {
     return (
         <div className={cn(
             "group relative p-6 rounded-3xl border-2 transition-all duration-300",
-            address.is_default 
-                ? "bg-primary border-primary text-primary-foreground shadow-xl scale-[1.02]" 
+            address.is_default
+                ? "bg-primary border-primary text-primary-foreground shadow-xl scale-[1.02]"
                 : "bg-card border-border/50 hover:border-border hover:shadow-lg"
         )}>
             {/* Header */}
@@ -82,9 +93,9 @@ export function AddressCard({ address }: AddressCardProps) {
             {/* Actions */}
             <div className="flex gap-2">
                 {!address.is_default && (
-                    <Button 
-                        variant="ghost" 
-                        size="sm" 
+                    <Button
+                        variant="ghost"
+                        size="sm"
                         onClick={handleSetDefault}
                         disabled={loading}
                         className="flex-1 rounded-xl h-9 hover:bg-muted text-muted-foreground font-bold text-xs uppercase"
@@ -92,17 +103,17 @@ export function AddressCard({ address }: AddressCardProps) {
                         {loading ? <Loader2 className="h-3 w-3 animate-spin" /> : "Set Default"}
                     </Button>
                 )}
-                
+
                 {/* Delete Button */}
-                <Button 
-                    variant="ghost" 
-                    size="icon" 
+                <Button
+                    variant="ghost"
+                    size="icon"
                     onClick={handleDelete}
                     disabled={loading}
                     className={cn(
                         "h-9 w-9 rounded-xl transition-colors",
-                        address.is_default 
-                            ? "hover:bg-primary-foreground/10 text-primary-foreground/50 hover:text-red-200" 
+                        address.is_default
+                            ? "hover:bg-primary-foreground/10 text-primary-foreground/50 hover:text-red-200"
                             : "hover:bg-red-500/10 text-muted-foreground hover:text-red-500"
                     )}
                 >

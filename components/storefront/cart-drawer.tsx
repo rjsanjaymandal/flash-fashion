@@ -253,10 +253,7 @@ export function CartDrawer() {
                             <button
                               onClick={() =>
                                 removeItem(
-                                  item.productId,
-                                  item.size,
-                                  item.color,
-                                  item.fit,
+                                  item.variantId
                                 )
                               }
                               className="text-muted-foreground hover:text-destructive transition-colors p-1"
@@ -393,10 +390,7 @@ export function CartDrawer() {
                             <button
                               onClick={() =>
                                 removeItem(
-                                  item.productId,
-                                  item.size,
-                                  item.color,
-                                  item.fit,
+                                  item.variantId
                                 )
                               }
                               className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-destructive"

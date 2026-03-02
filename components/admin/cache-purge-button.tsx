@@ -27,7 +27,7 @@ export function CachePurgeButton() {
 
     setIsPurging(true);
     try {
-      const result = await purgeStorefrontCache();
+      const result: any = await purgeStorefrontCache();
       if (result.success) {
         toast.success(
           "Storefront cache purged successfully. The site will now show the latest database state.",

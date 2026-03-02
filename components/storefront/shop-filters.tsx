@@ -20,9 +20,11 @@ import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { Filter, X } from "lucide-react";
 import { motion } from "framer-motion";
-import { Database } from "@/types/supabase";
-
-type Category = Database["public"]["Tables"]["categories"]["Row"];
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+}
 
 // Constants
 const SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
@@ -282,9 +284,9 @@ function FilterContent({ categories }: { categories: Category[] }) {
                     size === s
                       ? "bg-primary text-primary-foreground shadow-xl shadow-primary/20 scale-105 border-primary"
                       : cn(
-                          "border-border hover:border-primary/50 hover:bg-muted text-muted-foreground hover:text-foreground",
-                          mutedClass,
-                        ),
+                        "border-border hover:border-primary/50 hover:bg-muted text-muted-foreground hover:text-foreground",
+                        mutedClass,
+                      ),
                   )}
                 >
                   {s}

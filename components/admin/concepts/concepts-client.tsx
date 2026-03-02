@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ConceptDialog } from "./concept-dialog";
-import { deleteConcept } from "@/lib/services/concept-service";
+// import { deleteConcept } from "@/lib/services/concept-service";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import FlashImage from "@/components/ui/flash-image";
@@ -27,6 +27,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+
+// Mocking deleteConcept
+const deleteConcept = async (id: string) => ({ success: true });
 
 export function ConceptsClient({
   initialConcepts,
@@ -51,7 +54,7 @@ export function ConceptsClient({
     try {
       await deleteConcept(deletingId);
       setConcepts(concepts.filter((c) => c.id !== deletingId));
-      toast.success("Concept deleted");
+      toast.success("Concept deleted (Mocked)");
     } catch {
       toast.error("Failed to delete concept");
     } finally {

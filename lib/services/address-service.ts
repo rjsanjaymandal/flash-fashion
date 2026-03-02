@@ -63,7 +63,7 @@ export async function addAddress(formData: FormData) {
             country_code: 'IN' // Standardized for India
         };
 
-        await medusaClient.store.customer.addAddress({ address: addressData });
+        await medusaClient.store.customer.createAddress(addressData);
 
         revalidatePath('/checkout')
         return { success: true }

@@ -43,6 +43,7 @@ export function QuickView({ product }: QuickViewProps) {
     const maxQuantity = stockItem?.quantity || 10; // Fallback if stock not found, though it should be
 
     addItem({
+      variantId: stockItem?.id || "fallback-id",
       productId: product.id,
       categoryId: product.category_id || "",
       name: product.name,
@@ -109,11 +110,10 @@ export function QuickView({ product }: QuickViewProps) {
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`h-10 w-10 rounded-lg border text-sm font-medium transition-all ${
-                        selectedSize === size
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-input hover:bg-muted"
-                      }`}
+                      className={`h-10 w-10 rounded-lg border text-sm font-medium transition-all ${selectedSize === size
+                        ? "border-primary bg-primary text-primary-foreground"
+                        : "border-input hover:bg-muted"
+                        }`}
                     >
                       {size}
                     </button>
@@ -141,11 +141,10 @@ export function QuickView({ product }: QuickViewProps) {
                           <button
                             key={fit}
                             onClick={() => setSelectedFit(fit)}
-                            className={`h-10 px-4 rounded-lg border text-sm font-medium transition-all ${
-                              selectedFit === fit
-                                ? "border-primary bg-primary text-primary-foreground"
-                                : "border-input hover:bg-muted"
-                            }`}
+                            className={`h-10 px-4 rounded-lg border text-sm font-medium transition-all ${selectedFit === fit
+                              ? "border-primary bg-primary text-primary-foreground"
+                              : "border-input hover:bg-muted"
+                              }`}
                           >
                             {fit}
                           </button>
@@ -187,6 +186,7 @@ export function QuickView({ product }: QuickViewProps) {
                   const maxQuantity = stockItem?.quantity || 10;
                   await addItem(
                     {
+                      variantId: stockItem?.id || "fallback-id",
                       productId: product.id,
                       categoryId: product.category_id || "",
                       name: product.name,
