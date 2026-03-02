@@ -43,19 +43,3 @@ export async function createReview(userId: string, productId: string, rating: nu
     }
 }
 
-// Admin / Management methods (Placeholders)
-export async function deleteReview(id: string) {
-    console.log(`[deleteReview] Review ${id} deletion requested.`);
-}
-
-export async function toggleReviewFeature(id: string, isFeatured: boolean) {
-    console.log(`[toggleReviewFeature] Review ${id} featured status: ${isFeatured}.`);
-}
-
-export async function replyToReview(id: string, replyText: string) {
-    console.log(`[replyToReview] Reply to review ${id}: ${replyText}.`);
-}
-
-export async function approveReview(id: string, isApproved: boolean) {
-    console.log(`[approveReview] Review ${id} approval status: ${isApproved}.`);
-}

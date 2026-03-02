@@ -4,12 +4,14 @@ import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://127.0.0.1:9000"
+const PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
 
 async function getHeaders(): Promise<Record<string, string>> {
     const cookieStore = await cookies()
     const token = cookieStore.get('medusa_token')?.value
     const headers: Record<string, string> = {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-publishable-api-key': PUBLISHABLE_KEY,
     }
     if (token) {
         headers['Authorization'] = `Bearer ${token}`

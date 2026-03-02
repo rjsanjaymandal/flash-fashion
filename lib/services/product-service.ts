@@ -168,19 +168,3 @@ export async function getValidProducts(ids: string[]): Promise<any[]> {
     return getProductsByIds(ids)
 }
 
-// Admin / Write methods (Simplified or mapped to Medusa if bridge exists)
-export async function createProduct(productData: any) {
-    return { success: false, error: "Product creation is now handled via Medusa Admin" }
-}
-
-export async function updateProduct(id: string, productData: any) {
-    return { success: false, error: "Product update is now handled via Medusa Admin" }
-}
-
-export async function deleteProduct(id: string) {
-    return { success: false, error: "Product deletion is now handled via Medusa Admin" }
-}
-
-export async function purgeStorefrontCache() {
-    return { success: true }
-}

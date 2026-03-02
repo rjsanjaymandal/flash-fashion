@@ -85,15 +85,3 @@ export const getCategories = async () => {
     }
 }
 
-// Admin Placeholders
-export async function createCategory(data: any) {
-    return { success: false, error: "Handled via Medusa Admin" }
-}
-
-export async function updateCategory(id: string, data: any) {
-    return { success: false, error: "Handled via Medusa Admin" }
-}
-
-export async function deleteCategory(id: string) {
-    return { success: false, error: "Handled via Medusa Admin" }
-}
