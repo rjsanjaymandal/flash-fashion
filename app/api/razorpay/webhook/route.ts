@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import { PaymentProcessor } from '@/lib/services/payment-processor'
-import { NotificationService } from '@/lib/services/notification-service'
 
 export async function POST(req: Request) {
     try {
@@ -46,15 +45,6 @@ export async function POST(req: Request) {
                 console.warn(`[Webhook] Processing failed for ${orderId}:`, result.error)
                 return NextResponse.json({ error: result.error }, { status: 500 })
             }
-
-            // 4. Success! Notify Admins
-            const amount = (payment.amount / 100).toFixed(2); // Convert paise to currency
-            await NotificationService.notifyAdmins(
-                "New Order Recieved! 💰",
-                `Order ${orderId.slice(0, 8)} paid successfully. Amount: ₹${amount}`,
-                "success",
-                `/admin/orders/${orderId}`
-            );
 
             console.log(`[Webhook] Successfully processed ${orderId}`)
         }

@@ -1,9 +1,23 @@
 'use server'
 
-import { updateMedusaCustomerData } from '@/lib/medusa-bridge'
 import { revalidatePath } from 'next/cache'
 import { medusaClient } from '@/lib/medusa'
 import { getMedusaSession } from './medusa-auth'
+import { cookies } from 'next/headers'
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://127.0.0.1:9000"
+
+async function getHeaders(): Promise<Record<string, string>> {
+  const cookieStore = await cookies()
+  const token = cookieStore.get('medusa_token')?.value
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json'
+  }
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+  return headers
+}
 
 export async function getGlobalSettings(key: string) {
   try {
@@ -30,12 +44,25 @@ export async function updateGlobalSettings(key: string, value: any) {
     return { error: 'Unauthorized: Admin only' }
   }
 
-  const result = await updateMedusaCustomerData(customer.id, 'update_settings', {
-    key,
-    value
+  // Flash global settings were previously tracked in customer metadata for admin convenience or store metadata. 
+  // Refactoring to update customer metadata directly to drop bridge dependency and save state.
+  const currentMetadata = customer.metadata || {}
+  const settings = (currentMetadata.settings as any) || {}
+  settings[key] = value
+
+  const headers = await getHeaders()
+  const res = await fetch(`${BACKEND_URL}/store/customers/me`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      metadata: {
+        ...currentMetadata,
+        settings
+      }
+    })
   })
 
-  if (result?.error) {
+  if (!res.ok) {
     return { error: 'Failed to update settings' }
   }
 

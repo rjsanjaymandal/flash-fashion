@@ -2,8 +2,22 @@
 
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod';
-import { updateMedusaCustomerData } from '@/lib/medusa-bridge';
 import { getMedusaSession } from './medusa-auth';
+import { cookies } from 'next/headers'
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://127.0.0.1:9000"
+
+async function getHeaders(): Promise<Record<string, string>> {
+  const cookieStore = await cookies()
+  const token = cookieStore.get('medusa_token')?.value
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json'
+  }
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+  return headers
+}
 
 const profileSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -32,17 +46,25 @@ export async function updateProfile(formData: FormData) {
 
   const { name, pronouns, fit_preference } = parsed.data;
 
-  // Update Medusa Profile via Bridge
-  const res = await updateMedusaCustomerData(customer.email!, "update_profile", {
-    first_name: name,
-    metadata: {
-      pronouns,
-      fit_preference: fit_preference === 'none' ? null : fit_preference
-    }
+  const currentMetadata = customer.metadata || {}
+
+  // Update Medusa Profile natively via REST
+  const headers = await getHeaders()
+  const res = await fetch(`${BACKEND_URL}/store/customers/me`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      first_name: name,
+      metadata: {
+        ...currentMetadata,
+        pronouns,
+        fit_preference: fit_preference === 'none' ? null : fit_preference
+      }
+    })
   })
 
-  if (res.error) {
-    console.error('Profile Update Error (Medusa):', res.error)
+  if (!res.ok) {
+    console.error('Profile Update Error (Medusa):', await res.text())
     return { error: 'Failed to update profile in Medusa.' }
   }
 

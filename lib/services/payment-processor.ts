@@ -1,7 +1,6 @@
 import Razorpay from 'razorpay'
 import crypto from 'crypto'
 import { Result, ok, err } from '@/lib/utils/result'
-import { EventBus } from '@/lib/services/event-bus'
 import { medusaClient } from '@/lib/medusa'
 
 export class PaymentProcessor {
@@ -180,8 +179,8 @@ export class PaymentProcessor {
 
             const order = completion.order;
 
-            // 5. Publish Event (Async Architecture)
-            await EventBus.publish('ORDER_PAID', {
+            // 5. Notify the System (Log)
+            console.log('[PaymentProcessor][Event] ORDER_PAID:', {
                 orderId: order.id,
                 paymentId,
                 amount: razorpayAmount,

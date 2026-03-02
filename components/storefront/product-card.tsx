@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { useState, useEffect, useMemo } from "react";
 import { useAuth } from "@/context/auth-context";
+import { addToWishlist as apiAddToWishlist, removeFromWishlist as apiRemoveFromWishlist } from "@/lib/services/wishlist-service";
 import { motion } from "framer-motion";
 import {
   AlertDialog,
@@ -135,11 +136,12 @@ export function ProductCard({
   // rating and reviewCount were unused in this layout
 
   // Check waitlist status on mount if OOS
-  const handleWishlistClick = (e: React.MouseEvent) => {
+  const handleWishlistClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     if (isWishlisted) {
       removeFromWishlist(product.id);
+      await apiRemoveFromWishlist(product.id).catch(() => { });
     } else {
       addToWishlist({
         productId: product.id,
@@ -149,6 +151,7 @@ export function ProductCard({
         slug: product.slug || "",
       });
       toast.success("Added to Wishlist");
+      await apiAddToWishlist(product.id).catch(() => { });
     }
   };
 

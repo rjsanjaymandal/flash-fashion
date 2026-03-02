@@ -83,20 +83,23 @@ export default async function Home() {
         const bName = b.name.toLowerCase();
 
         // Priority 1: Exact or close match for "T-Shirt"
+        const aSlugOrHandle = (a as any).handle || a.slug || "";
+        const bSlugOrHandle = (b as any).handle || b.slug || "";
+
         const aIsTShirt =
           aName.includes("t-shirt") ||
           aName.includes("t shirt") ||
-          a.slug.includes("t-shirt");
+          aSlugOrHandle.includes("t-shirt");
         const bIsTShirt =
           bName.includes("t-shirt") ||
           bName.includes("t shirt") ||
-          b.slug.includes("t-shirt");
+          bSlugOrHandle.includes("t-shirt");
 
         // Priority 2: Oversized Tees
         const aIsOversized =
-          a.slug === "oversized-tees" || aName.includes("oversized");
+          aSlugOrHandle === "oversized-tees" || aName.includes("oversized");
         const bIsOversized =
-          b.slug === "oversized-tees" || bName.includes("oversized");
+          bSlugOrHandle === "oversized-tees" || bName.includes("oversized");
 
         if (aIsTShirt && !bIsTShirt) return -1;
         if (!aIsTShirt && bIsTShirt) return 1;

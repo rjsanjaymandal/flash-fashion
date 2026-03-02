@@ -128,7 +128,7 @@ export default async function ProductPage({
   } catch (e) { }
 
   // Fetch Reviews from metadata
-  const reviews = await getReviews(rawProduct);
+  const reviews = await getReviews(rawProduct.id);
 
   // Dummy color map (handled via Medusa options in later phases)
   const colorMap: Record<string, string> = {

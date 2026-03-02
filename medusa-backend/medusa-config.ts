@@ -53,4 +53,12 @@ module.exports = defineConfig({
       },
     },
   ], */
+  plugins: [
+    {
+      resolve: "@lambdacurry/medusa-product-reviews",
+    },
+    {
+      resolve: "@rsc-labs/medusa-wishlist",
+    }
+  ]
 })

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Beaker } from "lucide-react";
-import { toggleVote } from "@/lib/services/concept-service";
+import { voteForConcept } from "@/app/actions/vote-for-concept";
 import { toast } from "sonner";
 import { useAuth } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
@@ -56,7 +56,7 @@ export function LabClient({
     );
 
     try {
-      const result = await toggleVote(concept.id);
+      const result = await voteForConcept(concept.id);
       if (result && result.error) {
         throw new Error(result.error);
       }

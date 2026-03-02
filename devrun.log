@@ -1,0 +1,462 @@
+
+> flash-ecommerce@0.1.0 dev
+> next dev -p 3005
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3005
+- Network:       http://10.25.187.92:3005
+- Environments: .env.local
+- Experiments (use with caution):
+  ┬╖ optimizePackageImports
+
+Γ£ô Starting...
+Γ£ô Ready in 1740ms
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::34da:1ea8","64:ff9b::305:4b39","64:ff9b::305:423b","64:ff9b::305:476e","64:ff9b::345c:132","64:ff9b::305:420e","64:ff9b::305:4a63","64:ff9b::305:40e8"]
+Γùï Compiling / ...
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::345c:13a2","64:ff9b::305:40d0","64:ff9b::305:4a2e","64:ff9b::305:4219","64:ff9b::305:485b","64:ff9b::305:4533","64:ff9b::305:474d","64:ff9b::305:4a06"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:4a63","64:ff9b::305:43d9","64:ff9b::305:4b75","64:ff9b::305:490b","64:ff9b::345c:1492","64:ff9b::305:4840","64:ff9b::305:4b62","64:ff9b::305:4943"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::34da:3ed8","64:ff9b::305:4a63","64:ff9b::34da:3f18","64:ff9b::345c:262","64:ff9b::305:4522","64:ff9b::305:4a02","64:ff9b::305:43fd","64:ff9b::305:4b2e"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::345c:82","64:ff9b::305:4b0f","64:ff9b::305:4b34","64:ff9b::305:4858","64:ff9b::34da:746a","64:ff9b::305:4500","64:ff9b::345c:106a","64:ff9b::34da:2c52"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::345c:2","64:ff9b::305:40ce","64:ff9b::305:4208","64:ff9b::305:4226","64:ff9b::305:4b0f","64:ff9b::305:4203","64:ff9b::305:4870"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::345c:24ea","64:ff9b::34da:2cb2","64:ff9b::305:4b35","64:ff9b::305:4858","64:ff9b::34da:1e88","64:ff9b::305:4533","64:ff9b::345c:14ba","64:ff9b::305:4530"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::345c:22a","64:ff9b::305:422e","64:ff9b::305:43c9","64:ff9b::345c:10b2","64:ff9b::305:40c4","64:ff9b::345c:1182","64:ff9b::305:4a54","64:ff9b::305:421c"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::305:477f","64:ff9b::305:4758","64:ff9b::305:4b44","64:ff9b::305:40de","64:ff9b::305:4b78","64:ff9b::305:452c","64:ff9b::345c:105a","64:ff9b::345c:242"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:43e4","64:ff9b::305:43c2","64:ff9b::305:40f3","64:ff9b::345c:1502","64:ff9b::34da:759a","64:ff9b::305:4a54","64:ff9b::34da:7572","64:ff9b::305:4a2e"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4848","64:ff9b::34da:2d0a","64:ff9b::305:40ce","64:ff9b::305:40c0","64:ff9b::305:4a59","64:ff9b::305:487f","64:ff9b::305:4a02","64:ff9b::305:4a77"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::34da:1e90","64:ff9b::305:4868","64:ff9b::305:4870","64:ff9b::305:4533","64:ff9b::305:43e6","64:ff9b::305:422e","64:ff9b::345c:2252","64:ff9b::305:4877"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:43fe","64:ff9b::305:423b","64:ff9b::305:475f","64:ff9b::305:40de","64:ff9b::305:4868","64:ff9b::345c:207a","64:ff9b::305:4205","64:ff9b::305:4b75"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:40cd","64:ff9b::305:4b30","64:ff9b::305:4523","64:ff9b::305:43e3","64:ff9b::305:43e4","64:ff9b::305:4a3b","64:ff9b::345c:72","64:ff9b::305:4500"]
+ GET /manifest.webmanifest 200 in 482ms (compile: 355ms, proxy.ts: 70ms, render: 56ms)
+ GET / 200 in 82s (compile: 75s, proxy.ts: 19ms, render: 6.8s)
+ GET / 200 in 2.1min (compile: 119s, proxy.ts: 482ms, render: 7.3s)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4b78","64:ff9b::34da:30","64:ff9b::305:43d9","64:ff9b::305:4925","64:ff9b::34da:1e70","64:ff9b::34da:2dda","64:ff9b::305:493b","64:ff9b::305:4b1f"]
+ GET /icon 200 in 1739ms (compile: 407ms, proxy.ts: 131ms, render: 1201ms)
+ POST / 200 in 1603ms (compile: 1411ms, proxy.ts: 88ms, render: 104ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4b78","64:ff9b::34da:30","64:ff9b::305:43d9","64:ff9b::305:4925","64:ff9b::34da:1e70","64:ff9b::34da:2dda","64:ff9b::305:493b","64:ff9b::305:4b1f"]
+ POST / 200 in 418ms (compile: 115ms, proxy.ts: 64ms, render: 239ms)
+ POST / 200 in 561ms (compile: 228ms, proxy.ts: 130ms, render: 202ms)
+ POST / 200 in 288ms (compile: 93ms, proxy.ts: 32ms, render: 164ms)
+ POST / 200 in 866ms (compile: 126ms, proxy.ts: 632ms, render: 108ms)
+ POST / 200 in 224ms (compile: 60ms, proxy.ts: 98ms, render: 66ms)
+ POST / 200 in 191ms (compile: 55ms, proxy.ts: 50ms, render: 86ms)
+ POST / 200 in 114ms (compile: 27ms, proxy.ts: 32ms, render: 54ms)
+ POST / 200 in 104ms (compile: 25ms, proxy.ts: 30ms, render: 49ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:4a54","64:ff9b::305:43c2","64:ff9b::345c:248a","64:ff9b::345c:2162","64:ff9b::305:474a","64:ff9b::345c:7a","64:ff9b::34da:1eb8","64:ff9b::305:421d"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::305:4506","64:ff9b::305:4b35","64:ff9b::305:4925","64:ff9b::34da:7050","64:ff9b::345c:36a","64:ff9b::305:4944","64:ff9b::305:4766","64:ff9b::34da:757a"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:43e6","64:ff9b::305:43f2","64:ff9b::305:453e","64:ff9b::34da:1e78","64:ff9b::345c:252","64:ff9b::305:4533","64:ff9b::305:4a02","64:ff9b::305:4500"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::305:43f4","64:ff9b::305:40e9","64:ff9b::34da:3f20","64:ff9b::305:4a63","64:ff9b::345c:1252","64:ff9b::305:4b20","64:ff9b::305:4b62","64:ff9b::305:4b1f"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:4b16","64:ff9b::305:485b","64:ff9b::305:4a63","64:ff9b::305:4a3b","64:ff9b::305:40e8","64:ff9b::34da:2818","64:ff9b::34da:1de0","64:ff9b::345c:222"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:43c2","64:ff9b::305:4216","64:ff9b::305:450d","64:ff9b::305:43d9","64:ff9b::305:40ce","64:ff9b::305:490e","64:ff9b::305:4914","64:ff9b::305:4a59"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:4509","64:ff9b::34da:2c1a","64:ff9b::345c:13fa","64:ff9b::345c:133a","64:ff9b::305:40c0","64:ff9b::345c:2422","64:ff9b::305:4a54","64:ff9b::305:4925"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::305:4b0d","64:ff9b::305:4530","64:ff9b::345c:12ba","64:ff9b::305:453d","64:ff9b::345c:23a","64:ff9b::305:43c9","64:ff9b::34da:2d62","64:ff9b::305:421c"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:43c2","64:ff9b::305:4863","64:ff9b::305:4a3b","64:ff9b::305:4758","64:ff9b::305:4500","64:ff9b::345c:107a","64:ff9b::305:43f2"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::345c:2342","64:ff9b::345c:124a","64:ff9b::345c:110a","64:ff9b::345c:12e2","64:ff9b::345c:14ba","64:ff9b::305:494c","64:ff9b::305:40e8","64:ff9b::305:4b24"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:4870","64:ff9b::34da:3d68","64:ff9b::345c:2222","64:ff9b::305:4219","64:ff9b::305:43c9","64:ff9b::305:43d9","64:ff9b::305:4869","64:ff9b::305:490b"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::305:4866","64:ff9b::305:40ec","64:ff9b::305:453e","64:ff9b::305:4b24","64:ff9b::345c:3ba","64:ff9b::34da:747a","64:ff9b::305:43f0"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:4b70","64:ff9b::305:4513","64:ff9b::345c:13c2","64:ff9b::305:4b62","64:ff9b::305:4b46","64:ff9b::305:485b","64:ff9b::345c:42a","64:ff9b::345c:292"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4877","64:ff9b::345c:502","64:ff9b::305:4a63","64:ff9b::345c:2072","64:ff9b::345c:120a","64:ff9b::305:475c","64:ff9b::345c:2462","64:ff9b::305:4869"]
+ POST / 200 in 183ms (compile: 79ms, proxy.ts: 31ms, render: 74ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:4506","64:ff9b::305:477f","64:ff9b::305:4b24","64:ff9b::305:421c","64:ff9b::305:490b","64:ff9b::305:475c","64:ff9b::305:4b16"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::34da:2e8a","64:ff9b::305:4858","64:ff9b::305:4848","64:ff9b::34da:7412","64:ff9b::305:486e","64:ff9b::345c:2162","64:ff9b::305:4506","64:ff9b::345c:2052"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:477f","64:ff9b::305:4238","64:ff9b::305:474d","64:ff9b::305:43f2","64:ff9b::305:4849","64:ff9b::305:475f","64:ff9b::305:43f0","64:ff9b::305:4533"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:423b","64:ff9b::345c:237a","64:ff9b::345c:442","64:ff9b::305:485f","64:ff9b::345c:13f2","64:ff9b::305:475f","64:ff9b::34da:3ee8","64:ff9b::34da:2808"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:40d4","64:ff9b::305:40e1","64:ff9b::305:4853","64:ff9b::305:4a2d","64:ff9b::305:40d6","64:ff9b::345c:1432","64:ff9b::305:4755","64:ff9b::305:490e"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::345c:146a","64:ff9b::305:40e8","64:ff9b::345c:143a","64:ff9b::305:40c4","64:ff9b::305:40f3","64:ff9b::305:40de","64:ff9b::305:43fd","64:ff9b::345c:220a"]
+ GET /login 200 in 2.3s (compile: 2.1s, proxy.ts: 13ms, render: 144ms)
+ GET /manifest.webmanifest 200 in 74ms (compile: 14ms, proxy.ts: 23ms, render: 37ms)
+ GET /manifest.webmanifest 200 in 88ms (compile: 16ms, proxy.ts: 54ms, render: 18ms)
+ GET / 200 in 1093ms (compile: 21ms, proxy.ts: 26ms, render: 1046ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4216","64:ff9b::305:4a29","64:ff9b::345c:106a","64:ff9b::305:4870","64:ff9b::345c:8a","64:ff9b::305:43cb","64:ff9b::305:40f0","64:ff9b::305:421d"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4216","64:ff9b::305:4a29","64:ff9b::345c:106a","64:ff9b::305:4870","64:ff9b::345c:8a","64:ff9b::305:43cb","64:ff9b::305:40f0","64:ff9b::305:421d"]
+ POST / 200 in 42ms (compile: 8ms, proxy.ts: 10ms, render: 24ms)
+ POST / 200 in 34ms (compile: 8ms, proxy.ts: 10ms, render: 16ms)
+ POST / 200 in 108ms (compile: 19ms, proxy.ts: 10ms, render: 79ms)
+ POST / 200 in 81ms (compile: 26ms, proxy.ts: 16ms, render: 39ms)
+ POST / 200 in 73ms (compile: 17ms, proxy.ts: 27ms, render: 29ms)
+ POST / 200 in 46ms (compile: 10ms, proxy.ts: 16ms, render: 20ms)
+ POST / 200 in 82ms (compile: 34ms, proxy.ts: 31ms, render: 17ms)
+ POST / 200 in 48ms (compile: 12ms, proxy.ts: 8ms, render: 29ms)
+ POST / 200 in 60ms (compile: 8ms, proxy.ts: 13ms, render: 38ms)
+ POST / 200 in 37ms (compile: 8ms, proxy.ts: 6ms, render: 22ms)
+ POST / 200 in 39ms (compile: 8ms, proxy.ts: 8ms, render: 22ms)
+ POST / 200 in 43ms (compile: 6ms, proxy.ts: 9ms, render: 29ms)
+ POST / 200 in 42ms (compile: 6ms, proxy.ts: 9ms, render: 26ms)
+ POST / 200 in 32ms (compile: 10ms, proxy.ts: 5ms, render: 17ms)
+ POST / 200 in 44ms (compile: 12ms, proxy.ts: 11ms, render: 21ms)
+ POST / 200 in 69ms (compile: 11ms, proxy.ts: 12ms, render: 46ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:4840","64:ff9b::305:40e9","64:ff9b::345c:1072","64:ff9b::345c:10aa","64:ff9b::305:4203","64:ff9b::305:4766","64:ff9b::305:450d","64:ff9b::305:450c"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::305:4849","64:ff9b::345c:12d2","64:ff9b::305:4216","64:ff9b::305:4522","64:ff9b::305:4a5c","64:ff9b::305:43e4","64:ff9b::345c:402","64:ff9b::305:43fd"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::34da:75c2","64:ff9b::345c:22e2","64:ff9b::345c:1442","64:ff9b::305:493b","64:ff9b::305:4853","64:ff9b::345c:16a","64:ff9b::305:4b44","64:ff9b::345c:14f2"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::345c:136a","64:ff9b::305:4a77","64:ff9b::305:4b1e","64:ff9b::305:4a50","64:ff9b::305:4871","64:ff9b::305:4a78","64:ff9b::305:4b0d","64:ff9b::305:4205"]
+ GET /login 200 in 61ms (compile: 11ms, proxy.ts: 7ms, render: 43ms)
+ GET /manifest.webmanifest 200 in 39ms (compile: 9ms, proxy.ts: 13ms, render: 18ms)
+Γùï Compiling /signup ...
+ GET /signup 200 in 4.3s (compile: 4.1s, proxy.ts: 4ms, render: 138ms)
+ GET /signup 200 in 78ms (compile: 13ms, proxy.ts: 18ms, render: 47ms)
+ GET /manifest.webmanifest 200 in 34ms (compile: 8ms, proxy.ts: 16ms, render: 10ms)
+ POST /signup 200 in 287ms (compile: 48ms, proxy.ts: 12ms, render: 227ms)
+ GET /signup 200 in 335ms (compile: 13ms, proxy.ts: 7ms, render: 316ms)
+ GET /manifest.webmanifest 200 in 74ms (compile: 13ms, proxy.ts: 54ms, render: 8ms)
+ GET /icon 200 in 372ms (compile: 11ms, proxy.ts: 13ms, render: 348ms)
+ POST /signup 200 in 68ms (compile: 23ms, proxy.ts: 12ms, render: 33ms)
+ POST /signup 200 in 532ms (compile: 19ms, proxy.ts: 10ms, render: 503ms)
+ GET /icon 200 in 367ms (compile: 38ms, proxy.ts: 60ms, render: 269ms)
+ GET /manifest.webmanifest 200 in 427ms (compile: 345ms, proxy.ts: 53ms, render: 30ms)
+ GET /icon 200 in 168ms (compile: 13ms, proxy.ts: 18ms, render: 137ms)
+Γùï Compiling /account ...
+ GET /account 200 in 5.9s (compile: 5.1s, proxy.ts: 21ms, render: 785ms)
+ GET /manifest.webmanifest 200 in 88ms (compile: 44ms, proxy.ts: 28ms, render: 15ms)
+ POST /account 200 in 95ms (compile: 17ms, proxy.ts: 26ms, render: 51ms)
+ GET /login 200 in 653ms (compile: 33ms, proxy.ts: 25ms, render: 595ms)
+ GET /manifest.webmanifest 200 in 52ms (compile: 19ms, proxy.ts: 25ms, render: 8ms)
+ POST /login 200 in 115ms (compile: 21ms, proxy.ts: 27ms, render: 67ms)
+ POST /login 200 in 685ms (compile: 10ms, proxy.ts: 13ms, render: 662ms)
+ GET /manifest.webmanifest 200 in 68ms (compile: 19ms, proxy.ts: 36ms, render: 13ms)
+ GET / 200 in 2.1s (compile: 34ms, proxy.ts: 54ms, render: 1979ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::345c:2082","64:ff9b::34da:3f28","64:ff9b::305:4866","64:ff9b::34da:2d6a","64:ff9b::305:4a59","64:ff9b::305:4778","64:ff9b::305:40f0","64:ff9b::305:43c9"]
+ POST / 200 in 142ms (compile: 33ms, proxy.ts: 31ms, render: 78ms)
+ POST / 200 in 83ms (compile: 15ms, proxy.ts: 17ms, render: 51ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::345c:28a","64:ff9b::345c:2072","64:ff9b::305:40f3","64:ff9b::345c:245a","64:ff9b::34da:1e18","64:ff9b::305:452c","64:ff9b::305:4858","64:ff9b::305:4848"]
+ POST / 200 in 97ms (compile: 17ms, proxy.ts: 26ms, render: 55ms)
+ POST / 200 in 311ms (compile: 175ms, proxy.ts: 46ms, render: 91ms)
+ POST / 200 in 100ms (compile: 21ms, proxy.ts: 25ms, render: 54ms)
+ POST / 200 in 87ms (compile: 17ms, proxy.ts: 13ms, render: 57ms)
+ POST / 200 in 66ms (compile: 14ms, proxy.ts: 15ms, render: 37ms)
+ POST / 200 in 107ms (compile: 17ms, proxy.ts: 20ms, render: 70ms)
+ POST / 200 in 121ms (compile: 32ms, proxy.ts: 15ms, render: 74ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::345c:2502","64:ff9b::34da:3e70","64:ff9b::305:4866","64:ff9b::34da:1a58","64:ff9b::305:4871","64:ff9b::305:4b1f","64:ff9b::305:485f","64:ff9b::345c:21f2"]
+ GET /manifest.webmanifest 200 in 27ms (compile: 8ms, proxy.ts: 12ms, render: 7ms)
+ GET / 200 in 1006ms (compile: 11ms, proxy.ts: 16ms, render: 980ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4226","64:ff9b::305:4849","64:ff9b::305:4b16","64:ff9b::305:43f4","64:ff9b::305:40ec","64:ff9b::305:4b46","64:ff9b::305:474a","64:ff9b::34da:3d58"]
+ GET /icon 200 in 101ms (compile: 7ms, proxy.ts: 7ms, render: 88ms)
+ POST / 200 in 56ms (compile: 11ms, proxy.ts: 8ms, render: 37ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4226","64:ff9b::305:4849","64:ff9b::305:4b16","64:ff9b::305:43f4","64:ff9b::305:40ec","64:ff9b::305:4b46","64:ff9b::305:474a","64:ff9b::34da:3d58"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4226","64:ff9b::305:4849","64:ff9b::305:4b16","64:ff9b::305:43f4","64:ff9b::305:40ec","64:ff9b::305:4b46","64:ff9b::305:474a","64:ff9b::34da:3d58"]
+ POST / 200 in 326ms (compile: 56ms, proxy.ts: 167ms, render: 103ms)
+ POST / 200 in 59ms (compile: 7ms, proxy.ts: 21ms, render: 30ms)
+ POST / 200 in 51ms (compile: 11ms, proxy.ts: 7ms, render: 33ms)
+ POST / 200 in 44ms (compile: 7ms, proxy.ts: 9ms, render: 28ms)
+ POST / 200 in 42ms (compile: 8ms, proxy.ts: 8ms, render: 26ms)
+ POST / 200 in 51ms (compile: 6ms, proxy.ts: 8ms, render: 36ms)
+ POST / 200 in 47ms (compile: 11ms, proxy.ts: 11ms, render: 25ms)
+ POST / 200 in 55ms (compile: 11ms, proxy.ts: 9ms, render: 36ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:43c9","64:ff9b::305:420e","64:ff9b::345c:13a2","64:ff9b::345c:1a","64:ff9b::305:4962","64:ff9b::305:4b24","64:ff9b::305:4b20","64:ff9b::305:485b"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::305:4226","64:ff9b::305:4b42","64:ff9b::305:40ce","64:ff9b::345c:11d2","64:ff9b::305:4a41","64:ff9b::305:4778","64:ff9b::305:4a23"]
+ GET / 200 in 498ms (compile: 11ms, proxy.ts: 12ms, render: 475ms)
+ GET /icon 200 in 117ms (compile: 12ms, proxy.ts: 21ms, render: 84ms)
+ GET /manifest.webmanifest 200 in 122ms (compile: 98ms, proxy.ts: 17ms, render: 7ms)
+ GET /icon 200 in 76ms (compile: 4ms, proxy.ts: 8ms, render: 64ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::345c:109a","64:ff9b::305:4530","64:ff9b::345c:1492","64:ff9b::34da:2c12","64:ff9b::305:4a41","64:ff9b::345c:2162","64:ff9b::305:4772","64:ff9b::345c:4e2"]
+ GET / 200 in 358ms (compile: 6ms, proxy.ts: 6ms, render: 346ms)
+ GET /icon 200 in 103ms (compile: 15ms, proxy.ts: 15ms, render: 72ms)
+ GET /manifest.webmanifest 200 in 110ms (compile: 88ms, proxy.ts: 16ms, render: 6ms)
+ GET /icon 200 in 83ms (compile: 7ms, proxy.ts: 8ms, render: 69ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4b78","64:ff9b::345c:12ea","64:ff9b::305:4b20","64:ff9b::305:4b46","64:ff9b::345c:15a","64:ff9b::305:490e","64:ff9b::345c:206a","64:ff9b::305:4500"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::34da:50","64:ff9b::345c:4aa","64:ff9b::305:4755","64:ff9b::305:4977","64:ff9b::345c:21ca","64:ff9b::305:4a78","64:ff9b::345c:10da","64:ff9b::345c:20d2"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::345c:21aa","64:ff9b::305:450c","64:ff9b::305:4a50","64:ff9b::345c:13ca","64:ff9b::305:40e1","64:ff9b::345c:62","64:ff9b::305:43cb"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::345c:1102","64:ff9b::305:4b4c","64:ff9b::34da:1a00","64:ff9b::305:4502","64:ff9b::305:4867","64:ff9b::305:40c0","64:ff9b::345c:144a","64:ff9b::305:40d4"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4a78","64:ff9b::305:43f4","64:ff9b::305:43c0","64:ff9b::305:4205","64:ff9b::345c:262","64:ff9b::345c:2aa","64:ff9b::305:4b4c","64:ff9b::305:4a23"]
+ GET / 200 in 562ms (compile: 19ms, proxy.ts: 30ms, render: 513ms)
+ GET /icon 200 in 180ms (compile: 34ms, proxy.ts: 46ms, render: 100ms)
+ GET /manifest.webmanifest 200 in 193ms (compile: 129ms, proxy.ts: 52ms, render: 11ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:4524","64:ff9b::345c:149a","64:ff9b::305:4a54","64:ff9b::305:43e6","64:ff9b::345c:52","64:ff9b::345c:226a","64:ff9b::305:43f2","64:ff9b::305:4a41"]
+ GET /icon 200 in 125ms (compile: 22ms, proxy.ts: 13ms, render: 91ms)
+ GET /login 200 in 111ms (compile: 20ms, proxy.ts: 7ms, render: 85ms)
+ GET /manifest.webmanifest 200 in 140ms (compile: 22ms, proxy.ts: 87ms, render: 32ms)
+ POST /login 200 in 341ms (compile: 8ms, proxy.ts: 10ms, render: 323ms)
+ GET /manifest.webmanifest 200 in 268ms (compile: 69ms, proxy.ts: 160ms, render: 40ms)
+ GET /manifest.webmanifest 200 in 115ms (compile: 44ms, proxy.ts: 56ms, render: 16ms)
+ GET / 200 in 2.2s (compile: 9ms, proxy.ts: 9ms, render: 2.2s)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4b24","64:ff9b::305:4205","64:ff9b::305:421c","64:ff9b::305:40c7","64:ff9b::305:4b0d","64:ff9b::305:40e8","64:ff9b::305:4914","64:ff9b::305:4509"]
+ POST / 200 in 51ms (compile: 11ms, proxy.ts: 8ms, render: 32ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4b24","64:ff9b::305:4205","64:ff9b::305:421c","64:ff9b::305:40c7","64:ff9b::305:4b0d","64:ff9b::305:40e8","64:ff9b::305:4914","64:ff9b::305:4509"]
+ POST / 200 in 87ms (compile: 22ms, proxy.ts: 16ms, render: 49ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4b24","64:ff9b::305:4205","64:ff9b::305:421c","64:ff9b::305:40c7","64:ff9b::305:4b0d","64:ff9b::305:40e8","64:ff9b::305:4914","64:ff9b::305:4509"]
+ POST / 200 in 88ms (compile: 23ms, proxy.ts: 15ms, render: 50ms)
+ POST / 200 in 73ms (compile: 12ms, proxy.ts: 11ms, render: 49ms)
+ GET /offline 404 in 700ms (compile: 364ms, proxy.ts: 15ms, render: 320ms)
+ POST / 200 in 284ms (compile: 121ms, proxy.ts: 115ms, render: 48ms)
+ POST / 200 in 167ms (compile: 33ms, proxy.ts: 33ms, render: 101ms)
+ POST / 200 in 145ms (compile: 33ms, proxy.ts: 17ms, render: 95ms)
+ POST / 200 in 312ms (compile: 24ms, proxy.ts: 222ms, render: 66ms)
+ POST / 200 in 66ms (compile: 26ms, proxy.ts: 9ms, render: 31ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::345c:22fa","64:ff9b::345c:138a","64:ff9b::305:40e9","64:ff9b::305:453e","64:ff9b::345c:2222","64:ff9b::305:4b75","64:ff9b::345c:2182","64:ff9b::305:43f4"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::345c:11f2","64:ff9b::305:476e","64:ff9b::345c:103a","64:ff9b::345c:ea","64:ff9b::305:4877","64:ff9b::305:4530","64:ff9b::305:4b2e"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:423b","64:ff9b::305:40c1","64:ff9b::305:486e","64:ff9b::305:493b","64:ff9b::345c:1282","64:ff9b::305:43fd","64:ff9b::305:4500","64:ff9b::305:4a5c"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:452c","64:ff9b::345c:ca","64:ff9b::345c:24fa","64:ff9b::34da:2c12","64:ff9b::345c:10c2","64:ff9b::345c:209a","64:ff9b::34da:75a2","64:ff9b::305:4b24"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:4748","64:ff9b::305:452c","64:ff9b::345c:238a","64:ff9b::345c:9a","64:ff9b::345c:124a","64:ff9b::345c:20aa","64:ff9b::305:453e","64:ff9b::305:4a29"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::34da:3ef0","64:ff9b::345c:1422","64:ff9b::345c:143a","64:ff9b::305:4b34","64:ff9b::305:4208","64:ff9b::345c:2052","64:ff9b::305:4b1e","64:ff9b::305:40de"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:4b35","64:ff9b::305:4b2e","64:ff9b::305:4b34","64:ff9b::345c:21ea","64:ff9b::305:490b","64:ff9b::345c:1082","64:ff9b::305:4b1f","64:ff9b::305:40ec"]
+Γ£ô Compiled in 30.5s
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4848","64:ff9b::305:4a4f","64:ff9b::305:40de","64:ff9b::345c:14ba","64:ff9b::305:485b","64:ff9b::305:4208","64:ff9b::305:43fd","64:ff9b::305:4748"]
+ POST / 200 in 404ms (compile: 104ms, proxy.ts: 105ms, render: 195ms)
+ POST / 200 in 1293ms (compile: 886ms, proxy.ts: 306ms, render: 102ms)
+ GET / 200 in 5.4s (compile: 2.4s, proxy.ts: 276ms, render: 2.7s)
+ GET / 200 in 2.3s (compile: 38ms, proxy.ts: 179ms, render: 2.1s)
+ GET / 200 in 1924ms (compile: 665ms, proxy.ts: 45ms, render: 1215ms)
+ GET / 200 in 2.2s (compile: 60ms, proxy.ts: 160ms, render: 1977ms)
+ GET /manifest.webmanifest 200 in 19ms (compile: 6ms, proxy.ts: 7ms, render: 5ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4870","64:ff9b::305:40e8","64:ff9b::345c:432","64:ff9b::305:40e9","64:ff9b::345c:248a","64:ff9b::305:4522","64:ff9b::345c:12","64:ff9b::305:474d"]
+ GET /icon 200 in 346ms (compile: 35ms, proxy.ts: 13ms, render: 297ms)
+ POST / 200 in 405ms (compile: 17ms, proxy.ts: 15ms, render: 373ms)
+ POST / 200 in 42ms (compile: 7ms, proxy.ts: 8ms, render: 27ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4870","64:ff9b::305:40e8","64:ff9b::345c:432","64:ff9b::305:40e9","64:ff9b::345c:248a","64:ff9b::305:4522","64:ff9b::345c:12","64:ff9b::305:474d"]
+ POST / 200 in 48ms (compile: 9ms, proxy.ts: 9ms, render: 30ms)
+ POST / 200 in 37ms (compile: 7ms, proxy.ts: 9ms, render: 22ms)
+ POST / 200 in 39ms (compile: 9ms, proxy.ts: 8ms, render: 22ms)
+ POST / 200 in 56ms (compile: 8ms, proxy.ts: 7ms, render: 41ms)
+ POST / 200 in 49ms (compile: 8ms, proxy.ts: 9ms, render: 33ms)
+ POST / 200 in 58ms (compile: 31ms, proxy.ts: 8ms, render: 20ms)
+ POST / 200 in 43ms (compile: 8ms, proxy.ts: 8ms, render: 27ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:4b2e","64:ff9b::305:4208","64:ff9b::305:4509","64:ff9b::345c:1472","64:ff9b::305:452c","64:ff9b::305:43cb","64:ff9b::34da:7402"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::345c:14c2","64:ff9b::305:4870","64:ff9b::34da:7482","64:ff9b::34da:19c0","64:ff9b::305:4871","64:ff9b::345c:137a","64:ff9b::305:450c","64:ff9b::305:453e"]
+Γ£ô Finished filesystem cache database compaction in 15.1s
+Γ£ô Finished writing to filesystem cache in 13.2s
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:477f","64:ff9b::305:4866","64:ff9b::305:40d3","64:ff9b::305:4524","64:ff9b::305:4944","64:ff9b::305:40de","64:ff9b::305:452c","64:ff9b::345c:1412"]
+ GET /login 200 in 707ms (compile: 554ms, proxy.ts: 17ms, render: 136ms)
+ GET /manifest.webmanifest 200 in 83ms (compile: 25ms, proxy.ts: 24ms, render: 33ms)
+ POST /login 200 in 456ms (compile: 8ms, proxy.ts: 6ms, render: 441ms)
+ GET /manifest.webmanifest 200 in 273ms (compile: 70ms, proxy.ts: 186ms, render: 18ms)
+ GET /manifest.webmanifest 200 in 47ms (compile: 16ms, proxy.ts: 21ms, render: 10ms)
+ GET / 200 in 1403ms (compile: 30ms, proxy.ts: 15ms, render: 1358ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4b46","64:ff9b::345c:14a","64:ff9b::305:4b3d","64:ff9b::305:4226","64:ff9b::345c:10e2","64:ff9b::345c:492","64:ff9b::345c:4c2","64:ff9b::34da:2d1a"]
+ POST / 200 in 134ms (compile: 23ms, proxy.ts: 40ms, render: 71ms)
+ POST / 200 in 56ms (compile: 8ms, proxy.ts: 9ms, render: 39ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::345c:502","64:ff9b::345c:48a","64:ff9b::305:476e","64:ff9b::305:420e","64:ff9b::305:4869","64:ff9b::305:40c0","64:ff9b::305:4b20"]
+ POST / 200 in 131ms (compile: 31ms, proxy.ts: 11ms, render: 89ms)
+ POST / 200 in 250ms (compile: 91ms, proxy.ts: 109ms, render: 51ms)
+ POST / 200 in 64ms (compile: 13ms, proxy.ts: 24ms, render: 27ms)
+ POST / 200 in 65ms (compile: 8ms, proxy.ts: 8ms, render: 49ms)
+ POST / 200 in 43ms (compile: 8ms, proxy.ts: 9ms, render: 27ms)
+ POST / 200 in 48ms (compile: 9ms, proxy.ts: 9ms, render: 30ms)
+ POST / 200 in 61ms (compile: 8ms, proxy.ts: 11ms, render: 42ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:476e","64:ff9b::345c:10f2","64:ff9b::305:4509","64:ff9b::345c:201a","64:ff9b::305:4748","64:ff9b::34da:3f10","64:ff9b::305:4203"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::34da:3d50","64:ff9b::305:4871","64:ff9b::305:40cd","64:ff9b::305:4b62","64:ff9b::345c:24ca","64:ff9b::345c:49a","64:ff9b::345c:24aa","64:ff9b::34da:7058"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:43e6","64:ff9b::345c:2462","64:ff9b::305:40d4","64:ff9b::305:487f","64:ff9b::345c:24f2","64:ff9b::305:40f3","64:ff9b::305:4869","64:ff9b::305:4a53"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4a50","64:ff9b::345c:50a","64:ff9b::345c:1302","64:ff9b::305:4867","64:ff9b::305:4a29","64:ff9b::345c:1092","64:ff9b::305:486e","64:ff9b::305:40d5"]
+ GET /login 200 in 156ms (compile: 30ms, proxy.ts: 13ms, render: 113ms)
+ GET /manifest.webmanifest 200 in 81ms (compile: 17ms, proxy.ts: 49ms, render: 16ms)
+ GET /signup 200 in 376ms (compile: 288ms, proxy.ts: 7ms, render: 81ms)
+ GET /manifest.webmanifest 200 in 75ms (compile: 26ms, proxy.ts: 18ms, render: 31ms)
+ POST /signup 200 in 814ms (compile: 11ms, proxy.ts: 10ms, render: 794ms)
+ GET /manifest.webmanifest 200 in 353ms (compile: 23ms, proxy.ts: 319ms, render: 12ms)
+ GET /account 200 in 1482ms (compile: 535ms, proxy.ts: 8ms, render: 939ms)
+ GET /manifest.webmanifest 200 in 46ms (compile: 13ms, proxy.ts: 26ms, render: 6ms)
+ POST /account 200 in 66ms (compile: 8ms, proxy.ts: 15ms, render: 43ms)
+ GET /login 200 in 686ms (compile: 12ms, proxy.ts: 13ms, render: 661ms)
+ GET /manifest.webmanifest 200 in 33ms (compile: 10ms, proxy.ts: 13ms, render: 11ms)
+ POST /login 200 in 81ms (compile: 17ms, proxy.ts: 17ms, render: 47ms)
+ POST /login 200 in 273ms (compile: 7ms, proxy.ts: 9ms, render: 258ms)
+ GET /manifest.webmanifest 200 in 218ms (compile: 50ms, proxy.ts: 156ms, render: 12ms)
+ GET /manifest.webmanifest 200 in 70ms (compile: 18ms, proxy.ts: 42ms, render: 11ms)
+ GET / 200 in 1549ms (compile: 18ms, proxy.ts: 13ms, render: 1519ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:450d","64:ff9b::34da:1a58","64:ff9b::34da:2d42","64:ff9b::305:4506","64:ff9b::345c:13b2","64:ff9b::305:4a50","64:ff9b::305:43e6","64:ff9b::305:4509"]
+ POST / 200 in 113ms (compile: 20ms, proxy.ts: 24ms, render: 68ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:450d","64:ff9b::34da:1a58","64:ff9b::34da:2d42","64:ff9b::305:4506","64:ff9b::345c:13b2","64:ff9b::305:4a50","64:ff9b::305:43e6","64:ff9b::305:4509"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:450d","64:ff9b::34da:1a58","64:ff9b::34da:2d42","64:ff9b::305:4506","64:ff9b::345c:13b2","64:ff9b::305:4a50","64:ff9b::305:43e6","64:ff9b::305:4509"]
+ POST / 200 in 207ms (compile: 55ms, proxy.ts: 38ms, render: 114ms)
+ POST / 200 in 251ms (compile: 48ms, proxy.ts: 50ms, render: 154ms)
+ POST / 200 in 328ms (compile: 63ms, proxy.ts: 50ms, render: 216ms)
+ POST / 200 in 164ms (compile: 45ms, proxy.ts: 50ms, render: 68ms)
+ POST / 200 in 148ms (compile: 40ms, proxy.ts: 49ms, render: 59ms)
+ POST / 200 in 171ms (compile: 56ms, proxy.ts: 20ms, render: 95ms)
+ POST / 200 in 131ms (compile: 28ms, proxy.ts: 25ms, render: 78ms)
+ POST / 200 in 78ms (compile: 18ms, proxy.ts: 14ms, render: 47ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:4b2e","64:ff9b::305:4a4f","64:ff9b::305:4b1e","64:ff9b::305:4500","64:ff9b::34da:2d5a","64:ff9b::305:4a41","64:ff9b::305:40ce","64:ff9b::345c:13d2"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::345c:24aa","64:ff9b::34da:2ce2","64:ff9b::305:40c1","64:ff9b::305:43cd","64:ff9b::345c:132","64:ff9b::34da:2d4a","64:ff9b::345c:362","64:ff9b::345c:239a"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::345c:222","64:ff9b::305:475c","64:ff9b::345c:4c2","64:ff9b::345c:149a","64:ff9b::305:4513","64:ff9b::305:4758","64:ff9b::305:43c2","64:ff9b::305:4b30"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::345c:142a","64:ff9b::34da:1e60","64:ff9b::345c:116a","64:ff9b::305:450d","64:ff9b::34da:2c22","64:ff9b::305:43f4","64:ff9b::345c:13ca","64:ff9b::305:4849"]
+Γ£ô Compiled in 50.5s
+ GET / 200 in 26.6s (compile: 21.5s, proxy.ts: 12ms, render: 5.0s)
+ GET / 200 in 26.5s (compile: 24.9s, proxy.ts: 16ms, render: 1659ms)
+ GET / 200 in 26.8s (compile: 22.8s, proxy.ts: 139ms, render: 3.8s)
+ GET / 200 in 47s (compile: 45s, proxy.ts: 134ms, render: 2.1s)
+ GET / 200 in 26.6s (compile: 24.2s, proxy.ts: 9ms, render: 2.4s)
+ GET / 200 in 26.5s (compile: 25.3s, proxy.ts: 11ms, render: 1242ms)
+ GET / 200 in 3.0s (compile: 16ms, proxy.ts: 15ms, render: 2.9s)
+ GET / 200 in 2.7s (compile: 947ms, proxy.ts: 69ms, render: 1723ms)
+ GET / 200 in 2.7s (compile: 507ms, proxy.ts: 67ms, render: 2.2s)
+ GET / 200 in 2.8s (compile: 30ms, proxy.ts: 67ms, render: 2.7s)
+ GET / 200 in 2.8s (compile: 1728ms, proxy.ts: 68ms, render: 961ms)
+ GET / 200 in 2.8s (compile: 1308ms, proxy.ts: 69ms, render: 1380ms)
+ GET / 200 in 2.8s (compile: 57ms, proxy.ts: 56ms, render: 2.7s)
+ GET / 200 in 2.4s (compile: 43ms, proxy.ts: 102ms, render: 2.2s)
+ GET / 200 in 2.4s (compile: 310ms, proxy.ts: 102ms, render: 1970ms)
+ GET / 200 in 2.4s (compile: 1126ms, proxy.ts: 102ms, render: 1145ms)
+ GET / 200 in 2.4s (compile: 693ms, proxy.ts: 104ms, render: 1584ms)
+ GET / 200 in 2.4s (compile: 884ms, proxy.ts: 103ms, render: 1391ms)
+ GET / 200 in 3.0s (compile: 743ms, proxy.ts: 45ms, render: 2.2s)
+ GET / 200 in 3.0s (compile: 394ms, proxy.ts: 47ms, render: 2.6s)
+ GET / 200 in 3.0s (compile: 1067ms, proxy.ts: 47ms, render: 1908ms)
+ GET / 200 in 3.0s (compile: 66ms, proxy.ts: 48ms, render: 2.9s)
+ GET / 200 in 3.0s (compile: 1336ms, proxy.ts: 70ms, render: 1613ms)
+ GET / 200 in 3.0s (compile: 1668ms, proxy.ts: 70ms, render: 1290ms)
+ GET / 200 in 2.2s (compile: 63ms, proxy.ts: 64ms, render: 2.0s)
+ GET / 200 in 2.2s (compile: 264ms, proxy.ts: 76ms, render: 1848ms)
+ GET / 200 in 2.2s (compile: 546ms, proxy.ts: 68ms, render: 1569ms)
+ GET / 200 in 2.2s (compile: 1078ms, proxy.ts: 66ms, render: 1045ms)
+ GET / 200 in 2.2s (compile: 843ms, proxy.ts: 58ms, render: 1294ms)
+ GET / 200 in 2.2s (compile: 1141ms, proxy.ts: 273ms, render: 765ms)
+ GET / 200 in 2.7s (compile: 58ms, proxy.ts: 30ms, render: 2.6s)
+ GET / 200 in 2.7s (compile: 335ms, proxy.ts: 21ms, render: 2.3s)
+ GET / 200 in 2.7s (compile: 948ms, proxy.ts: 44ms, render: 1704ms)
+ GET / 200 in 2.6s (compile: 798ms, proxy.ts: 890ms, render: 959ms)
+ GET / 200 in 2.6s (compile: 376ms, proxy.ts: 1527ms, render: 742ms)
+ GET / 200 in 2.6s (compile: 579ms, proxy.ts: 1536ms, render: 534ms)
+ GET / 200 in 1545ms (compile: 39ms, proxy.ts: 11ms, render: 1495ms)
+ GET / 200 in 1532ms (compile: 197ms, proxy.ts: 246ms, render: 1089ms)
+ GET / 200 in 1536ms (compile: 31ms, proxy.ts: 246ms, render: 1260ms)
+ GET / 200 in 1532ms (compile: 585ms, proxy.ts: 246ms, render: 700ms)
+ GET / 200 in 1337ms (compile: 411ms, proxy.ts: 56ms, render: 870ms)
+ GET / 200 in 1353ms (compile: 764ms, proxy.ts: 52ms, render: 537ms)
+ GET / 200 in 1095ms (compile: 170ms, proxy.ts: 35ms, render: 889ms)
+ GET / 200 in 1098ms (compile: 35ms, proxy.ts: 31ms, render: 1032ms)
+ GET / 200 in 1105ms (compile: 285ms, proxy.ts: 30ms, render: 790ms)
+ GET / 200 in 1099ms (compile: 615ms, proxy.ts: 36ms, render: 448ms)
+ GET / 200 in 1113ms (compile: 415ms, proxy.ts: 36ms, render: 662ms)
+ GET / 200 in 1091ms (compile: 783ms, proxy.ts: 28ms, render: 281ms)
+ GET / 200 in 1194ms (compile: 34ms, proxy.ts: 30ms, render: 1130ms)
+ GET / 200 in 1190ms (compile: 172ms, proxy.ts: 32ms, render: 986ms)
+ GET / 200 in 1189ms (compile: 323ms, proxy.ts: 33ms, render: 833ms)
+ GET / 200 in 1191ms (compile: 481ms, proxy.ts: 34ms, render: 677ms)
+ GET / 200 in 1196ms (compile: 534ms, proxy.ts: 169ms, render: 493ms)
+ GET / 200 in 1199ms (compile: 540ms, proxy.ts: 323ms, render: 336ms)
+ GET / 200 in 1233ms (compile: 39ms, proxy.ts: 33ms, render: 1162ms)
+ GET / 200 in 1241ms (compile: 175ms, proxy.ts: 41ms, render: 1025ms)
+ GET / 200 in 1239ms (compile: 329ms, proxy.ts: 45ms, render: 866ms)
+ GET / 200 in 1206ms (compile: 363ms, proxy.ts: 316ms, render: 526ms)
+ GET / 200 in 1229ms (compile: 356ms, proxy.ts: 178ms, render: 695ms)
+ GET / 200 in 1231ms (compile: 525ms, proxy.ts: 317ms, render: 389ms)
+ GET / 200 in 1033ms (compile: 27ms, proxy.ts: 21ms, render: 986ms)
+ GET / 200 in 1027ms (compile: 179ms, proxy.ts: 27ms, render: 821ms)
+ GET / 200 in 1017ms (compile: 348ms, proxy.ts: 175ms, render: 494ms)
+ GET / 200 in 1023ms (compile: 206ms, proxy.ts: 174ms, render: 644ms)
+ GET / 200 in 1023ms (compile: 323ms, proxy.ts: 328ms, render: 371ms)
+ GET / 200 in 859ms (compile: 450ms, proxy.ts: 194ms, render: 215ms)
+ GET / 200 in 1015ms (compile: 158ms, proxy.ts: 12ms, render: 845ms)
+ GET / 200 in 1019ms (compile: 19ms, proxy.ts: 14ms, render: 986ms)
+ GET / 200 in 1015ms (compile: 67ms, proxy.ts: 271ms, render: 677ms)
+ GET / 200 in 1021ms (compile: 164ms, proxy.ts: 287ms, render: 570ms)
+ GET / 200 in 759ms (compile: 322ms, proxy.ts: 62ms, render: 375ms)
+ GET / 200 in 749ms (compile: 347ms, proxy.ts: 161ms, render: 241ms)
+ GET / 200 in 965ms (compile: 22ms, proxy.ts: 11ms, render: 932ms)
+ GET / 200 in 967ms (compile: 158ms, proxy.ts: 13ms, render: 797ms)
+ GET / 200 in 958ms (compile: 34ms, proxy.ts: 301ms, render: 623ms)
+ GET / 200 in 814ms (compile: 262ms, proxy.ts: 183ms, render: 370ms)
+ GET / 200 in 826ms (compile: 128ms, proxy.ts: 183ms, render: 514ms)
+ GET / 200 in 672ms (compile: 333ms, proxy.ts: 121ms, render: 219ms)
+ GET / 200 in 915ms (compile: 121ms, proxy.ts: 11ms, render: 782ms)
+ GET / 200 in 919ms (compile: 18ms, proxy.ts: 12ms, render: 890ms)
+ GET / 200 in 918ms (compile: 42ms, proxy.ts: 226ms, render: 650ms)
+ GET / 200 in 919ms (compile: 107ms, proxy.ts: 253ms, render: 559ms)
+ GET / 200 in 724ms (compile: 376ms, proxy.ts: 41ms, render: 307ms)
+ GET / 200 in 741ms (compile: 276ms, proxy.ts: 54ms, render: 411ms)
+ GET / 200 in 982ms (compile: 29ms, proxy.ts: 25ms, render: 928ms)
+ GET / 200 in 986ms (compile: 137ms, proxy.ts: 26ms, render: 823ms)
+ GET / 200 in 967ms (compile: 145ms, proxy.ts: 258ms, render: 564ms)
+ GET / 200 in 975ms (compile: 171ms, proxy.ts: 135ms, render: 669ms)
+ GET / 200 in 856ms (compile: 245ms, proxy.ts: 161ms, render: 450ms)
+ GET / 200 in 869ms (compile: 373ms, proxy.ts: 163ms, render: 334ms)
+ GET / 200 in 1323ms (compile: 42ms, proxy.ts: 19ms, render: 1262ms)
+ GET / 200 in 1383ms (compile: 109ms, proxy.ts: 239ms, render: 1035ms)
+ GET / 200 in 1389ms (compile: 277ms, proxy.ts: 301ms, render: 812ms)
+ GET / 200 in 1385ms (compile: 432ms, proxy.ts: 300ms, render: 653ms)
+ GET / 200 in 1167ms (compile: 528ms, proxy.ts: 100ms, render: 540ms)
+ GET / 200 in 1166ms (compile: 429ms, proxy.ts: 286ms, render: 451ms)
+ GET / 200 in 1390ms (compile: 62ms, proxy.ts: 44ms, render: 1285ms)
+ GET / 200 in 1325ms (compile: 27ms, proxy.ts: 252ms, render: 1046ms)
+ GET / 200 in 1321ms (compile: 162ms, proxy.ts: 249ms, render: 911ms)
+ GET / 200 in 1321ms (compile: 362ms, proxy.ts: 252ms, render: 706ms)
+ GET / 200 in 1320ms (compile: 530ms, proxy.ts: 252ms, render: 538ms)
+ GET / 200 in 1105ms (compile: 697ms, proxy.ts: 45ms, render: 363ms)
+ GET / 200 in 1048ms (compile: 31ms, proxy.ts: 12ms, render: 1006ms)
+ GET / 200 in 1030ms (compile: 29ms, proxy.ts: 134ms, render: 868ms)
+ GET / 200 in 1029ms (compile: 135ms, proxy.ts: 133ms, render: 761ms)
+ GET / 200 in 1025ms (compile: 282ms, proxy.ts: 141ms, render: 603ms)
+ GET / 200 in 912ms (compile: 538ms, proxy.ts: 31ms, render: 343ms)
+ GET / 200 in 1024ms (compile: 394ms, proxy.ts: 140ms, render: 490ms)
+ GET / 200 in 1659ms (compile: 30ms, proxy.ts: 11ms, render: 1618ms)
+ GET / 200 in 1661ms (compile: 23ms, proxy.ts: 120ms, render: 1517ms)
+ GET / 200 in 1660ms (compile: 115ms, proxy.ts: 120ms, render: 1425ms)
+ GET / 200 in 1661ms (compile: 431ms, proxy.ts: 124ms, render: 1106ms)
+ GET / 200 in 1663ms (compile: 257ms, proxy.ts: 123ms, render: 1284ms)
+ GET / 200 in 1673ms (compile: 782ms, proxy.ts: 124ms, render: 767ms)
+ GET / 200 in 36.6s (compile: 35.7s, proxy.ts: 26ms, render: 849ms)
+ GET / 200 in 36.6s (compile: 35.8s, proxy.ts: 24ms, render: 742ms)
+ GET / 200 in 36.6s (compile: 35.9s, proxy.ts: 27ms, render: 581ms)
+ GET / 200 in 36.5s (compile: 35.9s, proxy.ts: 20ms, render: 659ms)
+ GET / 200 in 36.6s (compile: 36.1s, proxy.ts: 16ms, render: 498ms)
+ GET / 200 in 36.6s (compile: 36.2s, proxy.ts: 27ms, render: 374ms)
+ GET / 200 in 1035ms (compile: 25ms, proxy.ts: 31ms, render: 979ms)
+ GET / 200 in 1031ms (compile: 387ms, proxy.ts: 31ms, render: 613ms)
+ GET / 200 in 1041ms (compile: 131ms, proxy.ts: 31ms, render: 879ms)
+ GET / 200 in 1038ms (compile: 196ms, proxy.ts: 31ms, render: 811ms)
+ GET / 200 in 1037ms (compile: 286ms, proxy.ts: 32ms, render: 720ms)
+ GET / 200 in 1034ms (compile: 547ms, proxy.ts: 31ms, render: 455ms)
+ GET / 200 in 1160ms (compile: 142ms, proxy.ts: 44ms, render: 975ms)
+ GET / 200 in 1161ms (compile: 394ms, proxy.ts: 45ms, render: 723ms)
+ GET / 200 in 1172ms (compile: 27ms, proxy.ts: 43ms, render: 1102ms)
+ GET / 200 in 1166ms (compile: 559ms, proxy.ts: 45ms, render: 562ms)
+ GET / 200 in 1166ms (compile: 720ms, proxy.ts: 46ms, render: 400ms)
+ GET / 200 in 1184ms (compile: 282ms, proxy.ts: 43ms, render: 859ms)
+ GET / 200 in 953ms (compile: 204ms, proxy.ts: 20ms, render: 729ms)
+ GET / 200 in 960ms (compile: 16ms, proxy.ts: 22ms, render: 922ms)
+ GET / 200 in 959ms (compile: 106ms, proxy.ts: 21ms, render: 833ms)
+ GET / 200 in 958ms (compile: 364ms, proxy.ts: 18ms, render: 577ms)
+ GET / 200 in 960ms (compile: 488ms, proxy.ts: 16ms, render: 456ms)
+ GET / 200 in 981ms (compile: 627ms, proxy.ts: 16ms, render: 338ms)
+ GET / 200 in 955ms (compile: 28ms, proxy.ts: 36ms, render: 892ms)
+ GET / 200 in 951ms (compile: 145ms, proxy.ts: 37ms, render: 769ms)
+ GET / 200 in 933ms (compile: 361ms, proxy.ts: 31ms, render: 541ms)
+ GET / 200 in 944ms (compile: 242ms, proxy.ts: 33ms, render: 668ms)
+ GET / 200 in 925ms (compile: 365ms, proxy.ts: 140ms, render: 421ms)
+ GET / 200 in 912ms (compile: 278ms, proxy.ts: 359ms, render: 276ms)
+ GET / 200 in 676ms (compile: 122ms, proxy.ts: 31ms, render: 524ms)
+ GET / 200 in 668ms (compile: 452ms, proxy.ts: 27ms, render: 189ms)
+ GET / 200 in 680ms (compile: 16ms, proxy.ts: 31ms, render: 634ms)
+ GET / 200 in 675ms (compile: 290ms, proxy.ts: 29ms, render: 356ms)
+ GET / 200 in 673ms (compile: 381ms, proxy.ts: 27ms, render: 264ms)
+ GET / 200 in 679ms (compile: 224ms, proxy.ts: 30ms, render: 425ms)
+ GET / 200 in 1140ms (compile: 194ms, proxy.ts: 28ms, render: 919ms)
+ GET / 200 in 1144ms (compile: 121ms, proxy.ts: 27ms, render: 996ms)
+ GET / 200 in 1146ms (compile: 22ms, proxy.ts: 27ms, render: 1098ms)
+ GET / 200 in 1138ms (compile: 736ms, proxy.ts: 27ms, render: 375ms)
+ GET / 200 in 1143ms (compile: 293ms, proxy.ts: 28ms, render: 823ms)
+ GET / 200 in 1142ms (compile: 444ms, proxy.ts: 27ms, render: 671ms)
+ GET / 200 in 1354ms (compile: 26ms, proxy.ts: 30ms, render: 1299ms)
+ GET / 200 in 1352ms (compile: 121ms, proxy.ts: 30ms, render: 1201ms)
+ GET / 200 in 1352ms (compile: 590ms, proxy.ts: 34ms, render: 728ms)
+ GET / 200 in 1361ms (compile: 237ms, proxy.ts: 30ms, render: 1094ms)
+ GET / 200 in 1354ms (compile: 764ms, proxy.ts: 35ms, render: 555ms)
+ GET / 200 in 1360ms (compile: 333ms, proxy.ts: 32ms, render: 995ms)
+ GET / 200 in 1233ms (compile: 25ms, proxy.ts: 33ms, render: 1175ms)
+ GET / 200 in 1232ms (compile: 165ms, proxy.ts: 33ms, render: 1034ms)
+ GET / 200 in 1229ms (compile: 285ms, proxy.ts: 33ms, render: 910ms)
+ GET / 200 in 1231ms (compile: 510ms, proxy.ts: 32ms, render: 689ms)
+ GET / 200 in 1226ms (compile: 779ms, proxy.ts: 34ms, render: 413ms)
+ GET / 200 in 1233ms (compile: 632ms, proxy.ts: 33ms, render: 568ms)
+ GET / 200 in 1064ms (compile: 21ms, proxy.ts: 27ms, render: 1016ms)
+ GET / 200 in 1057ms (compile: 147ms, proxy.ts: 23ms, render: 888ms)
+ GET / 200 in 1052ms (compile: 427ms, proxy.ts: 21ms, render: 604ms)
+ GET / 200 in 1060ms (compile: 283ms, proxy.ts: 22ms, render: 756ms)
+ GET / 200 in 1051ms (compile: 667ms, proxy.ts: 18ms, render: 366ms)
+ GET / 200 in 1069ms (compile: 528ms, proxy.ts: 21ms, render: 521ms)
+ GET / 200 in 1249ms (compile: 26ms, proxy.ts: 38ms, render: 1185ms)
+ GET / 200 in 1247ms (compile: 183ms, proxy.ts: 37ms, render: 1026ms)
+ GET / 200 in 1242ms (compile: 318ms, proxy.ts: 39ms, render: 886ms)
+ GET / 200 in 1239ms (compile: 487ms, proxy.ts: 37ms, render: 715ms)
+ GET / 200 in 1236ms (compile: 631ms, proxy.ts: 36ms, render: 570ms)
+ GET / 200 in 1227ms (compile: 813ms, proxy.ts: 29ms, render: 385ms)
+ GET / 200 in 1189ms (compile: 29ms, proxy.ts: 35ms, render: 1125ms)
+ GET / 200 in 1188ms (compile: 176ms, proxy.ts: 36ms, render: 976ms)
+ GET / 200 in 1187ms (compile: 351ms, proxy.ts: 38ms, render: 798ms)
+ GET / 200 in 1184ms (compile: 595ms, proxy.ts: 38ms, render: 550ms)
+ GET / 200 in 1187ms (compile: 491ms, proxy.ts: 38ms, render: 659ms)
+ GET / 200 in 1186ms (compile: 698ms, proxy.ts: 38ms, render: 450ms)
+ GET /manifest.webmanifest 200 in 391ms (compile: 332ms, proxy.ts: 18ms, render: 41ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::345c:23ca","64:ff9b::345c:362","64:ff9b::305:487f","64:ff9b::305:40d0","64:ff9b::34da:1db8","64:ff9b::34da:3d78","64:ff9b::345c:322"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4a23","64:ff9b::345c:36a","64:ff9b::345c:1192","64:ff9b::305:421d","64:ff9b::305:43fd","64:ff9b::345c:248a","64:ff9b::305:4b78","64:ff9b::305:4853"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:40c7","64:ff9b::305:474a","64:ff9b::305:43fe","64:ff9b::305:40e8","64:ff9b::305:40de","64:ff9b::305:4849","64:ff9b::305:450c","64:ff9b::305:4755"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::305:4530","64:ff9b::345c:f2","64:ff9b::305:43cb","64:ff9b::345c:2e2","64:ff9b::305:43cd","64:ff9b::305:4b0f","64:ff9b::305:4863","64:ff9b::345c:232a"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:4a23","64:ff9b::305:4506","64:ff9b::345c:402","64:ff9b::305:4524","64:ff9b::345c:1392","64:ff9b::305:40e1","64:ff9b::345c:134a","64:ff9b::34da:29f0"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::345c:205a","64:ff9b::305:493c","64:ff9b::305:4914","64:ff9b::345c:10e2","64:ff9b::305:452c","64:ff9b::305:453d","64:ff9b::345c:132a","64:ff9b::305:43f4"]

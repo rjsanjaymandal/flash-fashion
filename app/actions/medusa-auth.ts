@@ -13,7 +13,7 @@ export async function loginMedusa(formData: FormData) {
     }
 
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/auth/user/emailpass`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/auth/customer/emailpass`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -54,10 +54,7 @@ export async function registerMedusa(formData: FormData) {
     }
 
     try {
-        // In Medusa v2, registration might happen via the auth-identity or directly on customer
-        // We typically use the /auth/user/emailpass/register if configured or a custom route
-        // Assuming default emailpass registration
-        const response = await fetch(`${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/auth/user/emailpass/register`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/auth/customer/emailpass/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password, first_name, last_name })

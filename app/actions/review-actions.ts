@@ -1,9 +1,23 @@
 'use server'
 
-import { updateMedusaCustomerMetadata } from '@/lib/medusa-bridge'
 import { revalidatePath } from 'next/cache'
 import { uploadOptimizedImage } from './upload-images'
 import { getMedusaSession } from './medusa-auth'
+import { cookies } from 'next/headers'
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://127.0.0.1:9000"
+
+async function getHeaders(): Promise<Record<string, string>> {
+  const cookieStore = await cookies()
+  const token = cookieStore.get('medusa_token')?.value
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json'
+  }
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+  return headers
+}
 
 export async function submitReview(formData: FormData) {
   const customer = await getMedusaSession()
@@ -19,7 +33,7 @@ export async function submitReview(formData: FormData) {
 
   // Optimize Images
   let mediaUrls: string[] = []
-  if (imageFiles.length > 0) {
+  if (imageFiles && imageFiles.length > 0) {
     const uploadPromises = imageFiles
       .filter(file => file.size > 0 && file.type.startsWith('image/'))
       .map(async (file) => {
@@ -37,29 +51,60 @@ export async function submitReview(formData: FormData) {
     mediaUrls = results.filter(url => url !== null) as string[]
   }
 
-  const reviewData = {
-    rating,
-    comment,
-    user_name: `${customer.first_name || ''} ${customer.last_name || ''}`.trim() || customer.email,
-    media_urls: mediaUrls,
-    customer_id: customer.id,
-    is_verified: true,
-    created_at: new Date().toISOString()
-  }
+  try {
+    const headers = await getHeaders()
+    const reviewData = {
+      product_id: productId,
+      rating,
+      content: comment,
+      title: "Review",
+      reviewer_name: `${customer.first_name || ''} ${customer.last_name || ''}`.trim() || customer.email,
+      images: mediaUrls // If the plugin supports images
+    }
 
-  const result = await updateMedusaCustomerMetadata(customer.email, {
-    [`review_${productId}`]: reviewData
-  })
+    const response = await fetch(`${BACKEND_URL}/store/product-reviews`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(reviewData)
+    })
 
-  if (result?.error) {
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}))
+      console.error("Review Submit Error:", errorData)
+      return { error: 'Failed to submit review' }
+    }
+
+    revalidatePath(`/product/${productId}`)
+    return { success: true, message: "Review submitted!" }
+  } catch (error) {
+    console.error("Failed to post review to backend:", error)
     return { error: 'Failed to submit review' }
   }
-
-  revalidatePath(`/product/${productId}`)
-  return { success: true, message: "Review submitted!" }
 }
 
-export async function getReviews(product: any) {
-  // Reviews are now directly in product metadata
-  return product?.metadata?.reviews || []
+export async function getReviews(productId: string) {
+  try {
+    const response = await fetch(`${BACKEND_URL}/store/product-reviews?product_id=${productId}`, {
+      next: { tags: [`product_reviews_${productId}`], revalidate: 60 }
+    })
+
+    if (!response.ok) return []
+
+    const data = await response.json()
+    // Map to expected frontend structure
+    return (data.reviews || []).map((r: any) => ({
+      id: r.id,
+      user_name: r.reviewer_name || "Anonymous",
+      rating: r.rating,
+      comment: r.content,
+      created_at: r.created_at,
+      is_featured: false,
+      reply_text: r.responses?.[0]?.content || null,
+      media_urls: r.images || [],
+      is_verified: true
+    }))
+  } catch (error) {
+    console.error("Failed to fetch reviews:", error)
+    return []
+  }
 }

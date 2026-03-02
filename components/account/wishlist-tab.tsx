@@ -2,22 +2,63 @@
 
 import { useWishlistStore } from "@/store/use-wishlist-store"
 import { ProductCard } from "@/components/storefront/product-card"
-import { Heart } from "lucide-react"
+import { Heart, Loader2 } from "lucide-react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { useEffect, useState } from "react"
+import { getWishlist } from "@/lib/services/wishlist-service"
 
 export function WishlistTab() {
-    const { items } = useWishlistStore()
+    const { items, setItems } = useWishlistStore()
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        async function fetchWishlist() {
+            try {
+                const data = await getWishlist()
+                if (data && data.items) {
+                    const mappedItems = data.items.map((i: any) => {
+                        const product = i.product || {}
+                        return {
+                            productId: i.product_id,
+                            name: product.title || "Unknown Product",
+                            price: product.variants?.[0]?.calculated_price?.calculated_amount || 0,
+                            image: product.thumbnail || "",
+                            slug: product.handle || ""
+                        }
+                    })
+                    // Merge or replace items locally
+                    // For simplicity, replacing with server truth
+                    if (mappedItems.length > 0) {
+                        setItems(mappedItems)
+                    }
+                }
+            } catch (error) {
+                console.error("Failed to sync wishlist", error)
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchWishlist()
+    }, [setItems])
+
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center py-20 min-h-[300px]">
+                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            </div>
+        )
+    }
 
     if (items.length === 0) {
         return (
-             <motion.div 
+            <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex flex-col items-center justify-center py-20 text-center rounded-4xl border-2 border-dashed bg-zinc-50/50"
-             >
-                <motion.div 
+            >
+                <motion.div
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                     className="h-20 w-20 bg-white rounded-full flex items-center justify-center mb-8 shadow-xl border-2 border-zinc-100"
@@ -30,7 +71,7 @@ export function WishlistTab() {
                 </p>
                 <Button size="lg" className="rounded-full px-10 font-black uppercase tracking-widest text-xs gradient-primary shadow-2xl hover:scale-105 transition-all" asChild>
                     <Link href="/shop" className="flex items-center gap-2">
-                        Explore Collections 
+                        Explore Collections
                     </Link>
                 </Button>
             </motion.div>

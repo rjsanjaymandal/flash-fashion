@@ -4,10 +4,12 @@ import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ChevronLeft, MapPin, Package, Truck } from "lucide-react";
-import { getMedusaCustomerData } from "@/lib/medusa-bridge";
 import { getMedusaSession } from "@/app/actions/medusa-auth";
 import { redirect, notFound } from "next/navigation";
 import FlashImage from "@/components/ui/flash-image";
+import { cookies } from "next/headers";
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://127.0.0.1:9000"
 
 export const revalidate = 0;
 
@@ -23,9 +25,23 @@ export default async function OrderTrackingPage({
     redirect("/login");
   }
 
-  // Fetch Order via Bridge or Medusa Store API
-  const medusaData = await getMedusaCustomerData(customer.email);
-  const order = medusaData?.orders.find((o: any) => o.id === orderId);
+  const cookieStore = await cookies()
+  const token = cookieStore.get('medusa_token')?.value
+
+  if (!token) redirect("/login");
+
+  // Fetch Order Natively
+  let order = null;
+  try {
+    const res = await fetch(`${BACKEND_URL}/store/customers/me/orders/${orderId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      next: { revalidate: 0 }
+    })
+    if (res.ok) {
+      const data = await res.json()
+      order = data.order
+    }
+  } catch (e) { }
 
   if (!order) {
     notFound();

@@ -1,12 +1,14 @@
-import { getMedusaCustomerData } from "@/lib/medusa-bridge";
 import { getMedusaSession } from "@/app/actions/medusa-auth";
 import { notFound, redirect } from "next/navigation";
 import { OrderDetails } from "@/components/account/order-details";
+import { cookies } from "next/headers";
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://127.0.0.1:9000"
 
 export default async function OrderPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const customer = await getMedusaSession();
   const { id } = await params;
@@ -15,14 +17,23 @@ export default async function OrderPage({
     redirect("/login");
   }
 
-  // Fetch Medusa Data via Bridge
-  const medusaData = await getMedusaCustomerData(customer.email);
+  const cookieStore = await cookies()
+  const token = cookieStore.get('medusa_token')?.value
 
-  if (!medusaData) {
-    notFound();
-  }
+  if (!token) redirect("/login");
 
-  const order = medusaData.orders.find((o: any) => o.id === id);
+  // Fetch Medusa Order directly
+  let order = null;
+  try {
+    const res = await fetch(`${BACKEND_URL}/store/customers/me/orders/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      next: { revalidate: 0 }
+    })
+    if (res.ok) {
+      const data = await res.json()
+      order = data.order
+    }
+  } catch (e) { }
 
   if (!order) {
     notFound();

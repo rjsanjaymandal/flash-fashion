@@ -13,7 +13,8 @@ const nextConfig = (phase: string): NextConfig => ({
       { protocol: 'https', hostname: 'images.pexels.com' },
       { protocol: 'https', hostname: 'photos.google.com' },
       { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
-      { protocol: 'https', hostname: '*.googleusercontent.com' }
+      { protocol: 'https', hostname: '*.googleusercontent.com' },
+      { protocol: 'https', hostname: 'medusa-public-images.s3.eu-west-1.amazonaws.com' }
     ],
     dangerouslyAllowSVG: true,
   },
@@ -45,7 +46,7 @@ const nextConfig = (phase: string): NextConfig => ({
               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
               img-src 'self' blob: data: https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com https://stats.g.doubleclick.net https://res.cloudinary.com https://images.unsplash.com https://plus.unsplash.com https://images.pexels.com https://photos.google.com https://lh3.googleusercontent.com https://*.googleusercontent.com;
               font-src 'self' data: https://fonts.gstatic.com;
-              connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com https://stats.g.doubleclick.net https://checkout.razorpay.com https://vitals.vercel-insights.com;
+              connect-src 'self' ${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://127.0.0.1:9000"} http://localhost:9000 http://127.0.0.1:9000 https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com https://stats.g.doubleclick.net https://checkout.razorpay.com https://vitals.vercel-insights.com;
               frame-src 'self' https://checkout.razorpay.com;
               media-src 'self' https://res.cloudinary.com;
               object-src 'none';

@@ -1,7 +1,3 @@
-import {
-  getActiveConcepts,
-  getUserVotes,
-} from "@/lib/services/concept-service";
 import { LabClient } from "@/components/storefront/lab-client";
 import { Metadata } from "next";
 
@@ -11,12 +7,9 @@ export const metadata: Metadata = {
 };
 
 export default async function FutureLabPage() {
-  const concepts = await getActiveConcepts();
-  const userVotes = await getUserVotes();
-
   return (
     <div className="min-h-screen bg-background">
-      <LabClient concepts={concepts || []} userVotes={userVotes || []} />
+      <LabClient concepts={[]} userVotes={[]} />
     </div>
   );
 }

@@ -1,0 +1,2 @@
+components/storefront/lab-client.tsx(5,28): error TS2307: Cannot find module '@/lib/services/concept-service' or its corresponding type declarations.
+lib/services/payment-processor.ts(4,26): error TS2307: Cannot find module '@/lib/services/event-bus' or its corresponding type declarations.

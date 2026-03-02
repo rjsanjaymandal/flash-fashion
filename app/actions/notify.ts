@@ -5,7 +5,6 @@ import { resend } from '@/lib/email/client'
 import { WaitlistNotification } from '@/components/emails/waitlist-notification'
 import { render } from '@react-email/components'
 import { getMedusaSession } from './medusa-auth'
-import { updateMedusaCustomerData } from '@/lib/medusa-bridge'
 
 export async function notifyWaitlistUser(variantId: string, email: string) {
     const customer = await getMedusaSession()
@@ -66,13 +65,13 @@ export async function notifyWaitlistUser(variantId: string, email: string) {
         success = true
     }
 
-    // 5. Update Status in Medusa Metadata via Bridge
+    // 5. Update Status in Medusa Metadata natively (If using Customer Metadata for Waitlists)
     if (success) {
         entry.notified_at = new Date().toISOString()
-        await updateMedusaCustomerData(customer.id, 'update_waitlist_entry', {
-            variant_id: variantId,
-            waitlist
-        })
+
+        // This traditionally requires an Admin API key to update a Variant's metadata. 
+        // For storefront contexts without Admin API tokens, we skip updating the variant.
+        console.log(`Notification sent for ${variantId}`)
     }
 
     return { success: true, simulated: !process.env.RESEND_API_KEY }

@@ -1,4 +1,3 @@
-import { getMedusaCustomerData } from "@/lib/medusa-bridge";
 import { getMedusaSession } from "@/app/actions/medusa-auth";
 import { redirect } from "next/navigation";
 import { OrdersTab } from "@/components/account/orders-tab";
@@ -6,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { BrandGlow } from "@/components/storefront/brand-glow";
+import { cookies } from "next/headers";
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://127.0.0.1:9000"
 
 export const revalidate = 0;
 
@@ -16,9 +18,23 @@ export default async function OrdersPage() {
     redirect("/login");
   }
 
-  // Fetch Medusa Orders via Bridge
-  const medusaData = await getMedusaCustomerData(customer.email);
-  const orders = medusaData?.orders || [];
+  const cookieStore = await cookies()
+  const token = cookieStore.get('medusa_token')?.value
+
+  if (!token) redirect("/login");
+
+  // Fetch Medusa Orders directly
+  let orders = [];
+  try {
+    const res = await fetch(`${BACKEND_URL}/store/customers/me/orders`, {
+      headers: { Authorization: `Bearer ${token}` },
+      next: { revalidate: 0 }
+    })
+    if (res.ok) {
+      const data = await res.json()
+      orders = data.orders || []
+    }
+  } catch (e) { }
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-6xl relative min-h-screen overflow-x-hidden">
