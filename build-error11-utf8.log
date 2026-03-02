@@ -1,0 +1,50 @@
+﻿
+> flash-ecommerce@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+- Experiments (use with caution):
+  ┬╖ optimizePackageImports
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 89s
+  Running TypeScript ...
+node.exe : Failed to compile.
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" 
+"C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Fa 
+   iled to compile.:String) [], RemoteExceptio  
+  n
+    + FullyQualifiedErrorId : NativeCommandErro 
+   r
+ 
+
+./app/(storefront)/product/[slug]/product-detail
+.tsx:404:27
+Type error: Property 'message' does not exist 
+on type '{ success: boolean; status: string; 
+error?: undefined; }'.
+
+[0m [90m 402 |[39m       } [36melse[39m 
+[36mif[39m (result[33m.[39mstatus 
+[33m===[39m [32m"already_joined"[39m) {
+ [90m 403 |[39m         
+setIsOnWaitlist([36mtrue[39m)[33m;[39m
+[31m[1m>[22m[39m[90m 404 |[39m         toa
+st[33m.[39minfo(result[33m.[39mmessage)[33m
+;[39m
+ [90m     |[39m                           
+[31m[1m^[22m[39m
+ [90m 405 |[39m         localStorage[33m.[39
+msetItem([32m`waitlist_${product.id}`[39m[33m
+,[39m [32m"true"[39m)[33m;[39m
+ [90m 406 |[39m         [36mif[39m (email) l
+ocalStorage[33m.[39msetItem([32m"user_email_p
+reference"[39m[33m,[39m email)[33m;[39m
+ [90m 407 |[39m       } [36melse[39m {[0m
+Next.js build worker exited with code: 1 and 
+signal: null

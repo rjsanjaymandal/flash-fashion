@@ -37,4 +37,5 @@ class ManualPaymentProvider extends AbstractPaymentProvider {
     }
 }
 
+export const services = [ManualPaymentProvider]
 export default ManualPaymentProvider

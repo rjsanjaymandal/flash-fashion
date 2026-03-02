@@ -1,0 +1,49 @@
+﻿
+> flash-ecommerce@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+- Experiments (use with caution):
+  ┬╖ optimizePackageImports
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 103s
+  Running TypeScript ...
+node.exe : Failed to compile.
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" 
+"C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Fa 
+   iled to compile.:String) [], RemoteExceptio  
+  n
+    + FullyQualifiedErrorId : NativeCommandErro 
+   r
+ 
+
+./app/(storefront)/product/[slug]/product-detail
+.tsx:435:32
+Type error: Property 'id' does not exist on 
+type 'StockItem & { fit: string; }'.
+
+[0m [90m 433 |[39m       [36mawait[39m 
+addToCart(
+ [90m 434 |[39m         {
+[31m[1m>[22m[39m[90m 435 |[39m           
+variantId[33m:[39m 
+stockItem[33m.[39mid[33m![39m[33m,[39m
+ [90m     |[39m                               
+ [31m[1m^[22m[39m
+ [90m 436 |[39m           
+productId[33m:[39m 
+product[33m.[39mid[33m,[39m
+ [90m 437 |[39m           
+categoryId[33m:[39m 
+product[33m.[39mcategory_id [33m||[39m 
+[32m""[39m[33m,[39m
+ [90m 438 |[39m           name[33m:[39m 
+product[33m.[39mname[33m,[39m[0m
+Next.js build worker exited with code: 1 and 
+signal: null

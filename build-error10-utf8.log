@@ -1,0 +1,49 @@
+﻿
+> flash-ecommerce@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+- Experiments (use with caution):
+  ┬╖ optimizePackageImports
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 2.1min
+  Running TypeScript ...
+node.exe : Failed to compile.
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" 
+"C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Fa 
+   iled to compile.:String) [], RemoteExceptio  
+  n
+    + FullyQualifiedErrorId : NativeCommandErro 
+   r
+ 
+
+./app/(storefront)/product/[slug]/product-detail
+.tsx:399:62
+Type error: Expected 1-2 arguments, but got 3.
+
+[0m [90m 397 |[39m     [36mtry[39m {
+ [90m 398 |[39m       [36mconst[39m guestId 
+[33m=[39m getGuestId()[33m;[39m
+[31m[1m>[22m[39m[90m 399 |[39m       
+[36mconst[39m result [33m=[39m 
+[36mawait[39m 
+togglePreorder(product[33m.[39mid[33m,[39m 
+email[33m,[39m guestId)[33m;[39m
+ [90m     |[39m                               
+                               
+[31m[1m^[22m[39m
+ [90m 400 |[39m       [36mif[39m 
+(result[33m.[39merror) {
+ [90m 401 |[39m         toast[33m.[39merror(
+result[33m.[39merror)[33m;[39m
+ [90m 402 |[39m       } [36melse[39m 
+[36mif[39m (result[33m.[39mstatus 
+[33m===[39m [32m"already_joined"[39m) {[0m
+Next.js build worker exited with code: 1 and 
+signal: null

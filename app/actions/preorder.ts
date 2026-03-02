@@ -4,7 +4,7 @@ import { updateMedusaCustomerData } from '@/lib/medusa-bridge'
 import { revalidatePath } from 'next/cache'
 import { getMedusaSession } from './medusa-auth'
 
-export async function togglePreorder(variantId: string, email?: string) {
+export async function togglePreorder(variantId: string, email?: string, guestId?: string) {
   const customer = await getMedusaSession()
 
   const identifier = customer?.email || email?.trim().toLowerCase()
@@ -25,7 +25,7 @@ export async function togglePreorder(variantId: string, email?: string) {
   }
 
   revalidatePath('/shop')
-  return { success: true, status: 'added' }
+  return { success: true, status: 'added', message: 'Successfully added to the waitlist.' }
 }
 
 export async function checkPreorderStatus(variant: any, email?: string) {

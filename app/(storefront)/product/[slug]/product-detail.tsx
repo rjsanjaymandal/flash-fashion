@@ -432,7 +432,7 @@ export function ProductDetailClient({
     try {
       await addToCart(
         {
-          variantId: stockItem.id!,
+          variantId: (stockItem as any).id || product.variants?.[0]?.id || product.id,
           productId: product.id,
           categoryId: product.category_id || "",
           name: product.name,
