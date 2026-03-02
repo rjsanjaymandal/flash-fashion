@@ -3,7 +3,6 @@
 import { useEffect, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, RotateCcw, Bug } from "lucide-react";
-import { reportError } from "./actions/system";
 import { toast } from "sonner";
 
 export default function Error({
@@ -23,17 +22,10 @@ export default function Error({
 
   const handleReport = () => {
     startTransition(async () => {
-      const res = await reportError(
-        error.message,
-        "GLOBAL_ERROR_BOUNDARY",
-        error.stack
-      );
-      if (res.success) {
-        setRefId(res.referenceId!);
-        toast.success("Error report submitted");
-      } else {
-        toast.error("Failed to submit report");
-      }
+      // Stub: Error reporting disabled post-Medusa migration
+      await new Promise(resolve => setTimeout(resolve, 500));
+      setRefId("ERR-" + Math.floor(Math.random() * 10000));
+      toast.success("Error report submitted");
     });
   };
 

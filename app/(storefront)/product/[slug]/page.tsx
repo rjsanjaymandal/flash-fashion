@@ -1,6 +1,4 @@
-// Imports
 import { getReviews } from "@/app/actions/review-actions";
-import { getProductColors } from "@/lib/services/color-service";
 import { ProductDetailClient } from "./product-detail";
 import { ReviewSection } from "@/components/reviews/review-section";
 import { RecentlyViewed } from "@/components/products/recently-viewed";
@@ -10,7 +8,7 @@ import { ProductJsonLd } from "@/components/seo/product-json-ld";
 import { notFound } from "next/navigation";
 import { medusaClient } from "@/lib/medusa";
 
-// Convert Medusa Product to match Supabase Product UI format
+// Convert Medusa Product to match the storefront's expected UI format
 function mapMedusaToProduct(p: any) {
   return {
     id: p.id,
@@ -33,7 +31,7 @@ function mapMedusaToProduct(p: any) {
       quantity: v.inventory_quantity || 10,
     })) || [],
     size_options: Array.from(new Set(p.variants?.map((v: any) => v.title) || [])),
-    color_options: [], // Add logic here if Medusa has color options
+    color_options: [], // Colors are handled as metadata/options in Medusa
     seo_title: p.title,
     seo_description: p.description
   };
@@ -50,7 +48,7 @@ export async function generateStaticParams() {
   }
 }
 
-export const revalidate = 60; // Revalidate every minute
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,
@@ -70,7 +68,7 @@ export async function generateMetadata({
   const title = (product.title) + " | Flash Fashion";
   const description = (
     product.description ||
-    `Cop the ${product.title}. High-quality anime streetwear, heavyweight cotton, and premium graphic design. Fast shipping available in India.`
+    `Cop the ${product.title}. Premium anime-inspired streetwear dropped by FLASH.`
   ).slice(0, 150);
 
   return {
@@ -102,9 +100,12 @@ export default async function ProductPage({
 }) {
   const { slug } = await params;
 
-  let rawProduct = null;
+  let rawProduct: any = null;
   try {
-    const { products } = await medusaClient.store.product.list({ handle: slug, fields: "*categories,*variants,*variants.calculated_price,*images" });
+    const { products } = await medusaClient.store.product.list({
+      handle: slug,
+      fields: "*categories,*variants,*variants.calculated_price,*images,*metadata"
+    });
     rawProduct = products[0];
   } catch (e) { }
 
@@ -117,26 +118,24 @@ export default async function ProductPage({
   let relatedProducts: any[] = [];
   try {
     if (rawProduct.categories?.[0]?.id) {
-      const { products } = await medusaClient.store.product.list({
+      const { products: fetchedRelated } = await medusaClient.store.product.list({
         category_id: [rawProduct.categories[0].id],
         fields: "*categories,*variants,*variants.calculated_price,*images",
         limit: 5
       })
-      relatedProducts = products.filter((p: any) => p.id !== rawProduct.id).map(mapMedusaToProduct);
+      relatedProducts = fetchedRelated.filter((p: any) => p.id !== rawProduct.id).map(mapMedusaToProduct);
     }
   } catch (e) { }
 
-  // Fetch Reviews and Colors in parallel
-  const [reviews, colors] = await Promise.all([
-    getReviews(product.id),
-    getProductColors(),
-  ]);
+  // Fetch Reviews from metadata
+  const reviews = await getReviews(rawProduct);
 
-  // Create color map
-  const colorMap: Record<string, string> = {};
-  colors.forEach((c: any) => {
-    colorMap[c.name] = c.hex_code;
-  });
+  // Dummy color map (handled via Medusa options in later phases)
+  const colorMap: Record<string, string> = {
+    'Black': '#000000',
+    'White': '#FFFFFF',
+    'Red': '#FF0000'
+  };
 
   // Calculate Review Stats
   const reviewCount = reviews.length;
@@ -157,7 +156,7 @@ export default async function ProductPage({
             ? 1
             : 0,
         }}
-        reviews={reviews as any[]}
+        reviews={reviews}
       />
       <ProductDetailClient
         product={
@@ -172,7 +171,6 @@ export default async function ProductPage({
       />
 
       <div className="container mx-auto px-4 lg:px-8 space-y-20 pb-20">
-        {/* Reviews */}
         <ReviewSection
           productId={product.id}
           reviews={
@@ -180,13 +178,11 @@ export default async function ProductPage({
               ...r,
               user_name: r.user_name || "Anonymous",
               comment: r.comment || "",
-            })) as any[]
+            }))
           }
         />
 
         <ProductCarousel products={relatedProducts} />
-
-        {/* Recently Viewed */}
         <RecentlyViewed currentProduct={product} />
       </div>
 

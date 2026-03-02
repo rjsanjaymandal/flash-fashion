@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { createEdgeClient } from "@/lib/supabase/opengraph-client";
+import { medusaClient } from "@/lib/medusa";
 
 export const runtime = "edge";
 
@@ -13,21 +13,20 @@ export const contentType = "image/png";
 
 export default async function Image({ params }: { params: { slug: string } }) {
   const slug = (await params).slug;
-  const supabase = createEdgeClient();
 
-  // Fetch product data
-  const { data: product } = await supabase
-    .from("products")
-    .select("name, price, main_image_url")
-    .eq("slug", slug)
-    .single();
+  // Fetch product data from Medusa
+  const { products } = await medusaClient.store.product.list({
+    handle: slug,
+  });
+  const product = products?.[0];
 
   // Fallback if no product found
-  const title = product?.name || "Flash Fashion Premium";
-  const price = product?.price
-    ? `₹${product.price.toLocaleString("en-IN")}`
+  const title = product?.title || "Flash Fashion Premium";
+  const variant = product?.variants?.[0];
+  const price = variant?.calculated_price?.amount
+    ? `₹${(variant.calculated_price.amount).toLocaleString("en-IN")}`
     : "";
-  const imageUrl = product?.main_image_url || null;
+  const imageUrl = product?.thumbnail || null;
 
   return new ImageResponse(
     <div

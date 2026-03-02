@@ -1,6 +1,6 @@
 'use server'
 
-import { updateMedusaCustomerData } from '@/lib/medusa-bridge'
+import { updateMedusaCustomerMetadata } from '@/lib/medusa-bridge'
 import { revalidatePath } from 'next/cache'
 import { uploadOptimizedImage } from './upload-images'
 import { getMedusaSession } from './medusa-auth'
@@ -40,15 +40,15 @@ export async function submitReview(formData: FormData) {
   const reviewData = {
     rating,
     comment,
-    user_name: `${customer.first_name} ${customer.last_name || ''}`.trim(),
+    user_name: `${customer.first_name || ''} ${customer.last_name || ''}`.trim() || customer.email,
     media_urls: mediaUrls,
     customer_id: customer.id,
-    is_verified: true, // If they have an account and ordered (ideally check orders)
+    is_verified: true,
+    created_at: new Date().toISOString()
   }
 
-  const result = await updateMedusaCustomerData(customer.id, 'add_review', {
-    product_id: productId,
-    review: reviewData
+  const result = await updateMedusaCustomerMetadata(customer.email, {
+    [`review_${productId}`]: reviewData
   })
 
   if (result?.error) {

@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { medusaClient } from "@/lib/medusa";
 
 export function OrderStatusListener({
   orderId,
@@ -19,16 +19,14 @@ export function OrderStatusListener({
   signature?: string;
 }) {
   const router = useRouter();
-  const supabase = createClient();
+  const [status, setStatus] = useState(initialStatus);
 
   useEffect(() => {
     // 1. Idempotency Check
-    if (initialStatus === "paid" || initialStatus === "confirmed_partial")
+    if (status === "paid" || status === "confirmed_partial" || status === "completed")
       return;
 
     // 2. Active Verification (Auto-Reconciliation)
-    // If we land here with payment metadata but the order is still "pending",
-    // trigger a verification immediately.
     if (paymentId && paymentOrderId && signature) {
       console.log("[StatusListener] Triggering Active Verification...");
       fetch("/api/razorpay/verify", {
@@ -46,6 +44,7 @@ export function OrderStatusListener({
           if (data.verified) {
             toast.success("Transmission Confirmed! Syncing state...");
             router.refresh();
+            setStatus("paid");
           }
         })
         .catch((err) =>
@@ -53,70 +52,42 @@ export function OrderStatusListener({
         );
     }
 
-    // 3. Realtime Subscription (Primary)
-    const channel = supabase
-      .channel(`order-status-${orderId}`)
-      .on(
-        "postgres_changes",
-        {
-          event: "UPDATE",
-          schema: "public",
-          table: "orders",
-          filter: `id=eq.${orderId}`,
-        },
-        (payload: any) => {
-          const isConfirmed =
-            payload.new.status === "paid" ||
-            payload.new.status === "confirmed_partial";
-          const wasNotConfirmed =
-            payload.old.status !== "paid" &&
-            payload.old.status !== "confirmed_partial";
-
-          if (isConfirmed && wasNotConfirmed) {
-            toast.success("Payment Confirmed! Updating status...");
-            router.refresh();
-          }
-        }
-      )
-      .subscribe();
-
-    // 4. Polling Fallback (Backup)
-    // In case Realtime fails, check every 8 seconds for 40 seconds
+    // 3. Medusa Polling Fallback
+    // Since we don't have Postgres Realtime in Medusa (without extra setup), 
+    // we poll the store API for visibility.
     let pollCount = 0;
     const interval = setInterval(async () => {
       pollCount++;
-      if (pollCount > 5) {
+      if (pollCount > 10) { // Limit polling
         clearInterval(interval);
         return;
       }
 
-      console.log(`[StatusListener] Polling Sync Check #${pollCount}`);
-      const { data } = await supabase
-        .from("orders")
-        .select("status")
-        .eq("id", orderId)
-        .single();
+      try {
+        const { order } = await medusaClient.store.order.retrieve(orderId);
 
-      if (data?.status === "paid" || data?.status === "confirmed_partial") {
-        toast.success("Verification Synchronized!");
-        router.refresh();
-        clearInterval(interval);
+        if (order?.status === "paid" || order?.status === "completed") {
+          toast.success("Order Verified!");
+          router.refresh();
+          setStatus(order.status);
+          clearInterval(interval);
+        }
+      } catch (e) {
+        console.error("[StatusListener] Polling error:", e);
       }
-    }, 8000);
+    }, 5000);
 
     return () => {
-      supabase.removeChannel(channel);
       clearInterval(interval);
     };
   }, [
     orderId,
-    initialStatus,
-    supabase,
+    status,
     router,
     paymentId,
     paymentOrderId,
     signature,
   ]);
 
-  return null; // Invisible component
+  return null;
 }

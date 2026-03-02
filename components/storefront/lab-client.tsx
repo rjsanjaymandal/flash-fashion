@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { Beaker } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
 import { toggleVote } from "@/lib/services/concept-service";
 import { toast } from "sonner";
 import { useAuth } from "@/context/auth-context";
@@ -25,32 +24,9 @@ export function LabClient({
   const [isLoadingId, setIsLoadingId] = useState<string | null>(null);
   const { user } = useAuth();
   const router = useRouter();
-  const supabase = createClient();
 
   useEffect(() => {
-    const channel = supabase
-      .channel("active-concepts")
-      .on(
-        "postgres_changes",
-        {
-          event: "UPDATE",
-          schema: "public",
-          table: "concepts",
-        },
-        (payload) => {
-          const updatedConcept = payload.new;
-          setConcepts((prev) =>
-            prev.map((c) =>
-              c.id === updatedConcept.id ? { ...c, ...updatedConcept } : c
-            )
-          );
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
+    // Realtime subscriptions are disabled globally pending full Medusa integration
   }, []);
 
   const handleVote = async (concept: any) => {

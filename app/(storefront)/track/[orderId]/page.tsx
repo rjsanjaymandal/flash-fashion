@@ -1,11 +1,12 @@
 import { OrderTimeline } from "@/components/storefront/order-timeline";
 import { TrackingTimeline } from "@/components/storefront/tracking-timeline";
-import { createClient } from "@/lib/supabase/server";
-import { notFound } from "next/navigation";
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ChevronLeft, MapPin, Package, Truck } from "lucide-react";
+import { getMedusaCustomerData } from "@/lib/medusa-bridge";
+import { getMedusaSession } from "@/app/actions/medusa-auth";
+import { redirect, notFound } from "next/navigation";
 import FlashImage from "@/components/ui/flash-image";
 
 export const revalidate = 0;
@@ -16,17 +17,35 @@ export default async function OrderTrackingPage({
   params: Promise<{ orderId: string }>;
 }) {
   const { orderId } = await params;
-  const supabase = await createClient();
+  const customer = await getMedusaSession();
 
-  const { data: order } = await supabase
-    .from("orders")
-    .select("*, order_items(*, products(*))")
-    .eq("id", orderId)
-    .single();
+  if (!customer) {
+    redirect("/login");
+  }
+
+  // Fetch Order via Bridge or Medusa Store API
+  const medusaData = await getMedusaCustomerData(customer.email);
+  const order = medusaData?.orders.find((o: any) => o.id === orderId);
 
   if (!order) {
     notFound();
   }
+
+  // Map Medusa Order Items to the shape expected by the UI
+  const items = order.items.map((item: any) => ({
+    id: item.id,
+    quantity: item.quantity,
+    unit_price: item.unit_price,
+    color: item.metadata?.color || "N/A",
+    size: item.metadata?.size || "N/A",
+    products: {
+      name: item.title,
+      main_image_url: item.thumbnail,
+    }
+  }));
+
+  // Map Status
+  const displayStatus = mapMedusaStatusToLegacy(order.status);
 
   return (
     <div className="min-h-screen bg-muted/20 py-12">
@@ -73,14 +92,12 @@ export default async function OrderTrackingPage({
 
           <div className="p-6 md:p-12">
             <OrderTimeline
-              status={order.status || "pending"}
+              status={displayStatus}
               created_at={order.created_at || new Date().toISOString()}
-              updated_at={
-                order.updated_at || order.created_at || new Date().toISOString()
-              }
+              updated_at={order.updated_at || order.created_at || new Date().toISOString()}
             />
 
-            {order.tracking_number && (
+            {order.metadata?.tracking_number && (
               <div className="mt-12 pt-12 border-t border-zinc-100">
                 <div className="flex items-center gap-3 mb-8">
                   <div className="h-10 w-10 bg-primary/10 rounded-2xl flex items-center justify-center">
@@ -91,12 +108,12 @@ export default async function OrderTrackingPage({
                       Live Shipment History
                     </h3>
                     <p className="text-zinc-500 text-[10px] font-black uppercase tracking-widest">
-                      AWB: {order.tracking_number}
+                      AWB: {order.metadata.tracking_number}
                     </p>
                   </div>
                 </div>
                 <div className="bg-zinc-50/50 rounded-3xl border border-zinc-100 overflow-hidden">
-                  <TrackingTimeline awb={order.tracking_number} />
+                  <TrackingTimeline awb={order.metadata.tracking_number as string} />
                 </div>
               </div>
             )}
@@ -111,15 +128,15 @@ export default async function OrderTrackingPage({
             </h3>
             <div className="text-sm text-muted-foreground space-y-1">
               <p className="font-medium text-foreground">
-                {order.shipping_name}
+                {order.shipping_address?.first_name} {order.shipping_address?.last_name}
               </p>
-              <p>{order.address_line1}</p>
-              {order.address_line2 && <p>{order.address_line2}</p>}
+              <p>{order.shipping_address?.address_1}</p>
+              {order.shipping_address?.address_2 && <p>{order.shipping_address.address_2}</p>}
               <p>
-                {order.city}, {order.state} {order.pincode}
+                {order.shipping_address?.city}, {order.shipping_address?.province} {order.shipping_address?.postal_code}
               </p>
-              <p>{order.country}</p>
-              <p className="pt-2">{order.phone}</p>
+              <p>{order.shipping_address?.country_code}</p>
+              <p className="pt-2">{order.shipping_address?.phone}</p>
             </div>
           </div>
 
@@ -129,7 +146,7 @@ export default async function OrderTrackingPage({
               Order Items
             </h3>
             <div className="space-y-4">
-              {order.order_items.map((item: any) => (
+              {items.map((item: any) => (
                 <div key={item.id} className="flex gap-3 text-sm">
                   <div className="h-12 w-12 rounded-md bg-muted border overflow-hidden shrink-0">
                     {item.products?.main_image_url && (
@@ -157,15 +174,18 @@ export default async function OrderTrackingPage({
                 </div>
               ))}
             </div>
-            {order.discount_amount && order.discount_amount > 0 ? (
-              <div className="border-t mt-4 pt-3 flex justify-between text-sm text-green-600 font-medium">
-                <span>Discount</span>
-                <span>-{formatCurrency(order.discount_amount)}</span>
-              </div>
-            ) : null}
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+function mapMedusaStatusToLegacy(status: string) {
+  switch (status) {
+    case "pending": return "pending";
+    case "completed": return "delivered";
+    case "canceled": return "cancelled";
+    default: return "pending";
+  }
 }

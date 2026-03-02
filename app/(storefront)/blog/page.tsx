@@ -77,7 +77,7 @@ export default async function BlogPage() {
               <span className="text-primary">★</span> Featured Posts
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredPosts.map((post) => (
+              {featuredPosts.map((post: any) => (
                 <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
@@ -108,7 +108,7 @@ export default async function BlogPage() {
                     </CardHeader>
                     <CardContent>
                       <div className="flex flex-wrap gap-1">
-                        {post.tags.slice(0, 2).map((tag) => (
+                        {post?.tags?.slice(0, 2).map((tag: string) => (
                           <Badge
                             key={tag}
                             variant="secondary"
@@ -132,7 +132,7 @@ export default async function BlogPage() {
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-2xl font-bold mb-8">All Posts</h2>
           <div className="space-y-6">
-            {posts.map((post) => (
+            {posts.map((post: any) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
@@ -160,7 +160,7 @@ export default async function BlogPage() {
                       {post.excerpt}
                     </p>
                     <div className="flex items-center gap-2 mt-3">
-                      {post.tags.slice(0, 3).map((tag) => (
+                      {post?.tags?.slice(0, 3).map((tag: string) => (
                         <Badge key={tag} variant="outline" className="text-xs">
                           {tag}
                         </Badge>

@@ -1,28 +1,22 @@
-import { createClient } from "@/lib/supabase/server";
+import { getMedusaCustomerData } from "@/lib/medusa-bridge";
+import { getMedusaSession } from "@/app/actions/medusa-auth";
 import { notFound, redirect } from "next/navigation";
 import { OrderDetails } from "@/components/account/order-details";
-import { getMedusaCustomerData } from "@/lib/medusa-bridge";
 
 export default async function OrderPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const supabase = await createClient();
+  const customer = await getMedusaSession();
   const { id } = await params;
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
+  if (!customer) {
     redirect("/login");
   }
 
-  // Fetch Medusa Data via Bridge to get all orders and then find this specific one
-  // In a production app, we'd have a specific bridge endpoint for a single order
-  // But for now, we can use the bridge to verify and get data
-  const medusaData = await getMedusaCustomerData(user.email!);
+  // Fetch Medusa Data via Bridge
+  const medusaData = await getMedusaCustomerData(customer.email);
 
   if (!medusaData) {
     notFound();
@@ -51,10 +45,10 @@ export default async function OrderPage({
     }
   }));
 
-  // Map Medusa Order to Supabase shape for the UI
+  // Map Medusa Order to Legacy shape for the UI
   const mappedOrder = {
     ...order,
-    status: mapMedusaStatusToSupabase(order.status),
+    status: mapMedusaStatusToLegacy(order.status),
     tracking_number: order.metadata?.tracking_number || null,
     shipping_name: order.shipping_address?.first_name ? `${order.shipping_address.first_name} ${order.shipping_address.last_name || ""}` : null,
     address_line1: order.shipping_address?.address_1,
@@ -72,7 +66,7 @@ export default async function OrderPage({
   );
 }
 
-function mapMedusaStatusToSupabase(status: string) {
+function mapMedusaStatusToLegacy(status: string) {
   switch (status) {
     case "pending": return "pending";
     case "completed": return "delivered";

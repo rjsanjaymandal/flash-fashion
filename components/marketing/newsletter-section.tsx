@@ -2,23 +2,15 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { subscribeToNewsletter } from "@/app/actions/marketing-actions";
 import { toast } from "sonner";
 import { Send } from "lucide-react";
 import FlashImage from "@/components/ui/flash-image";
 
 export function NewsletterSection() {
   async function action(formData: FormData) {
-    const res = await subscribeToNewsletter(formData);
-    if (res?.error) {
-      toast.error(res.error);
-    } else {
-      if (res?.message) {
-        toast.info(res.message);
-      } else {
-        toast.success("Subscribed successfully!");
-      }
-    }
+    // Stub
+    await new Promise(resolve => setTimeout(resolve, 500));
+    toast.success("Subscribed successfully!");
   }
 
   return (

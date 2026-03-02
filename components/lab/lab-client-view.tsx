@@ -5,14 +5,6 @@ import { FlaskConical, Info, Sparkles, TrendingUp, Users } from "lucide-react";
 import { ConceptCard } from "@/components/lab/concept-card";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { createClient } from "@/lib/supabase/client";
-
-interface LabClientViewProps {
-  concepts: any[];
-  user: any;
-  userVotes: string[];
-}
-
 export function LabClientView({
   concepts,
   user,
@@ -27,43 +19,7 @@ export function LabClientView({
   }, [concepts]);
 
   useEffect(() => {
-    if (!mounted) return;
-
-    const supabase = createClient();
-
-    // Subscribe to all changes on the concepts table
-    const channel = supabase
-      .channel("lab-concepts-realtime")
-      .on(
-        "postgres_changes",
-        {
-          event: "*", // Listen to all events (INSERT, UPDATE, DELETE)
-          schema: "public",
-          table: "concepts",
-        },
-        (payload) => {
-          console.log("Realtime update received:", payload);
-
-          if (payload.eventType === "UPDATE") {
-            setCurrentConcepts((prev) =>
-              prev.map((c) =>
-                c.id === payload.new.id ? { ...c, ...payload.new } : c
-              )
-            );
-          } else if (payload.eventType === "INSERT") {
-            setCurrentConcepts((prev) => [payload.new, ...prev]);
-          } else if (payload.eventType === "DELETE") {
-            setCurrentConcepts((prev) =>
-              prev.filter((c) => c.id !== payload.old.id)
-            );
-          }
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
+    // Realtime features for Lab are currently disabled after Medusa migration
   }, [mounted]);
 
   if (!mounted)

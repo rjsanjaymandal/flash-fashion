@@ -4,7 +4,7 @@ import type { ImageLoaderProps } from "next/image";
 
 /**
  * FLASH Image Loader - Bug-free & Professional
- * Handles Cloudinary, Unsplash, Supabase, and local fallbacks.
+ * Handles Cloudinary, Unsplash, and local fallbacks.
  */
 export default function myImageLoader({
   src,
@@ -17,7 +17,7 @@ export default function myImageLoader({
   }
 
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-  
+
   // Use professional quality/format defaults
   const transformations = [
     `w_${width}`,
@@ -37,7 +37,7 @@ export default function myImageLoader({
 
       if (uploadIndex !== -1) {
         const publicId = pathSegments.slice(uploadIndex + 1).join("/");
-        
+
         // Handle resize mode hints from URL search params
         let resizeTransform = "c_limit";
         const internalResize = url.searchParams.get("resize");

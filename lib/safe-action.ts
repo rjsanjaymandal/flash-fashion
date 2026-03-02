@@ -1,6 +1,3 @@
-import { createAdminClient } from "@/lib/supabase/admin"
-import { Json } from "@/types/supabase"
-
 export type ActionResponse<T> = {
     success: boolean
     data?: T
@@ -16,24 +13,15 @@ export async function createSafeAction<Input, Output>(
         const result = await handler(input)
         return { success: true, data: result }
     } catch (e: any) {
-        console.error(`[SafeAction][${actionName}] Failed:`, e)
+        console.error(`[SafeAction][${actionName}] Failed:`, {
+            error: e.message || 'Unknown error',
+            stack: e.stack,
+            input
+        })
 
-        // Log to DB (Fire & Forget)
-        try {
-            const supabase = createAdminClient()
-            await supabase.from('system_logs').insert({
-                severity: 'ERROR',
-                component: actionName,
-                message: e.message || 'Unknown error',
-                metadata: { stack: e.stack, input: input as unknown } as Json
-            })
-        } catch (logErr) {
-            console.error('Failed to log safe action error:', logErr)
-        }
-
-        return { 
-            success: false, 
-            error: e.message || "An unexpected error occurred." 
+        return {
+            success: false,
+            error: e.message || "An unexpected error occurred."
         }
     }
 }

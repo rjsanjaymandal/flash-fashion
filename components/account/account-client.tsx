@@ -24,19 +24,35 @@ import { Badge } from "@/components/ui/badge";
 
 import { BrandBadge } from "@/components/storefront/brand-badge";
 import { BrandGlow } from "@/components/storefront/brand-glow";
-
-import { Tables } from "@/types/supabase";
-import { User } from "@supabase/supabase-js";
-
 import { WaitlistTab } from "@/components/account/waitlist-tab";
 import { Product } from "@/lib/services/product-service";
 import { PushOptIn } from "@/components/storefront/push-opt-in";
 
 interface AccountClientProps {
-  user: User;
-  profile: Tables<"profiles">;
-  orders: Tables<"orders">[];
-  addresses: Tables<"addresses">[];
+  user: { email: string; id: string };
+  profile: {
+    name: string;
+    role: string;
+    loyalty_points: number;
+    pronouns: string | null;
+    fit_preference: any;
+    created_at: string;
+  };
+  orders: {
+    id: string;
+    total: number;
+    status: string;
+    created_at: string;
+  }[];
+  addresses: {
+    id: string;
+    name: string;
+    phone: string;
+    city: string;
+    state: string;
+    pincode: string;
+    is_default: boolean;
+  }[];
   waitlist: Product[];
 }
 

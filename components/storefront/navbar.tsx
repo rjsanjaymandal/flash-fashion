@@ -12,7 +12,11 @@ import { useAuth } from "@/context/auth-context";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { createClient } from "@/lib/supabase/client";
+import { medusaClient } from "@/lib/medusa";
+import { motion, AnimatePresence } from "framer-motion";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ModeToggle } from "@/components/ui/mode-toggle";
+
 const CategoryDropdown = dynamic(
   () => import("./category-dropdown").then((mod) => mod.CategoryDropdown),
   { ssr: false },
@@ -32,23 +36,6 @@ const NotificationBell = dynamic(
   () => import("./notification-bell").then((mod) => mod.NotificationBell),
   { ssr: false },
 );
-import { motion, AnimatePresence } from "framer-motion";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ModeToggle } from "@/components/ui/mode-toggle";
-
-interface NavCategory {
-  id: string;
-  name: string;
-  slug: string;
-  children?: NavCategory[];
-}
-
-interface NavLink {
-  href: string;
-  label: string;
-  children?: NavCategory[];
-  category: NavCategory;
-}
 
 export function StorefrontNavbar() {
   const cartCount = useCartStore(selectCartCount);
@@ -57,7 +44,6 @@ export function StorefrontNavbar() {
   const { user, profile, isAdmin } = useAuth();
 
   const [mounted, setMounted] = useState(false);
-  // Local Search State for Overlay
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isShopTrayOpen, setIsShopTrayOpen] = useState(false);
 
@@ -66,49 +52,34 @@ export function StorefrontNavbar() {
   }, []);
 
   const pathname = usePathname();
-  const supabase = createClient();
 
-  // ... (keep defined vars)
-
-  // Fetch Categories logic ... (omitted for brevity in replacement if unchanged, but I need to include it or rely on existing)
-  // Re-including fetch to be safe as I am replacing the whole function body essentially or need to be careful with chunks.
-  // Actually, I'll just target the `return` block mostly, but need to insert the state hook.
-
-  // Fetch Categories (Re-declaring to ensure context is safe)
   const { data: categories = [] } = useQuery({
     queryKey: ["nav-categories-v2"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("categories")
-        .select("*, children:categories(id, name, slug)")
-        .eq("is_active", true)
-        .is("parent_id", null)
-        .order("name");
-      return data || [];
+      try {
+        const { product_categories } = await medusaClient.store.category.list({
+          fields: "*category_children"
+        });
+        return product_categories?.filter((c: any) => !c.parent_category_id) || [];
+      } catch (e) {
+        console.error("Failed to fetch categories:", e);
+        return [];
+      }
     },
   });
-
-  // Dynamic Nav Links (kept for logic reference if needed later, but commented out if truly unused,
-  // however the lint says it is assigned but never used. I will remove it.)
 
   return (
     <>
       <header className="relative w-full bg-background pt-[env(safe-area-inset-top)] z-50">
         <div className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          {/* Main Content - Fades out when search is open  */}
           <div
             className={cn(
               "w-full flex items-center justify-between transition-opacity duration-200",
               isSearchOpen ? "opacity-0 pointer-events-none" : "opacity-100",
             )}
           >
-            {/* Mobile Menu & Logo */}
             <div className="flex items-center gap-2">
-              <Link
-                href="/"
-                className="flex items-center gap-2 group"
-                title="Home"
-              >
+              <Link href="/" className="flex items-center gap-2 group" title="Home">
                 <div className="relative h-9 w-9 overflow-hidden rounded-full border border-border group-hover:scale-105 transition-all duration-300 shadow-lg">
                   <FlashImage
                     src="/flash-logo.jpg"
@@ -125,7 +96,6 @@ export function StorefrontNavbar() {
               </Link>
             </div>
 
-            {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center gap-2">
               <div
                 className="group relative"
@@ -135,9 +105,7 @@ export function StorefrontNavbar() {
                 <div
                   className={cn(
                     "flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.3em] transition-all px-4 py-2 cursor-pointer",
-                    isShopTrayOpen
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-foreground",
+                    isShopTrayOpen ? "text-primary" : "text-muted-foreground hover:text-foreground",
                   )}
                   onClick={(e) => {
                     e.preventDefault();
@@ -171,9 +139,7 @@ export function StorefrontNavbar() {
                 href="/lab"
                 className={cn(
                   "text-[10px] font-medium uppercase tracking-[0.3em] transition-all px-4 py-2",
-                  pathname === "/lab"
-                    ? "text-foreground font-black"
-                    : "text-muted-foreground hover:text-foreground",
+                  pathname === "/lab" ? "text-foreground font-black" : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 Lab
@@ -182,9 +148,7 @@ export function StorefrontNavbar() {
                 href="/blog"
                 className={cn(
                   "text-[10px] font-medium uppercase tracking-[0.3em] transition-all px-4 py-2",
-                  pathname?.startsWith("/blog")
-                    ? "text-foreground font-black"
-                    : "text-muted-foreground hover:text-foreground",
+                  pathname?.startsWith("/blog") ? "text-foreground font-black" : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 Blog
@@ -193,18 +157,14 @@ export function StorefrontNavbar() {
                 href="/contact"
                 className={cn(
                   "text-[10px] font-medium uppercase tracking-[0.3em] transition-all px-4 py-2",
-                  pathname === "/contact"
-                    ? "text-foreground font-black"
-                    : "text-muted-foreground hover:text-foreground",
+                  pathname === "/contact" ? "text-foreground font-black" : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 Contact
               </Link>
             </nav>
 
-            {/* Actions */}
             <div className="flex items-center gap-1 sm:gap-2">
-              {/* Search Trigger */}
               <Button
                 variant="ghost"
                 size="icon"
@@ -262,11 +222,7 @@ export function StorefrontNavbar() {
                 <>
                   {user ? (
                     <div className="flex items-center gap-2">
-                      <Link
-                        href="/account"
-                        className="hidden sm:block"
-                        aria-label="Account"
-                      >
+                      <Link href="/account" className="hidden sm:block" aria-label="Account">
                         <Button
                           variant="ghost"
                           size="sm"
@@ -276,7 +232,7 @@ export function StorefrontNavbar() {
                             {user.email?.[0]?.toUpperCase()}
                           </div>
                           <span className="max-w-[100px] truncate text-xs uppercase tracking-tight">
-                            {profile?.name || user.email?.split("@")[0]}
+                            {user.first_name || user.email?.split("@")[0]}
                           </span>
                         </Button>
                       </Link>
@@ -305,7 +261,6 @@ export function StorefrontNavbar() {
                 </>
               )}
 
-              {/* Hamburger Menu - Moved to Right */}
               <div className="ml-1">
                 <HamburgerMenu categories={categories} />
               </div>
@@ -316,10 +271,7 @@ export function StorefrontNavbar() {
 
       <AnimatePresence>
         {isSearchOpen && (
-          <SearchOverlay
-            isOpen={isSearchOpen}
-            onClose={() => setIsSearchOpen(false)}
-          />
+          <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
         )}
       </AnimatePresence>
     </>

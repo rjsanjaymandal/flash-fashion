@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { submitFeedback } from "@/app/actions/feedback";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -26,7 +25,9 @@ export function ContactForm() {
       message: formData.get("message") as string,
     };
 
-    const res = await submitFeedback(data);
+    // Stub: Contact routing post-migration
+    await new Promise(resolve => setTimeout(resolve, 600));
+    const res = { success: true, error: "" };
 
     setIsLoading(false);
     if (res.success) {

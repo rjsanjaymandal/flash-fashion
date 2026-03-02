@@ -14,6 +14,7 @@ import { logoutMedusa, getMedusaSession } from "@/app/actions/medusa-auth";
 
 interface AuthContextType {
   user: any | null; // Medusa Customer
+  profile: any | null;
   isLoading: boolean;
   isAdmin: boolean;
   signOut: () => Promise<void>;
@@ -77,6 +78,7 @@ export function AuthProvider({
     isLoading,
     isAdmin: user?.metadata?.role === "admin",
     signOut,
+    profile: user,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

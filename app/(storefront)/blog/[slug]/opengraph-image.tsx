@@ -1,5 +1,4 @@
 import { ImageResponse } from "next/og";
-import { createEdgeClient } from "@/lib/supabase/opengraph-client";
 
 export const runtime = "edge";
 
@@ -12,31 +11,13 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Image({ params }: { params: { slug: string } }) {
-  const slug = (await params).slug;
-  const supabase = createEdgeClient();
-
-  // Fetch blog data
-  const { data: post } = await (supabase as any)
-    .from("blog_posts")
-    .select("title, author, published_at")
-    .eq("slug", slug)
-    .single();
-
-  const title = post?.title || "Flash Fashion Blog";
-  const author = post?.author || "Flash Team";
-
-  // Format Date
-  const date = post?.published_at
-    ? new Date(post.published_at).toLocaleDateString("en-IN", {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-      })
-    : new Date().toLocaleDateString("en-IN", {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-      });
+  const title = "Flash Fashion Blog";
+  const author = "Flash Team";
+  const date = new Date().toLocaleDateString("en-IN", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 
   return new ImageResponse(
     <div

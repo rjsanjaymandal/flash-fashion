@@ -5,7 +5,6 @@ import { Providers } from "./providers";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { OrganizationJsonLd } from "@/components/seo/organization-json-ld";
 import { WebSiteJsonLd } from "@/components/seo/website-json-ld";
-import { getUnifiedAuth } from "@/lib/supabase/auth-helper";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { PWARegister } from "@/components/pwa-register";
@@ -122,23 +121,21 @@ export const metadata: Metadata = {
   },
 };
 
+import { getMedusaSession } from "@/app/actions/medusa-auth";
+
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { user, session, profile } = await getUnifiedAuth();
+  const customer = await getMedusaSession();
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${inter.variable} ${ebGaramond.variable} antialiased font-sans`}
       >
-        <Providers
-          initialUser={user}
-          initialSession={session}
-          initialProfile={profile}
-        >
+        <Providers initialUser={customer}>
           <NuqsAdapter>{children}</NuqsAdapter>
         </Providers>
         <OrganizationJsonLd />

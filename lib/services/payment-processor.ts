@@ -1,10 +1,5 @@
 
-import crypto from 'crypto'
-
-import { createAdminClient } from '@/lib/supabase/admin'
-// import { sendOrderConfirmation, sendAdminOrderAlert } from '@/lib/email/send-order-receipt' // DEPRECATED: Handled by Worker
 import Razorpay from 'razorpay'
-import { Tables } from '@/types/supabase'
 import { Result, ok, err } from '@/lib/utils/result'
 import { EventBus } from '@/lib/services/event-bus'
 import { medusaClient } from '@/lib/medusa'
@@ -208,22 +203,10 @@ export class PaymentProcessor {
         }
     }
 
-
-
     /**
      * Internal helper to log payment attempts
      */
     private static async logPaymentAttempt(component: string, message: string, severity: 'INFO' | 'WARN' | 'ERROR', metadata: Record<string, unknown>) {
-        try {
-            const supabase = createAdminClient()
-            await supabase.from('system_logs').insert({
-                severity,
-                component,
-                message,
-                metadata: metadata as any
-            })
-        } catch (err) {
-            console.error(`[PaymentProcessor] Critical Logging Failure (Suppressed):`, err)
-        }
+        console.log(`[PaymentProcessor][${severity}][${component}] ${message}`, metadata)
     }
 }

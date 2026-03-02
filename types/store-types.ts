@@ -1,5 +1,8 @@
-import type { Tables } from '@/types/supabase'
-
-export type Category = Tables<'categories'> & {
+export interface Category {
+  id: string
+  name: string
+  slug: string
+  description?: string | null
+  image_url?: string | null
   children?: Category[]
 }

@@ -246,14 +246,14 @@ export default function CheckoutPage() {
       if (result.valid) {
         setAppliedCoupon({
           code: couponCode.toUpperCase(),
-          type: result.discount_type!,
+          type: result.discount_type! as "fixed" | "percentage",
           value: result.value!,
         });
         toast.success(`Coupon applied: ${result.message}`);
       } else {
         setAppliedCoupon({
           code: couponCode.toUpperCase(),
-          type: result.discount_type!,
+          type: result.discount_type! as "fixed" | "percentage",
           value: result.value!,
         });
         setAppliedCoupon(null);
@@ -286,6 +286,7 @@ export default function CheckoutPage() {
 
       const sanitizedItems = items.map((i) => ({
         productId: i.productId,
+        variantId: i.variantId,
         name: i.name,
         price: i.price,
         quantity: i.quantity,

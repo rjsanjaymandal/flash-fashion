@@ -1,10 +1,10 @@
 'use server'
 
-import { createClient } from "@/lib/supabase/server"
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
 import { createSafeAction } from "@/lib/safe-action"
 import { updateMedusaCustomerData } from "@/lib/medusa-bridge"
+import { getMedusaSession } from "./medusa-auth"
 
 const addressSchema = z.object({
     name: z.string().min(1, "Name is required"),
@@ -29,16 +29,14 @@ export async function addAddress(formData: FormData) {
         pincode: formData.get('pincode') as string,
         is_default: formData.get('is_default') === 'on'
     }, async (rawData) => {
-        const supabase = await createClient()
-        const { data: { user } } = await supabase.auth.getUser()
-
-        if (!user) throw new Error("Unauthorized")
+        const customer = await getMedusaSession()
+        if (!customer) throw new Error("Unauthorized")
 
         const validated = addressSchema.safeParse(rawData)
         if (!validated.success) throw new Error(validated.error.issues[0].message)
 
         // Add to Medusa
-        const res = await updateMedusaCustomerData(user.email!, "add_address", {
+        const res = await updateMedusaCustomerData(customer.email!, "add_address", {
             first_name: validated.data.name,
             phone: validated.data.phone,
             address_1: validated.data.address_line1,
@@ -53,7 +51,7 @@ export async function addAddress(formData: FormData) {
 
         // If default, set it in metadata
         if (validated.data.is_default && res.address?.id) {
-            await updateMedusaCustomerData(user.email!, "set_default_address", {
+            await updateMedusaCustomerData(customer.email!, "set_default_address", {
                 address_id: res.address.id
             })
         }
@@ -65,12 +63,10 @@ export async function addAddress(formData: FormData) {
 
 export async function deleteAddress(id: string) {
     return createSafeAction("deleteAddress", { id }, async ({ id }) => {
-        const supabase = await createClient()
-        const { data: { user } } = await supabase.auth.getUser()
+        const customer = await getMedusaSession()
+        if (!customer) throw new Error("Unauthorized")
 
-        if (!user) throw new Error("Unauthorized")
-
-        const res = await updateMedusaCustomerData(user.email!, "delete_address", {
+        const res = await updateMedusaCustomerData(customer.email!, "delete_address", {
             address_id: id
         })
 
@@ -83,12 +79,10 @@ export async function deleteAddress(id: string) {
 
 export async function setDefaultAddress(id: string) {
     return createSafeAction("setDefaultAddress", { id }, async ({ id }) => {
-        const supabase = await createClient()
-        const { data: { user } } = await supabase.auth.getUser()
+        const customer = await getMedusaSession()
+        if (!customer) throw new Error("Unauthorized")
 
-        if (!user) throw new Error("Unauthorized")
-
-        const res = await updateMedusaCustomerData(user.email!, "set_default_address", {
+        const res = await updateMedusaCustomerData(customer.email!, "set_default_address", {
             address_id: id
         })
 

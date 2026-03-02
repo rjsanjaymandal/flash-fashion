@@ -1,0 +1,44 @@
+﻿
+> flash-ecommerce@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+- Experiments (use with caution):
+  ┬╖ optimizePackageImports
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 2.3min
+  Running TypeScript ...
+node.exe : Failed to compile.
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" 
+"C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Fa 
+   iled to compile.:String) [], RemoteExceptio  
+  n
+    + FullyQualifiedErrorId : NativeCommandErro 
+   r
+ 
+
+./app/(storefront)/checkout/page.tsx:249:11
+Type error: Type 'string' is not assignable to 
+type '"fixed" | "percentage"'.
+
+[0m [90m 247 |[39m         setAppliedCoupon({
+ [90m 248 |[39m           code[33m:[39m 
+couponCode[33m.[39mtoUpperCase()[33m,[39m
+[31m[1m>[22m[39m[90m 249 |[39m           
+type[33m:[39m result[33m.[39mdiscount_type[
+33m![39m[33m,[39m
+ [90m     |[39m           [31m[1m^[22m[39m
+ [90m 250 |[39m           value[33m:[39m 
+result[33m.[39mvalue[33m![39m[33m,[39m
+ [90m 251 |[39m         })[33m;[39m
+ [90m 252 |[39m         
+toast[33m.[39msuccess([32m`Coupon applied: 
+${result.message}`[39m)[33m;[39m[0m
+Next.js build worker exited with code: 1 and 
+signal: null

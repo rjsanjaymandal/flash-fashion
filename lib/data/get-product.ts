@@ -1,47 +1,56 @@
-import { createStaticClient } from '@/lib/supabase/server'
+import { medusaClient } from "@/lib/medusa"
 import { unstable_cache } from 'next/cache'
 import type { Product } from '@/lib/services/product-service'
 
 async function fetchProductBySlug(slug: string): Promise<Product | null> {
-    const supabase = createStaticClient()
-    const query = supabase
-      .from('products')
-      .select('*, categories(name), product_stock(*)')
-    
-    // Check if input looks like a UUID (fallback for ID-based routing)
-    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug)
-    
     try {
-        if (isUuid) {
-            // Try precise ID match first
-            const { data: idMatch } = await supabase.from('products').select('*, categories(name), product_stock(*)').eq('id', slug).single()
-            if (idMatch) return formatProduct(idMatch)
-        }
+        const { products } = await medusaClient.store.product.list({
+            handle: slug,
+            fields: "*categories,*variants,*variants.calculated_price,*images,*metadata"
+        });
 
-        const { data, error } = await query.eq('slug', slug).single()
-        
-        if (error) return null
+        const p = products[0];
+        if (!p) return null;
 
-        return formatProduct(data)
+        // Map to expected UI format
+        return {
+            id: p.id,
+            name: p.title,
+            slug: p.handle,
+            description: p.description || "",
+            price: p.variants?.[0]?.calculated_price?.calculated_amount || 0,
+            original_price: p.variants?.[0]?.calculated_price?.original_amount || 0,
+            main_image_url: p.thumbnail,
+            gallery_image_urls: p.images?.map((i: any) => i.url) || [],
+            status: p.status,
+            is_active: p.status === "published",
+            created_at: p.created_at,
+            categories: { name: p.categories?.[0]?.name || "Uncategorized" },
+            category_id: p.categories?.[0]?.id || "",
+            product_stock: p.variants?.map((v: any) => ({
+                id: v.id,
+                product_id: p.id,
+                size: v.title,
+                quantity: v.inventory_quantity || 10,
+            })) || [],
+            size_options: Array.from(new Set(p.variants?.map((v: any) => v.title) || [])),
+            color_options: [],
+            seo_title: p.title,
+            seo_description: p.description,
+            average_rating: 0, // Metadata handled elsewhere
+            review_count: 0
+        } as Product;
     } catch (error) {
-        console.error('fetchProductBySlug failed:', error)
-        return null
+        console.error('fetchProductBySlug failed:', error);
+        return null;
     }
-}
-
-function formatProduct(p: any): Product {
-    return {
-        ...p,
-        average_rating: Number(p.average_rating || 0),
-        review_count: Number(p.review_count || 0)
-    } as Product
 }
 
 export const getCachedProduct = unstable_cache(
     async (slug: string) => fetchProductBySlug(slug),
-    ['product-details-cached'], 
-    { 
+    ['product-details-cached'],
+    {
         revalidate: 900, // 15 Minutes
-        tags: ['products'] 
+        tags: ['products']
     }
 )

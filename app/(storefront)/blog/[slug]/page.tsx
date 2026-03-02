@@ -18,7 +18,7 @@ interface BlogPostPageProps {
 
 export async function generateStaticParams() {
   const slugs = await getAllBlogSlugs();
-  return slugs.map((slug) => ({ slug }));
+  return slugs.map((slug: string) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -61,8 +61,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const allPosts = await getBlogPosts();
   const relatedPosts = allPosts
-    .filter((p) => p.slug !== post.slug)
-    .filter((p) => p.tags.some((tag) => post.tags.includes(tag)))
+    .filter((p: any) => p?.slug !== post?.slug)
+    .filter((p: any) => p?.tags?.some((tag: string) => post?.tags?.includes(tag)))
     .slice(0, 2);
 
   return (
@@ -104,7 +104,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             <div className="space-y-4">
               <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
+                {post?.tags?.map((tag: string) => (
                   <Badge
                     key={tag}
                     variant="outline"
@@ -154,7 +154,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="mt-12 pt-8 border-t border-border/50">
               <div className="flex items-center justify-between">
                 <div className="flex gap-2">
-                  {post.tags.map((tag) => (
+                  {post?.tags?.map((tag: string) => (
                     <Badge key={tag} variant="secondary">
                       #{tag}
                     </Badge>
@@ -175,7 +175,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="container mx-auto max-w-4xl">
               <h2 className="text-xl font-bold mb-6">Related Posts</h2>
               <div className="grid md:grid-cols-2 gap-4">
-                {relatedPosts.map((related) => (
+                {relatedPosts.map((related: any) => (
                   <Link
                     key={related.slug}
                     href={`/blog/${related.slug}`}

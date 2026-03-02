@@ -1,4 +1,5 @@
-import { createClient } from "@/lib/supabase/server";
+import { getMedusaCustomerData } from "@/lib/medusa-bridge";
+import { getMedusaSession } from "@/app/actions/medusa-auth";
 import { redirect } from "next/navigation";
 import { OrdersTab } from "@/components/account/orders-tab";
 import { Button } from "@/components/ui/button";
@@ -9,21 +10,15 @@ import { BrandGlow } from "@/components/storefront/brand-glow";
 export const revalidate = 0;
 
 export default async function OrdersPage() {
-  const supabase = await createClient();
+  const customer = await getMedusaSession();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
+  if (!customer) {
     redirect("/login");
   }
 
-  const { data: orders } = await supabase
-    .from("orders")
-    .select("*")
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false });
+  // Fetch Medusa Orders via Bridge
+  const medusaData = await getMedusaCustomerData(customer.email);
+  const orders = medusaData?.orders || [];
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-6xl relative min-h-screen overflow-x-hidden">
@@ -59,7 +54,7 @@ export default async function OrdersPage() {
       </div>
 
       <div className="bg-white rounded-[2.5rem] border-2 border-zinc-100 shadow-2xl overflow-hidden p-6 md:p-10">
-        <OrdersTab orders={orders || []} />
+        <OrdersTab orders={orders} />
       </div>
     </div>
   );

@@ -1,11 +1,10 @@
 'use server'
 
-import { createClient } from '@/lib/supabase/server'
+import { medusaClient } from '@/lib/medusa'
 import { revalidatePath } from 'next/cache'
 
 export type Address = {
     id: string
-    user_id: string
     name: string
     address_line1: string
     address_line2?: string | null
@@ -17,55 +16,59 @@ export type Address = {
     is_default: boolean
 }
 
+/**
+ * Fetches addresses for the current customer from Medusa.
+ */
 export async function getAddresses() {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    
-    if (!user) return []
+    try {
+        const { customer } = await medusaClient.store.customer.retrieve();
+        if (!customer || !customer.addresses) return [];
 
-    const { data } = await supabase
-        .from('addresses')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('is_default', { ascending: false })
-    
-    return (data || []) as Address[]
+        return customer.addresses.map((addr: any) => ({
+            id: addr.id,
+            name: `${addr.first_name} ${addr.last_name}`.trim(),
+            address_line1: addr.address_1,
+            address_line2: addr.address_2,
+            city: addr.city,
+            state: addr.province,
+            pincode: addr.postal_code,
+            country: addr.country_code,
+            phone: addr.phone,
+            is_default: false // Medusa addresses don't have a native 'is_default' boolean, usually handled by customer.billing_address_id or shipping_address_id
+        }));
+    } catch (error) {
+        console.error('[getAddresses] Failed:', error);
+        return [];
+    }
 }
 
+/**
+ * Adds a new address to the Medusa customer.
+ */
 export async function addAddress(formData: FormData) {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    
-    if (!user) return { error: 'Not authenticated' }
+    try {
+        const name = (formData.get('name') as string || '').split(' ');
+        const firstName = name[0] || '';
+        const lastName = name.slice(1).join(' ') || 'User';
 
-    const rawData = {
-        user_id: user.id,
-        name: formData.get('name') as string,
-        address_line1: formData.get('address1') as string,
-        address_line2: formData.get('address2') as string,
-        city: formData.get('city') as string,
-        state: formData.get('state') as string,
-        pincode: formData.get('pincode') as string,
-        phone: formData.get('phone') as string,
-        country: 'India', // Default for now
-        is_default: formData.get('is_default') === 'on'
-    }
+        const addressData = {
+            first_name: firstName,
+            last_name: lastName,
+            address_1: formData.get('address1') as string,
+            address_2: formData.get('address2') as string,
+            city: formData.get('city') as string,
+            province: formData.get('state') as string,
+            postal_code: formData.get('pincode') as string,
+            phone: formData.get('phone') as string,
+            country_code: 'IN' // Standardized for India
+        };
 
-    // If default, unset others
-    if (rawData.is_default) {
-        await supabase
-            .from('addresses')
-            .update({ is_default: false })
-            .eq('user_id', user.id)
-    }
+        await medusaClient.store.customer.addAddress({ address: addressData });
 
-    const { error } = await supabase.from('addresses').insert(rawData)
-    
-    if (error) {
-        console.error('Add Address Error:', error)
+        revalidatePath('/checkout')
+        return { success: true }
+    } catch (error) {
+        console.error('[addAddress] Failed:', error);
         return { error: 'Failed to add address' }
     }
-
-    revalidatePath('/checkout')
-    return { success: true }
 }

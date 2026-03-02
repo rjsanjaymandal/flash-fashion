@@ -65,3 +65,9 @@ export async function updateMedusaCustomerData(
         return { error: error.message || "Network Error" }
     }
 }
+export async function updateMedusaCustomerMetadata(
+    customerId: string,
+    metadata: Record<string, any>
+) {
+    return updateMedusaCustomerData(customerId, 'update_metadata', metadata)
+}

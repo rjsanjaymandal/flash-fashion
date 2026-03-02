@@ -8,12 +8,12 @@ import { useCartStore } from "@/store/use-cart-store"
  * Handles cross-application state synchronization and initialization
  */
 export default function StoreSync() {
-  const { initializeCart } = useCartStore()
+  const { initCart } = useCartStore()
 
   useEffect(() => {
     // Initialize Medusa Cart
-    initializeCart()
-  }, [initializeCart])
+    initCart()
+  }, [initCart])
 
   return null
 }

@@ -15,7 +15,6 @@ import FlashImage from "@/components/ui/flash-image";
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { createClient } from "@/lib/supabase/client";
 
 // Inline Debounce Hook
 function useDebounce<T>(value: T, delay: number): T {
@@ -52,7 +51,6 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   const [trending, setTrending] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const supabase = createClient();
 
   // Prevent body scroll and Focus Input
   useEffect(() => {
@@ -62,16 +60,10 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
 
       // Fetch Trending on Open
       const fetchTrending = async () => {
-        const { data } = await supabase
-          .from("products")
-          .select("id, name, slug, price, main_image_url")
-          .eq("status", "active")
-          .order("price", { ascending: false }) // Show expensive/premium as trending
-          .limit(4);
-
-        if (data) setTrending(data as SearchResult[]);
+        // Stub pending Medusa integration
+        setTrending([]);
       };
-      fetchTrending();
+      if (isOpen) fetchTrending();
     } else {
       document.body.style.overflow = "unset";
       setQuery("");
@@ -92,18 +84,8 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
 
       setIsLoading(true);
       try {
-        const { data, error } = await supabase.rpc("search_products_v2", {
-          query_text: debouncedQuery,
-          limit_val: 8,
-        });
-
-        if (error) {
-          console.error("Search RPC Error:", error);
-          // Fallback or empty results strictly to prevent crash
-          setResults([]);
-        } else {
-          setResults(data || []);
-        }
+        // Stub: search pending Medusa logic
+        setResults([]);
       } catch (err) {
         console.error("Search Fail:", err);
       } finally {
@@ -112,7 +94,7 @@ export function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
     };
 
     search();
-  }, [debouncedQuery, supabase]);
+  }, [debouncedQuery]);
 
   return (
     <AnimatePresence>

@@ -1,9 +1,9 @@
 'use server'
 
-import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod';
 import { updateMedusaCustomerData } from '@/lib/medusa-bridge';
+import { getMedusaSession } from './medusa-auth';
 
 const profileSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -12,7 +12,11 @@ const profileSchema = z.object({
 });
 
 export async function updateProfile(formData: FormData) {
-  const supabase = await createClient()
+  const customer = await getMedusaSession()
+
+  if (!customer) {
+    return { error: 'Not authenticated' }
+  }
 
   const rawData = {
     name: formData.get('name'),
@@ -28,15 +32,8 @@ export async function updateProfile(formData: FormData) {
 
   const { name, pronouns, fit_preference } = parsed.data;
 
-  const { data: authData } = await supabase.auth.getUser()
-  const user = authData?.user
-
-  if (!user) {
-    return { error: 'Not authenticated' }
-  }
-
   // Update Medusa Profile via Bridge
-  const res = await updateMedusaCustomerData(user.email!, "update_profile", {
+  const res = await updateMedusaCustomerData(customer.email!, "update_profile", {
     first_name: name,
     metadata: {
       pronouns,

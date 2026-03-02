@@ -10,8 +10,6 @@ import { Bell, ShoppingCart, User, AlertCircle, Loader2 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
-import { createClient } from "@/lib/supabase/client";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 
@@ -27,103 +25,25 @@ interface Notification {
 
 export function NotificationsDropdown() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [userId, setUserId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const supabase = createClient();
 
   const unreadCount = notifications.filter((n) => !n.is_read).length;
 
   useEffect(() => {
-    const init = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (user) {
-        setUserId(user.id);
-        fetchNotifications(user.id);
-        setupRealtime(user.id);
-      }
-    };
-    init();
-
-    return () => {
-      supabase.channel("admin-notifications").unsubscribe();
-    };
+    // Notifications are currently disabled or migrated to a future Medusa bridge implementation
+    setNotifications([]);
   }, []);
 
-  const fetchNotifications = async (uid: string) => {
-    try {
-      const { data, error } = await (supabase as any)
-        .from("notifications")
-        .select("*")
-        .eq("user_id", uid)
-        .order("created_at", { ascending: false })
-        .limit(20);
-
-      if (error) throw error;
-      setNotifications(data as Notification[]);
-    } catch (err) {
-      console.error("Failed to fetch notifications:", err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const setupRealtime = (uid: string) => {
-    const channel = supabase
-      .channel("admin-notifications")
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "notifications",
-          filter: `user_id=eq.${uid}`,
-        },
-        (payload) => {
-          const newNotif = payload.new as Notification;
-          setNotifications((prev) => [newNotif, ...prev]);
-          toast.info(newNotif.title, {
-            description: newNotif.message,
-          });
-        },
-      )
-      .subscribe();
-  };
-
   const markAllAsRead = async () => {
-    if (!userId) return;
-
-    // Optimistic update
     setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })));
-
-    try {
-      const { error } = await (supabase as any)
-        .from("notifications")
-        .update({ is_read: true })
-        .eq("user_id", userId)
-        .eq("is_read", false);
-
-      if (error) throw error;
-    } catch (err) {
-      console.error("Failed to mark as read:", err);
-      toast.error("Failed to update status");
-    }
   };
 
   const markOneRead = async (id: string, currentRead: boolean) => {
     if (currentRead) return;
-
-    // Optimistic
     setNotifications((prev) =>
       prev.map((n) => (n.id === id ? { ...n, is_read: true } : n)),
     );
-
-    await (supabase as any)
-      .from("notifications")
-      .update({ is_read: true })
-      .eq("id", id);
   };
 
   const handleValidation = (notification: Notification) => {
@@ -179,20 +99,20 @@ export function NotificationsDropdown() {
                   className={cn(
                     "flex gap-3 p-4 hover:bg-muted/50 transition-colors cursor-pointer text-left relative",
                     !notification.is_read &&
-                      "bg-blue-50/50 dark:bg-blue-900/10",
+                    "bg-blue-50/50 dark:bg-blue-900/10",
                   )}
                 >
                   <div
                     className={cn(
                       "h-8 w-8 rounded-full flex items-center justify-center shrink-0 border",
                       notification.type === "success" &&
-                        "bg-green-100 text-green-600 border-green-200", // Usually orders
+                      "bg-green-100 text-green-600 border-green-200", // Usually orders
                       notification.type === "info" &&
-                        "bg-blue-100 text-blue-600 border-blue-200", // Users
+                      "bg-blue-100 text-blue-600 border-blue-200", // Users
                       notification.type === "warning" &&
-                        "bg-amber-100 text-amber-600 border-amber-200", // Stock
+                      "bg-amber-100 text-amber-600 border-amber-200", // Stock
                       notification.type === "error" &&
-                        "bg-red-100 text-red-600 border-red-200",
+                      "bg-red-100 text-red-600 border-red-200",
                     )}
                   >
                     {notification.type === "success" && (
@@ -203,8 +123,8 @@ export function NotificationsDropdown() {
                     )}
                     {(notification.type === "warning" ||
                       notification.type === "error") && (
-                      <AlertCircle className="h-4 w-4" />
-                    )}
+                        <AlertCircle className="h-4 w-4" />
+                      )}
                   </div>
                   <div className="flex-1 space-y-1">
                     <p className="text-sm font-medium leading-none">
