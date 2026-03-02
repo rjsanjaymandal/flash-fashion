@@ -460,3 +460,68 @@
 Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::305:4530","64:ff9b::345c:f2","64:ff9b::305:43cb","64:ff9b::345c:2e2","64:ff9b::305:43cd","64:ff9b::305:4b0f","64:ff9b::305:4863","64:ff9b::345c:232a"]
 Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:4a23","64:ff9b::305:4506","64:ff9b::345c:402","64:ff9b::305:4524","64:ff9b::345c:1392","64:ff9b::305:40e1","64:ff9b::345c:134a","64:ff9b::34da:29f0"]
 Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::345c:205a","64:ff9b::305:493c","64:ff9b::305:4914","64:ff9b::345c:10e2","64:ff9b::305:452c","64:ff9b::305:453d","64:ff9b::345c:132a","64:ff9b::305:43f4"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::34da:7010","64:ff9b::34da:1a8","64:ff9b::305:4b1e","64:ff9b::34da:3e50","64:ff9b::34da:7572","64:ff9b::305:4755","64:ff9b::305:4943","64:ff9b::305:4b35"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::345c:22a","64:ff9b::305:477f","64:ff9b::34da:3da8","64:ff9b::305:4b78","64:ff9b::345c:149a","64:ff9b::305:4533","64:ff9b::34da:2c5a","64:ff9b::345c:23da"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::305:40d5","64:ff9b::305:43cd","64:ff9b::305:4b78","64:ff9b::34da:7522","64:ff9b::345c:10a","64:ff9b::305:4a53","64:ff9b::345c:146a","64:ff9b::305:4863"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::345c:c2","64:ff9b::305:4a2e","64:ff9b::305:4530","64:ff9b::305:43c2","64:ff9b::305:4a59","64:ff9b::345c:2242","64:ff9b::305:477f","64:ff9b::305:4209"]
+Γ£ô Compiled in 35.4s
+ GET / 200 in 26.7s (compile: 17.0s, proxy.ts: 169ms, render: 9.5s)
+ GET / 200 in 6.0s (compile: 1188ms, proxy.ts: 560ms, render: 4.3s)
+ GET / 200 in 6.0s (compile: 224ms, proxy.ts: 554ms, render: 5.2s)
+ GET / 200 in 6.0s (compile: 2.6s, proxy.ts: 561ms, render: 2.9s)
+ GET / 200 in 6.0s (compile: 3.0s, proxy.ts: 564ms, render: 2.4s)
+ GET / 200 in 6.1s (compile: 613ms, proxy.ts: 557ms, render: 4.9s)
+ GET / 200 in 3.8s (compile: 178ms, proxy.ts: 87ms, render: 3.5s)
+ GET / 200 in 2.1s (compile: 66ms, proxy.ts: 185ms, render: 1859ms)
+ GET / 200 in 2.1s (compile: 723ms, proxy.ts: 190ms, render: 1196ms)
+ GET / 200 in 2.2s (compile: 1332ms, proxy.ts: 240ms, render: 592ms)
+ GET / 200 in 2.1s (compile: 483ms, proxy.ts: 193ms, render: 1433ms)
+ GET / 200 in 2.1s (compile: 1070ms, proxy.ts: 181ms, render: 877ms)
+ GET / 200 in 1257ms (compile: 51ms, proxy.ts: 18ms, render: 1188ms)
+ GET / 200 in 1237ms (compile: 199ms, proxy.ts: 332ms, render: 707ms)
+ GET / 200 in 1238ms (compile: 368ms, proxy.ts: 331ms, render: 539ms)
+ GET / 200 in 1246ms (compile: 49ms, proxy.ts: 332ms, render: 865ms)
+ GET / 200 in 1237ms (compile: 498ms, proxy.ts: 342ms, render: 397ms)
+ GET / 200 in 1124ms (compile: 211ms, proxy.ts: 506ms, render: 408ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:43c0","64:ff9b::305:493b","64:ff9b::345c:129a","64:ff9b::345c:82","64:ff9b::305:490e","64:ff9b::345c:13ea","64:ff9b::305:4a78","64:ff9b::305:487f"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:43c0","64:ff9b::305:493b","64:ff9b::345c:129a","64:ff9b::345c:82","64:ff9b::305:490e","64:ff9b::345c:13ea","64:ff9b::305:4a78","64:ff9b::305:487f"]
+ GET / 200 in 1091ms (compile: 29ms, proxy.ts: 13ms, render: 1050ms)
+ GET / 200 in 1078ms (compile: 22ms, proxy.ts: 225ms, render: 830ms)
+ GET / 200 in 909ms (compile: 6ms, proxy.ts: 7ms, render: 896ms)
+ GET / 200 in 1008ms (compile: 7ms, proxy.ts: 16ms, render: 985ms)
+ GET / 200 in 1112ms (compile: 9ms, proxy.ts: 18ms, render: 1085ms)
+ GET / 200 in 976ms (compile: 10ms, proxy.ts: 9ms, render: 957ms)
+ GET / 200 in 853ms (compile: 10ms, proxy.ts: 13ms, render: 830ms)
+ GET / 200 in 651ms (compile: 17ms, proxy.ts: 15ms, render: 618ms)
+ GET / 200 in 433ms (compile: 16ms, proxy.ts: 35ms, render: 383ms)
+Γùï Compiling /_not-found/page ...
+ GET / 404 in 65s (compile: 63s, proxy.ts: 38ms, render: 1777ms)
+ GET / 200 in 46s (compile: 41s, proxy.ts: 86ms, render: 5.2s)
+ GET / 200 in 46s (compile: 41s, proxy.ts: 91ms, render: 4.8s)
+ GET / 200 in 46s (compile: 42s, proxy.ts: 82ms, render: 4.5s)
+ GET / 200 in 46s (compile: 40s, proxy.ts: 84ms, render: 5.9s)
+ GET / 200 in 46s (compile: 42s, proxy.ts: 95ms, render: 4.1s)
+ GET / 200 in 1692ms (compile: 248ms, proxy.ts: 30ms, render: 1414ms)
+ GET / 200 in 1689ms (compile: 431ms, proxy.ts: 29ms, render: 1229ms)
+ GET / 200 in 1705ms (compile: 609ms, proxy.ts: 30ms, render: 1065ms)
+ GET / 200 in 1704ms (compile: 726ms, proxy.ts: 30ms, render: 949ms)
+ GET / 200 in 1743ms (compile: 27ms, proxy.ts: 31ms, render: 1685ms)
+ GET / 200 in 3.8s (compile: 71ms, proxy.ts: 65ms, render: 3.6s)
+ GET /manifest.webmanifest 200 in 226ms (compile: 169ms, proxy.ts: 24ms, render: 33ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:40ce","64:ff9b::345c:33a","64:ff9b::305:4b44","64:ff9b::34da:3db0","64:ff9b::305:423b","64:ff9b::305:4b34","64:ff9b::345c:36a","64:ff9b::305:4506"]
+ POST / 200 in 59ms (compile: 8ms, proxy.ts: 13ms, render: 37ms)
+ POST / 200 in 58ms (compile: 11ms, proxy.ts: 10ms, render: 37ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::305:4a3b","64:ff9b::305:421c","64:ff9b::305:4740","64:ff9b::345c:1452","64:ff9b::305:4962","64:ff9b::305:4226","64:ff9b::305:40e8","64:ff9b::305:4773"]
+ POST / 200 in 41ms (compile: 9ms, proxy.ts: 9ms, render: 23ms)
+ POST / 200 in 30ms (compile: 7ms, proxy.ts: 6ms, render: 17ms)
+ POST / 200 in 41ms (compile: 8ms, proxy.ts: 6ms, render: 27ms)
+ POST / 200 in 52ms (compile: 10ms, proxy.ts: 7ms, render: 35ms)
+ POST / 200 in 44ms (compile: 9ms, proxy.ts: 10ms, render: 24ms)
+ POST / 200 in 34ms (compile: 6ms, proxy.ts: 6ms, render: 23ms)
+ POST / 200 in 39ms (compile: 6ms, proxy.ts: 7ms, render: 26ms)
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:485f","64:ff9b::305:4858","64:ff9b::305:4a50","64:ff9b::345c:10fa","64:ff9b::305:40d5","64:ff9b::345c:e2","64:ff9b::345c:20fa","64:ff9b::305:4238"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::305:4b42","64:ff9b::305:4523","64:ff9b::305:40e9","64:ff9b::345c:21da","64:ff9b::345c:372","64:ff9b::305:43e3","64:ff9b::305:452c","64:ff9b::305:43fd"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/tee-black-front.png resolved to private ip ["64:ff9b::305:40e9","64:ff9b::345c:2382","64:ff9b::34da:3e88","64:ff9b::305:4b3d","64:ff9b::305:43e3","64:ff9b::305:40d6","64:ff9b::345c:1392","64:ff9b::345c:2282"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatshirt-vintage-front.png resolved to private ip ["64:ff9b::345c:1482","64:ff9b::305:43cd","64:ff9b::345c:145a","64:ff9b::34da:c0","64:ff9b::345c:502","64:ff9b::345c:13a","64:ff9b::305:4769","64:ff9b::305:4238"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/sweatpants-gray-front.png resolved to private ip ["64:ff9b::305:4740","64:ff9b::305:421c","64:ff9b::345c:2332","64:ff9b::305:40c7","64:ff9b::305:450c","64:ff9b::305:4208","64:ff9b::305:4502","64:ff9b::305:4853"]
+Γ¿» upstream image https://medusa-public-images.s3.eu-west-1.amazonaws.com/shorts-vintage-front.png resolved to private ip ["64:ff9b::34da:749a","64:ff9b::34da:7532","64:ff9b::345c:21aa","64:ff9b::305:452c","64:ff9b::305:43d2","64:ff9b::345c:246a","64:ff9b::305:4b16","64:ff9b::305:4962"]
