@@ -44,7 +44,13 @@ export async function getCategoriesTree(): Promise<Category[]> {
 export async function getLinearCategories(activeOnly = false): Promise<Category[]> {
     try {
         const { product_categories } = await medusaClient.store.category.list();
-        return product_categories;
+        return product_categories.map((cat: any) => ({
+            id: cat.id,
+            name: cat.name,
+            slug: cat.handle || cat.id,
+            handle: cat.handle,
+            description: cat.description,
+        }));
     } catch (error) {
         console.error('[getLinearCategories] Failed:', error);
         return [];
