@@ -61,13 +61,21 @@ export const useCartStore = create<CartState>()(
         if (currentCartId) return currentCartId
 
         try {
+          console.log("Creating Medusa cart...");
           const { cart } = await medusaClient.store.cart.create({
-            region_id: undefined, // Let medusa handle defaults or add region logic if needed
+            region_id: undefined,
           })
+          console.log("Medusa cart created:", cart.id);
           set({ cartId: cart.id })
           return cart.id
-        } catch (error) {
-          console.error("Failed to create cart:", error)
+        } catch (error: any) {
+          console.error("Failed to create cart - Detailed SDK Error:", {
+            message: error.message,
+            status: error.status,
+            name: error.name,
+            stack: error.stack,
+            type: typeof error
+          })
           throw error
         }
       },
@@ -130,8 +138,13 @@ export const useCartStore = create<CartState>()(
 
           if (options.showToast) toast.success("Added to cart")
           if (options.openCart) set({ isCartOpen: true })
-        } catch (error) {
-          console.error("Error adding to cart:", error)
+        } catch (error: any) {
+          console.error("Error adding to cart - Detailed SDK Error:", {
+            message: error.message,
+            status: error.status,
+            name: error.name,
+            stack: error.stack
+          })
           toast.error("Failed to add item to cart")
         } finally {
           set({ isLoading: false })

@@ -33,10 +33,12 @@ export function AuthProvider({
   const [isLoading, setIsLoading] = useState(!initialUser);
 
   useEffect(() => {
+    console.log("AuthProvider initializing...");
     const initializeAuth = async () => {
       try {
         if (!initialUser) {
           const customer = await getMedusaSession();
+          console.log("Medusa session fetched:", customer ? "User found" : "No user");
           setUser(customer);
           if (customer) {
             useCartStore.getState().setItems([]); // Clear local temporary items

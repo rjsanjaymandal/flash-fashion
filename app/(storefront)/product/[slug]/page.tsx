@@ -6,36 +6,8 @@ import { NewsletterSection } from "@/components/marketing/newsletter-section";
 import { ProductCarousel } from "@/components/products/product-carousel";
 import { ProductJsonLd } from "@/components/seo/product-json-ld";
 import { notFound } from "next/navigation";
+import { getProductBySlug, getRelatedProducts } from "@/lib/services/product-service";
 import { medusaClient } from "@/lib/medusa";
-
-// Convert Medusa Product to match the storefront's expected UI format
-function mapMedusaToProduct(p: any) {
-  return {
-    id: p.id,
-    name: p.title,
-    slug: p.handle,
-    description: p.description || "",
-    price: p.variants?.[0]?.calculated_price?.calculated_amount || 0,
-    original_price: p.variants?.[0]?.calculated_price?.original_amount || 0,
-    main_image_url: p.thumbnail,
-    gallery_image_urls: p.images?.map((i: any) => i.url) || [],
-    status: p.status,
-    is_active: p.status === "published",
-    created_at: p.created_at,
-    categories: { name: p.categories?.[0]?.name || "Uncategorized" },
-    category_id: p.categories?.[0]?.id || "",
-    product_stock: p.variants?.map((v: any) => ({
-      id: v.id,
-      product_id: p.id,
-      size: v.title,
-      quantity: v.inventory_quantity || 10,
-    })) || [],
-    size_options: Array.from(new Set(p.variants?.map((v: any) => v.title) || [])),
-    color_options: [], // Colors are handled as metadata/options in Medusa
-    seo_title: p.title,
-    seo_description: p.description
-  };
-}
 
 export async function generateStaticParams() {
   try {
@@ -44,7 +16,7 @@ export async function generateStaticParams() {
       slug: product.handle,
     }));
   } catch (e) {
-    return []
+    return [];
   }
 }
 
@@ -56,19 +28,15 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  let product = null;
-
-  try {
-    const { products } = await medusaClient.store.product.list({ handle: slug });
-    product = products[0];
-  } catch (e) { }
+  const product = await getProductBySlug(slug);
 
   if (!product) return { title: "Product Not Found" };
 
-  const title = (product.title) + " | Flash Fashion";
+  const title = product.name + " | Flash Fashion";
   const description = (
+    product.seo_description ||
     product.description ||
-    `Cop the ${product.title}. Premium anime-inspired streetwear dropped by FLASH.`
+    `Cop the ${product.name}. Premium anime-inspired streetwear dropped by FLASH.`
   ).slice(0, 150);
 
   return {
@@ -77,7 +45,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      images: product.thumbnail ? [product.thumbnail] : [],
+      images: product.main_image_url ? [product.main_image_url] : [],
       type: "website",
       siteName: "FLASH",
     },
@@ -85,10 +53,10 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: product.thumbnail ? [product.thumbnail] : [],
+      images: product.main_image_url ? [product.main_image_url] : [],
     },
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://flashhfashion.in"}/product/${product.handle}`,
+      canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://flashhfashion.in"}/product/${product.slug}`,
     },
   };
 }
@@ -100,41 +68,24 @@ export default async function ProductPage({
 }) {
   const { slug } = await params;
 
-  let rawProduct: any = null;
-  try {
-    const { products } = await medusaClient.store.product.list({
-      handle: slug,
-      fields: "*categories,*variants,*variants.calculated_price,*images,*metadata"
-    });
-    rawProduct = products[0];
-  } catch (e) { }
+  // Fetch product using the centralized service
+  const product = await getProductBySlug(slug);
 
-  if (!rawProduct) {
+  if (!product) {
     notFound();
   }
 
-  const product = mapMedusaToProduct(rawProduct);
+  // Fetch related products using the centralized service
+  const relatedProducts = await getRelatedProducts(product);
 
-  let relatedProducts: any[] = [];
-  try {
-    if (rawProduct.categories?.[0]?.id) {
-      const { products: fetchedRelated } = await medusaClient.store.product.list({
-        category_id: [rawProduct.categories[0].id],
-        fields: "*categories,*variants,*variants.calculated_price,*images",
-        limit: 5
-      })
-      relatedProducts = fetchedRelated.filter((p: any) => p.id !== rawProduct.id).map(mapMedusaToProduct);
-    }
-  } catch (e) { }
-
-  // Fetch Reviews from metadata
-  const reviews = await getReviews(rawProduct.id);
+  // Fetch Reviews
+  const reviews = await getReviews(product.id);
 
   // Dummy color map (handled via Medusa options in later phases)
   const colorMap: Record<string, string> = {
-    'Black': '#000000',
-    'White': '#FFFFFF',
-    'Red': '#FF0000'
+    Black: "#000000",
+    White: "#FFFFFF",
+    Red: "#FF0000",
   };
 
   // Calculate Review Stats
@@ -173,13 +124,11 @@ export default async function ProductPage({
       <div className="container mx-auto px-4 lg:px-8 space-y-20 pb-20">
         <ReviewSection
           productId={product.id}
-          reviews={
-            reviews.map((r: any) => ({
-              ...r,
-              user_name: r.user_name || "Anonymous",
-              comment: r.comment || "",
-            }))
-          }
+          reviews={reviews.map((r: any) => ({
+            ...r,
+            user_name: r.user_name || "Anonymous",
+            comment: r.comment || "",
+          }))}
         />
 
         <ProductCarousel products={relatedProducts} />

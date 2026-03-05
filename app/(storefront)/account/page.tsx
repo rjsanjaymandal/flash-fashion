@@ -5,10 +5,14 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://127.0.0.1:9000"
+const PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
 
 async function fetchFromMedusa(path: string, token: string) {
   const res = await fetch(`${BACKEND_URL}${path}`, {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'x-publishable-api-key': PUBLISHABLE_KEY,
+    },
     next: { revalidate: 0 }
   })
   if (!res.ok) return null

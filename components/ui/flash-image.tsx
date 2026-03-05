@@ -57,6 +57,7 @@ export default function FlashImage({
     <div
       className={cn(
         "relative overflow-hidden bg-secondary/20",
+        props.fill ? "h-full w-full" : "",
         aspectRatios[aspectRatio],
         containerClassName
       )}

@@ -30,7 +30,12 @@ export default function myImageLoader({
     const url = new URL(src);
     const hostname = url.hostname;
 
-    // 2. Optimized Cloudinary Native Handling
+    // 2. Skip Cloudinary proxy for localhost/local dev URLs (Cloudinary can't reach them)
+    if (hostname === "localhost" || hostname === "127.0.0.1") {
+      return src;
+    }
+
+    // 3. Optimized Cloudinary Native Handling
     if (hostname.includes("res.cloudinary.com") && cloudName) {
       const pathSegments = url.pathname.split("/");
       const uploadIndex = pathSegments.indexOf("upload");

@@ -61,9 +61,39 @@ export async function getRootCategories(limit?: number): Promise<any[]> {
     try {
         const { product_categories } = await medusaClient.store.category.list({
             // Filter roots (parent_category_id: null)
+            fields: "*category_children",
         });
+
         const roots = product_categories.filter((c: any) => !c.parent_category_id);
-        return limit ? roots.slice(0, limit) : roots;
+        const categoriesToShow = limit ? roots.slice(0, limit) : roots;
+
+        // For each category, fetch products to get a random image
+        const categoriesWithImages = await Promise.all(categoriesToShow.map(async (category: any) => {
+            try {
+                // If category already has an image, use it (optional, but requested "from their product images randomly")
+                // Fetch up to 10 products from this category
+                const { products } = await medusaClient.store.product.list({
+                    category_id: [category.id],
+                    limit: 10,
+                    fields: "thumbnail",
+                });
+
+                if (products && products.length > 0) {
+                    // Pick a random product image
+                    const randomIndex = Math.floor(Math.random() * products.length);
+                    const randomProduct = products[randomIndex];
+                    return {
+                        ...category,
+                        image_url: randomProduct.thumbnail || category.image_url
+                    };
+                }
+            } catch (err) {
+                console.error(`[getRootCategories] Failed to fetch products for category ${category.id}:`, err);
+            }
+            return category;
+        }));
+
+        return categoriesWithImages;
     } catch (error) {
         console.error('[getRootCategories] Failed:', error);
         return [];
