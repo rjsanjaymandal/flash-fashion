@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/use-cart-store";
 import { cn, formatCurrency, calculateDiscount } from "@/lib/utils";
-import { Phone, Plus, Share2, Star } from "lucide-react"; // Icons for services
+import { Phone, Plus, Share2, Star } from "lucide-react";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -46,7 +46,6 @@ import {
 // Fallback Standards
 const STANDARD_SIZES = ["XS", "S", "M", "L", "XL", "XXL", "3XL"];
 
-// Types
 type ProductDetailProps = {
   product: {
     id: string;
@@ -86,7 +85,6 @@ export function ProductDetailClient({
   const router = useRouter();
   const addToCart = useCartStore((state) => state.addItem);
 
-  // Enterprise Initial State: Find first in-stock variant combo if available.
   const initialStockItem = useMemo(() => {
     return product.product_stock?.find((s) => s.quantity > 0);
   }, [product.product_stock]);
@@ -115,14 +113,12 @@ export function ProductDetailClient({
   const [isWaitlistDialogOpen, setIsWaitlistDialogOpen] = useState(false);
   const [isUnjoinDialogOpen, setIsUnjoinDialogOpen] = useState(false);
 
-  // Helper: Normalize color strings (fix typos, standard formatting)
+  // Helper: Normalize color
   const normalizeColor = (c: string) => {
     if (!c) return "";
     let clean = c.trim().toLowerCase().replace(/\s+/g, " ");
-    // Specific fixes based on user feedback
     if (clean === "offf white") clean = "off white";
     if (clean === "off-white") clean = "off white";
-    // Title Case for display
     return clean
       .split(" ")
       .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
@@ -151,17 +147,12 @@ export function ProductDetailClient({
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
 
-  // Auto-Select Logic: If there's only 1 option for any attribute, select it automatically.
-
   const { user } = useAuth();
-
-  // Real-time Stock & Hype Check
   const { stock: realTimeStock, loading: loadingStock } = useRealTimeHype(
     product.id,
     product.product_stock,
   );
 
-  // Helper to get or create guest ID
   const getGuestId = useCallback(() => {
     if (typeof window === "undefined") return undefined;
     let id = localStorage.getItem("guest_id");
@@ -172,14 +163,12 @@ export function ProductDetailClient({
     return id;
   }, []);
 
-  // Logic to determine what options to show
   const sizeOptions = useMemo(() => {
     const sizes = product.size_options?.length
       ? [...product.size_options]
       : realTimeStock?.length
         ? Array.from(new Set(realTimeStock.map((s) => s.size)))
         : ["One Size"];
-
     return sizes.sort((a, b) => {
       const indexA = STANDARD_SIZES.indexOf(a);
       const indexB = STANDARD_SIZES.indexOf(b);
@@ -194,17 +183,12 @@ export function ProductDetailClient({
     const rawOptions = product.color_options?.length
       ? product.color_options
       : realTimeStock?.map((s) => s.color).filter(Boolean) || ["Standard"];
-
-    // Deduplicate based on normalized values
     const normalized = Array.from(
       new Set(rawOptions.map(normalizeColor)),
     ).sort();
-
-    // Hide if only 1 option and it's "Standard"
     if (normalized.length === 1 && normalized[0] === "Standard") {
       return [];
     }
-
     return normalized;
   }, [product.color_options, realTimeStock]);
 
@@ -212,20 +196,14 @@ export function ProductDetailClient({
     if (product.fit_options?.length) {
       return product.fit_options;
     }
-
     const fits = realTimeStock?.map((s) => s.fit).filter(Boolean) || [];
-    const uniqueFits = Array.from(new Set(fits));
-
-    return uniqueFits;
+    return Array.from(new Set(fits));
   }, [product.fit_options, realTimeStock]);
 
-  // Stock Logic (Normalized)
   const stockMap = useMemo(() => {
     const map: Record<string, number> = {};
     if (!realTimeStock) return map;
-
     realTimeStock.forEach((item) => {
-      // Use normalized color for the key to merge duplicates
       const key = `${item.size}-${normalizeColor(item.color || "")}-${item.fit || "Regular"}`;
       map[key] = (map[key] || 0) + item.quantity;
     });
@@ -244,11 +222,8 @@ export function ProductDetailClient({
   const getStock = (size: string, color: string, fit: string) =>
     stockMap[`${size}-${normalizeColor(color)}-${fit}`] || 0;
 
-  // Auto-Select Logic: Context Aware Selection
   useEffect(() => {
-    // Determine available options under current constraints
     const availableSizes = sizeOptions.filter((s: string) => {
-      // If color and fit are selected, check exact stock. Otherwise it's broadly available.
       if (selectedColor && selectedFit)
         return getStock(s, selectedColor, selectedFit) > 0;
       return true;
@@ -266,8 +241,6 @@ export function ProductDetailClient({
       return true;
     });
 
-    // 1. Auto-Select or Correct Size
-    // If no size is selected, or if the current size is no longer available under the new color/fit constraints BUT other sizes are.
     if (
       !selectedSize ||
       (selectedSize &&
@@ -277,11 +250,10 @@ export function ProductDetailClient({
       if (availableSizes.length > 0) {
         setSelectedSize(availableSizes[0]);
       } else if (sizeOptions.length > 0 && !selectedSize) {
-        setSelectedSize(sizeOptions[0]); // Global fallback
+        setSelectedSize(sizeOptions[0]);
       }
     }
 
-    // 2. Auto-Select or Correct Color
     if (
       !selectedColor ||
       (selectedColor &&
@@ -291,11 +263,10 @@ export function ProductDetailClient({
       if (availableColors.length > 0) {
         setSelectedColor(availableColors[0]);
       } else if (colorOptions.length > 0 && !selectedColor) {
-        setSelectedColor(colorOptions[0]); // Global fallback
+        setSelectedColor(colorOptions[0]);
       }
     }
 
-    // 3. Auto-Select or Correct Fit
     if (
       !selectedFit ||
       (selectedFit &&
@@ -305,7 +276,7 @@ export function ProductDetailClient({
       if (availableFits.length > 0) {
         setSelectedFit(availableFits[0]);
       } else if (fitOptions.length > 0 && !selectedFit) {
-        setSelectedFit(fitOptions[0]); // Global fallback
+        setSelectedFit(fitOptions[0]);
       }
     }
   }, [
@@ -315,10 +286,9 @@ export function ProductDetailClient({
     selectedSize,
     selectedColor,
     selectedFit,
-    stockMap, // Dependency on stock map so it respects real-time calculations
+    stockMap,
   ]);
-  //   const isAvailable = (size: string, color: string) =>
-  //     (stockMap[`${size}-${color}`] || 0) > 0;
+
   const isSizeAvailable = (size: string) => {
     if (!selectedColor || !selectedFit) return true;
     return getStock(size, selectedColor, selectedFit) > 0;
@@ -329,16 +299,13 @@ export function ProductDetailClient({
     return getStock(selectedSize, selectedColor, fit) > 0;
   };
 
-  // If fit is hidden, use "Regular" for stock lookup as per default standard
   const activeFit = selectedFit || "Regular";
   const maxQty = getStock(selectedSize, selectedColor, activeFit);
 
-  // Logic: OOS if Global stock is 0 OR if specific selection is 0
   const isGlobalOutOfStock = totalStock === 0 && !loadingStock;
   const isSelectionOutOfStock = maxQty === 0 && selectedSize && selectedColor;
   const isOutOfStock = isGlobalOutOfStock || isSelectionOutOfStock;
 
-  // Handlers
   const handlePreOrder = async () => {
     if (isOnWaitlist) {
       if (!user) {
@@ -416,6 +383,7 @@ export function ProductDetailClient({
       setIsLoadingWaitlist(false);
     }
   };
+
   const handleAddToCart = async () => {
     const stockItem = product.product_stock.find(
       (s) =>
@@ -439,13 +407,14 @@ export function ProductDetailClient({
           price: adjustedPrice,
           image: product.main_image_url,
           size: selectedSize,
-          color: selectedColor || "Standard", // Fallback for backend if color hidden
-          fit: selectedFit || "Regular", // Fallback for backend if fit hidden
+          color: selectedColor || "Standard",
+          fit: selectedFit || "Regular",
           quantity: quantity,
           maxQuantity: maxQty,
           slug: product.slug || "",
         }
       );
+      toast.success("Added to shopping bag");
       return true;
     } catch {
       toast.error("Failed to update cart");
@@ -453,12 +422,10 @@ export function ProductDetailClient({
     }
   };
 
-  // Prefetch checkout for speed
   useEffect(() => {
     router.prefetch("/checkout");
   }, [router]);
 
-  // FAQ Data
   const faqData = [
     {
       question: "Material",
@@ -486,6 +453,7 @@ export function ProductDetailClient({
       {/* SPLIT INFO SECTION (Grid) */}
       <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 pt-8 pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-6 lg:gap-x-24">
+
           {/* LEFT COLUMN: Identity & Visuals (Col-7) */}
           <div className="col-span-1 lg:col-span-7 flex flex-col gap-6">
             <div className="space-y-6">
@@ -527,12 +495,7 @@ export function ProductDetailClient({
                         {formatCurrency(product.original_price)}
                       </span>
                       <span className="text-[10px] uppercase tracking-[0.2em] text-foreground border border-foreground/20 px-2 py-0.5 rounded-none">
-                        -
-                        {calculateDiscount(
-                          adjustedPrice,
-                          product.original_price,
-                        )}
-                        %
+                        -{calculateDiscount(adjustedPrice, product.original_price)}%
                       </span>
                     </div>
                   )}
@@ -599,20 +562,17 @@ export function ProductDetailClient({
 
           {/* RIGHT COLUMN: Action & Service (Col-5) */}
           <div className="col-span-1 lg:col-span-5 flex flex-col gap-5 lg:pt-8">
-            {/* Size & Add to Cart */}
+
             <div className="space-y-8 p-0 lg:p-0">
-              {sizeOptions.length > 0 &&
-                !(
-                  sizeOptions.length === 1 && sizeOptions[0] === "Standard"
-                ) && (
-                  <ProductSizeSelector
-                    options={sizeOptions}
-                    selected={selectedSize}
-                    onSelect={setSelectedSize}
-                    isAvailable={isSizeAvailable}
-                    onOpenSizeGuide={() => setIsSizeGuideOpen(true)}
-                  />
-                )}
+              {sizeOptions.length > 0 && !(sizeOptions.length === 1 && sizeOptions[0] === "Standard") && (
+                <ProductSizeSelector
+                  options={sizeOptions}
+                  selected={selectedSize}
+                  onSelect={setSelectedSize}
+                  isAvailable={isSizeAvailable}
+                  onOpenSizeGuide={() => setIsSizeGuideOpen(true)}
+                />
+              )}
 
               <Button
                 size="lg"
@@ -756,8 +716,6 @@ export function ProductDetailClient({
         currentProductId={product.id}
         title="Picked Just For You"
       />
-
-      {/* Import missing icon */}
     </div>
   );
 }

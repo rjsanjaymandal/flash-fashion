@@ -28,7 +28,6 @@ export function ProductGallery({
     // 2-up index tracking (w-1/2 items)
     const newIndex = Math.round(scrollLeft / (width / 2));
     // We update activeIndex but we want to know the *first visible* index mostly for dots
-    // The screenshot shows a strip of thumbnails, so we track which ones are in view.
     if (newIndex !== activeIndex) {
       setActiveIndex(newIndex);
     }
@@ -49,7 +48,7 @@ export function ProductGallery({
   return (
     <div className="relative w-full">
       {/* Desktop: Dual-Pane Hero (Two-Up) with Floating Controls */}
-      <div className="hidden lg:flex w-full h-[85vh] relative group">
+      <div className="hidden lg:flex w-full h-[85vh] relative group bg-background">
         <div
           id="gallery-container"
           className="flex w-full h-full overflow-x-auto snap-x snap-mandatory scrollbar-hide"
@@ -79,7 +78,7 @@ export function ProductGallery({
         {/* Floating Control Deck (Bottom Right) */}
         <div className="absolute bottom-8 right-8 z-30 flex items-center gap-4">
           {/* Thumbnail Strip */}
-          <div className="flex items-center gap-2 bg-background/90 backdrop-blur-lg p-1.5 rounded-none border border-foreground/10">
+          <div className="flex items-center gap-2 bg-background/90 backdrop-blur-lg p-1.5 rounded-none border border-foreground/10 shadow-sm">
             {allImages.map((img, i) => (
               <button
                 key={i}
@@ -113,9 +112,7 @@ export function ProductGallery({
           </div>
 
           {/* Navigation Arrows */}
-          <div className="flex items-center gap-1 bg-background/90 backdrop-blur-lg p-1 rounded-none border border-foreground/10 h-[58px]">
-            {" "}
-            {/* Match height approx */}
+          <div className="flex items-center gap-1 bg-background/90 backdrop-blur-lg p-1 rounded-none border border-foreground/10 h-[58px] shadow-sm">
             <button
               onClick={() => scrollContainer("left")}
               className="w-8 h-full flex items-center justify-center hover:bg-black/5 transition-colors outline-none focus:outline-none focus-visible:ring-0"
@@ -134,7 +131,7 @@ export function ProductGallery({
       </div>
 
       {/* Mobile: Swipeable Carousel (Full Width - 1 Up) */}
-      <div className="lg:hidden w-full h-[60vh] relative group">
+      <div className="lg:hidden w-full h-[60vh] relative group bg-background">
         <div
           className="flex w-full h-full overflow-x-auto snap-x snap-mandatory scrollbar-hide items-center"
           onScroll={(e) => {
@@ -171,7 +168,7 @@ export function ProductGallery({
             <div
               key={i}
               className={cn(
-                "w-1 h-1 rounded-none transition-all duration-300",
+                "w-1 h-1 rounded-full transition-all duration-300",
                 i === activeIndex
                   ? "bg-foreground scale-125"
                   : "bg-foreground/20",
@@ -181,7 +178,7 @@ export function ProductGallery({
         </div>
 
         {/* Count Badge */}
-        <div className="absolute top-4 right-4 bg-background/50 backdrop-blur-sm text-foreground text-[8px] px-2 py-1 rounded-none font-medium tracking-[0.3em] uppercase">
+        <div className="absolute top-4 right-4 bg-background/50 backdrop-blur-sm text-foreground text-[8px] px-2 py-1 rounded-sm font-medium tracking-[0.3em] uppercase shadow-sm">
           {activeIndex + 1} / {allImages.length}
         </div>
       </div>

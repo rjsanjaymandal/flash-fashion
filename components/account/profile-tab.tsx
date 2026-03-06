@@ -12,12 +12,8 @@ import {
 } from "@/components/ui/select";
 import { updateProfile } from "@/app/actions/user-actions";
 import { toast } from "sonner";
-import { User } from "lucide-react";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
-
-import { motion } from "framer-motion";
-import { BrandBadge } from "@/components/storefront/brand-badge";
 
 interface ProfileTabProps {
   user: {
@@ -46,71 +42,36 @@ export function ProfileTab({ user, profile }: ProfileTabProps) {
     setLoading(false);
   }
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0 },
-  };
-
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="space-y-10"
-    >
-      <motion.div
-        variants={itemVariants}
-        className="flex flex-col md:flex-row items-center gap-6 md:gap-8 p-5 md:p-8 rounded-4xl bg-card border-2 border-border/50 relative overflow-hidden group"
-      >
-        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors" />
-
-        <div className="relative">
-          <div className="h-24 w-24 rounded-full bg-linear-to-br from-primary to-indigo-600 flex items-center justify-center text-white text-4xl font-black shadow-2xl group-hover:scale-105 transition-transform duration-500">
-            {profile?.name?.[0].toUpperCase() || user.email?.[0].toUpperCase()}
-          </div>
-          <div className="absolute -bottom-1 -right-1 h-8 w-8 bg-card rounded-full border-4 border-card flex items-center justify-center shadow-lg">
-            <User className="h-4 w-4 text-primary" />
-          </div>
+    <div className="space-y-10 border border-border/50 p-6 md:p-8 bg-background">
+      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 border-b border-border/40 pb-8">
+        <div className="h-20 w-20 bg-muted flex items-center justify-center text-foreground font-serif text-3xl shrink-0">
+          {profile?.name?.[0].toUpperCase() || user.email?.[0].toUpperCase()}
         </div>
 
-        <div className="text-center md:text-left space-y-2">
+        <div className="text-center md:text-left space-y-1">
           <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-2">
             {profile?.role === "admin" && (
-              <BrandBadge variant="primary" className="text-[9px]">
-                Admin Access
-              </BrandBadge>
-            )}
-            {profile?.fit_preference && profile.fit_preference !== "none" && (
-              <BrandBadge variant="accent" className="text-[9px]">
-                {profile.fit_preference} Fit
-              </BrandBadge>
+              <span className="text-[10px] font-medium uppercase tracking-widest bg-foreground text-background px-2 py-0.5">
+                Admin
+              </span>
             )}
           </div>
-          <h2 className="text-3xl font-black tracking-tight text-foreground uppercase italic leading-none">
-            {profile?.name || "Fashion Insider"}
+          <h2 className="text-2xl font-serif text-foreground">
+            {profile?.name || "Member"}
           </h2>
-          <p className="text-muted-foreground font-medium text-sm">
+          <p className="text-muted-foreground text-sm">
             {user.email}
           </p>
         </div>
-      </motion.div>
+      </div>
 
-      <form action={onSubmit} className="space-y-8 max-w-2xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <motion.div variants={itemVariants} className="space-y-3">
+      <form action={onSubmit} className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-3">
             <Label
               htmlFor="name"
-              className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1"
+              className="text-[11px] uppercase tracking-wider text-muted-foreground"
             >
               Display Name
             </Label>
@@ -119,13 +80,13 @@ export function ProfileTab({ user, profile }: ProfileTabProps) {
               name="name"
               defaultValue={profile?.name || ""}
               placeholder="John Doe"
-              className="h-14 rounded-2xl border-2 focus:ring-primary/20 bg-muted/50 border-border/50"
+              className="h-12 rounded-none bg-transparent border-border focus:border-foreground focus:ring-0 transition-colors"
             />
-          </motion.div>
-          <motion.div variants={itemVariants} className="space-y-3">
+          </div>
+          <div className="space-y-3">
             <Label
               htmlFor="pronouns"
-              className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1"
+              className="text-[11px] uppercase tracking-wider text-muted-foreground"
             >
               Pronouns
             </Label>
@@ -134,15 +95,15 @@ export function ProfileTab({ user, profile }: ProfileTabProps) {
               name="pronouns"
               defaultValue={profile?.pronouns || ""}
               placeholder="they/them"
-              className="h-14 rounded-2xl border-2 focus:ring-primary/20 bg-muted/50 border-border/50"
+              className="h-12 rounded-none bg-transparent border-border focus:border-foreground focus:ring-0 transition-colors"
             />
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div variants={itemVariants} className="space-y-3">
+        <div className="space-y-3 max-w-md">
           <Label
             htmlFor="fit_preference"
-            className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1"
+            className="text-[11px] uppercase tracking-wider text-muted-foreground"
           >
             Fit Preference
           </Label>
@@ -150,35 +111,32 @@ export function ProfileTab({ user, profile }: ProfileTabProps) {
             name="fit_preference"
             defaultValue={profile?.fit_preference || "none"}
           >
-            <SelectTrigger className="h-14 rounded-2xl border-2 focus:ring-primary/20 bg-muted/50 border-border/50">
-              <SelectValue placeholder="Select your vibe" />
+            <SelectTrigger className="h-12 rounded-none bg-transparent border-border focus:border-foreground focus:ring-0 transition-colors">
+              <SelectValue placeholder="Select" />
             </SelectTrigger>
-            <SelectContent className="rounded-2xl border-2 shadow-2xl">
+            <SelectContent className="rounded-none border-border shadow-md">
               <SelectItem value="none">No Preference</SelectItem>
               <SelectItem value="oversized">Oversized</SelectItem>
               <SelectItem value="regular">Regular</SelectItem>
               <SelectItem value="fitted">Fitted</SelectItem>
             </SelectContent>
           </Select>
-          <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider ml-1 opacity-60">
-            We&apos;ll use this to calibrate your style recommendations.
-          </p>
-        </motion.div>
+        </div>
 
-        <motion.div variants={itemVariants} className="pt-4">
+        <div className="pt-6">
           <Button
             disabled={loading}
             type="submit"
-            className="w-full h-14 rounded-2xl font-black uppercase tracking-widest gradient-primary shadow-xl hover:scale-[1.02] active:scale-95 transition-all text-sm"
+            className="rounded-none h-12 px-8 text-xs uppercase tracking-widest min-w-[200px]"
           >
             {loading ? (
-              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-              "Save Profile Changes"
+              "Save Changes"
             )}
           </Button>
-        </motion.div>
+        </div>
       </form>
-    </motion.div>
+    </div>
   );
 }

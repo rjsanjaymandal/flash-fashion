@@ -50,16 +50,15 @@ export function ProductSizeSelector({
               onClick={() => onSelect(size)}
               disabled={!available}
               className={cn(
-                "h-10 px-4 text-[11px] uppercase tracking-widest transition-all duration-300 border relative group focus-visible:ring-0 focus-visible:ring-offset-0 outline-none",
+                "h-10 px-4 text-[11px] uppercase tracking-widest transition-all duration-300 border relative group focus-visible:ring-0 focus-visible:ring-offset-0 outline-none rounded-none",
                 isSelected
                   ? "border-black text-black font-bold bg-black/5"
                   : "border-transparent text-neutral-500 hover:text-black hover:bg-neutral-50",
                 !available &&
-                  "opacity-30 cursor-not-allowed text-neutral-300 decoration-neutral-300 line-through",
+                "opacity-30 cursor-not-allowed text-neutral-300 decoration-neutral-300 line-through",
               )}
             >
               {size}
-              {/* No explicit motion line, using solid fill for cleaner luxury look */}
             </button>
           );
         })}
@@ -68,7 +67,7 @@ export function ProductSizeSelector({
   );
 }
 
-// Separate Color Selector (Visual Style)
+// Separate Color Selector
 export function ProductColorSelector({
   options,
   selected,
@@ -95,7 +94,7 @@ export function ProductColorSelector({
                 disabled={!available}
                 onClick={() => onSelect(color)}
                 className={cn(
-                  "h-10 w-10 rounded-none border transition-all duration-500 ease-out flex items-center justify-center relative overflow-hidden focus-visible:ring-0 focus-visible:ring-offset-0 outline-none",
+                  "h-10 w-10 rounded-full border transition-all duration-500 ease-out flex items-center justify-center relative overflow-hidden focus-visible:ring-0 focus-visible:ring-offset-0 outline-none shadow-sm",
                   isSelected
                     ? "border-foreground scale-110"
                     : "border-foreground/10 hover:border-foreground/30",
@@ -117,7 +116,7 @@ export function ProductColorSelector({
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div
                       className={cn(
-                        "w-1.5 h-1.5 rounded-none",
+                        "w-1.5 h-1.5 rounded-full",
                         hex.toLowerCase() === "#ffffff"
                           ? "bg-black"
                           : "bg-white",
@@ -159,16 +158,15 @@ export function ProductFitSelector({
               onClick={() => onSelect(fit)}
               disabled={!available}
               className={cn(
-                "h-10 px-4 text-[11px] uppercase tracking-widest transition-all duration-300 border relative group focus-visible:ring-0 focus-visible:ring-offset-0 outline-none",
+                "h-10 px-4 text-[11px] uppercase tracking-widest transition-all duration-300 border relative group focus-visible:ring-0 focus-visible:ring-offset-0 outline-none rounded-none",
                 isSelected
                   ? "border-black text-black font-bold bg-black/5"
                   : "border-transparent text-neutral-500 hover:text-black hover:bg-neutral-50",
                 !available &&
-                  "opacity-30 cursor-not-allowed text-neutral-300 decoration-neutral-300 line-through",
+                "opacity-30 cursor-not-allowed text-neutral-300 decoration-neutral-300 line-through",
               )}
             >
               {fit}
-              {/* Clear luxury removal of motion bar */}
             </button>
           );
         })}
@@ -177,7 +175,7 @@ export function ProductFitSelector({
   );
 }
 
-// Legacy export if needed, or composite for simple usage
+// Legacy Composite Wrapper
 interface ProductSelectorsProps {
   sizeOptions: string[];
   colorOptions: string[];
@@ -210,10 +208,8 @@ export function ProductSelectors({
   isAvailable,
   isSizeAvailable,
   isFitAvailable,
-  //   getStock,
   centered = false,
 }: ProductSelectorsProps) {
-  // Composite wrapper if used elsewhere
   return (
     <div className={cn("space-y-8", centered ? "text-center" : "")}>
       <div className={centered ? "flex justify-center" : ""}>

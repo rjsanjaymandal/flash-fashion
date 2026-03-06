@@ -1,0 +1,79 @@
+
+> flash-ecommerce@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+- Experiments (use with caution):
+  ┬╖ optimizePackageImports
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 15.3s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+ΓÜá Using edge runtime on a page currently disables static generation for that page
+  Generating static pages using 7 workers (0/43) ...
+  Generating static pages using 7 workers (10/43) 
+getProducts error: Error: An unknown error occurred.
+    at <unknown> (D:\maysanlabs\flash fashion\.next\server\chunks\ssr\_508e7a07._.js:5:70)
+    at Generator.next (<anonymous>)
+    at g (D:\maysanlabs\flash fashion\.next\server\chunks\ssr\_508e7a07._.js:1:75713) {
+  statusText: 'Internal Server Error',
+  status: 500
+}
+  Generating static pages using 7 workers (21/43) 
+  Generating static pages using 7 workers (32/43) 
+Γ£ô Generating static pages using 7 workers (43/43) in 3.3s
+  Finalizing page optimization ...
+
+Route (app)
+Γöî ╞Æ /
+Γö£ ╞Æ /_not-found
+Γö£ ╞Æ /about
+Γö£ ╞Æ /accessibility
+Γö£ ╞Æ /account
+Γö£ ╞Æ /account/orders
+Γö£ ╞Æ /account/orders/[id]
+Γö£ ╞Æ /api/auth/google/callback
+Γö£ ╞Æ /api/razorpay/callback
+Γö£ ╞Æ /api/razorpay/order
+Γö£ ╞Æ /api/razorpay/verify
+Γö£ ╞Æ /api/razorpay/webhook
+Γö£ Γùï /apple-icon
+Γö£ ╞Æ /blog
+Γö£ ΓùÅ /blog/[slug]
+Γö£ ╞Æ /blog/[slug]/opengraph-image-1yjuf8
+Γö£ ╞Æ /careers
+Γö£ ╞Æ /checkout
+Γö£ ╞Æ /contact
+Γö£ ╞Æ /cookies
+Γö£ ╞Æ /faq
+Γö£ ╞Æ /flashh-fashion
+Γö£ Γùï /icon
+Γö£ ╞Æ /lab
+Γö£ ╞Æ /login
+Γö£ Γùï /manifest.webmanifest
+Γö£ ╞Æ /opengraph-image
+Γö£ ╞Æ /order/confirmation/[id]
+Γö£ ╞Æ /privacy
+Γö£ ╞Æ /product/[slug]
+Γö£ ╞Æ /product/[slug]/opengraph-image-1vxdxz
+Γö£ ╞Æ /returns
+Γö£ Γùï /robots.txt
+Γö£ ╞Æ /shipping
+Γö£ ╞Æ /shop
+Γö£ ╞Æ /shop/[category]
+Γö£ ╞Æ /shop/vibes/[vibe]
+Γö£ ╞Æ /signup
+Γö£ Γùï /sitemap.xml
+Γö£ ╞Æ /size-guide
+Γö£ ╞Æ /sustainability
+Γö£ ╞Æ /terms
+Γö£ ╞Æ /track/[orderId]
+Γöö ╞Æ /wishlist
+
+
+Γùï  (Static)   prerendered as static content
+ΓùÅ  (SSG)      prerendered as static HTML (uses generateStaticParams)
+╞Æ  (Dynamic)  server-rendered on demand
+

@@ -2,13 +2,10 @@
 
 import { cookies } from "next/headers"
 import { revalidatePath } from "next/cache"
-
-const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://127.0.0.1:9000"
-const PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
+import { medusaClient } from "@/lib/medusa"
 
 /**
- * Login an existing customer via Medusa v2 Auth API.
- * Flow: POST /auth/customer/emailpass → get JWT → set cookie
+ * Login an existing customer via Medusa API using the JS SDK.
  */
 export async function loginMedusa(formData: FormData) {
     const email = formData.get('email') as string
@@ -19,24 +16,16 @@ export async function loginMedusa(formData: FormData) {
     }
 
     try {
-        const response = await fetch(`${BACKEND_URL}/auth/customer/emailpass`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password })
+        // Use the official JS SDK
+        const loginResponse = await medusaClient.auth.login("customer", "emailpass", {
+            email,
+            password
         })
 
-        if (!response.ok) {
-            const error = await response.json().catch(() => ({}))
-            return { error: error.message || 'Invalid email or password' }
-        }
-
-        const data = await response.json()
-        const token = data.token
+        const token = typeof loginResponse === 'string' ? loginResponse : undefined;
 
         if (!token) {
-            return { error: 'No token received from server' }
+            return { error: 'Failed to retrieve access token' }
         }
 
         const cookieStore = await cookies()
@@ -52,16 +41,12 @@ export async function loginMedusa(formData: FormData) {
         return { success: true }
     } catch (error: any) {
         console.error('Login error:', error)
-        return { error: 'System error during login' }
+        return { error: error.message || 'Invalid email or password' }
     }
 }
 
 /**
- * Register a new customer via Medusa v2 Auth API.
- * This is a 2-step process in Medusa v2:
- *   Step 1: POST /auth/customer/emailpass/register → creates auth identity, returns JWT
- *   Step 2: POST /store/customers → creates the actual customer record using the JWT
- * Then we set the token as a cookie for the session.
+ * Register a new customer via Medusa API using the JS SDK.
  */
 export async function registerMedusa(formData: FormData) {
     const email = formData.get('email') as string
@@ -74,51 +59,31 @@ export async function registerMedusa(formData: FormData) {
     }
 
     try {
-        // Step 1: Register the auth identity
-        const authResponse = await fetch(`${BACKEND_URL}/auth/customer/emailpass/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password })
+        // Step 1: Register the auth identity to get token
+        const registerResponse = await medusaClient.auth.register("customer", "emailpass", {
+            email,
+            password
         })
 
-        if (!authResponse.ok) {
-            const error = await authResponse.json().catch(() => ({}))
-            // Common case: email already registered
-            if (authResponse.status === 400 || authResponse.status === 422) {
-                return { error: error.message || 'An account with this email already exists' }
-            }
-            return { error: error.message || 'Registration failed' }
-        }
-
-        const authData = await authResponse.json()
-        const token = authData.token
+        const token = typeof registerResponse === 'string' ? registerResponse : undefined;
 
         if (!token) {
-            return { error: 'Registration failed: no token received' }
+            return { error: 'Registration failed but no error thrown' }
         }
 
-        // Step 2: Create the customer record using the registration token
-        const customerResponse = await fetch(`${BACKEND_URL}/store/customers`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-                'x-publishable-api-key': PUBLISHABLE_KEY,
-            },
-            body: JSON.stringify({
-                email,
-                first_name: first_name || '',
-                last_name: last_name || '',
-            })
+        // Step 2: Create the customer record. 
+        // We must pass the token as Authorization header manually if not already handled by client
+        const clientWithToken = medusaClient;
+        clientWithToken.client.setToken(token);
+
+        await clientWithToken.store.customer.create({
+            email,
+            first_name,
+            last_name,
+        }).catch((err) => {
+            console.error('Customer profile creation error:', err)
+            throw err // Allow catch block to handle it
         })
-
-        if (!customerResponse.ok) {
-            const error = await customerResponse.json().catch(() => ({}))
-            console.error('Customer creation failed:', error)
-            return { error: error.message || 'Failed to create customer profile' }
-        }
 
         // Set the token as a session cookie
         const cookieStore = await cookies()
@@ -134,7 +99,7 @@ export async function registerMedusa(formData: FormData) {
         return { success: true }
     } catch (error: any) {
         console.error('Registration error:', error)
-        return { error: 'System error during registration' }
+        return { error: error.message || 'System error during registration' }
     }
 }
 
@@ -147,27 +112,25 @@ export async function logoutMedusa() {
 
 /**
  * Get the current customer session from Medusa.
- * Requires both the Bearer token AND the publishable API key.
  */
 export async function getMedusaSession() {
     const cookieStore = await cookies()
     const token = cookieStore.get('medusa_token')?.value
+
     if (!token) return null
 
     try {
-        const response = await fetch(`${BACKEND_URL}/store/customers/me`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'x-publishable-api-key': PUBLISHABLE_KEY,
-            },
-            next: { revalidate: 0 }
+        // Inject the token into the SDK client instance for this specific server-side request
+        const clientWithToken = medusaClient;
+        clientWithToken.client.setToken(token);
+
+        const { customer } = await clientWithToken.store.customer.retrieve(undefined, {
+            Authorization: `Bearer ${token}`
         })
-
-        if (!response.ok) return null
-
-        const data = await response.json()
-        return data.customer
+        return customer
     } catch (error) {
+        console.error('getMedusaSession error', error)
         return null
     }
 }
+
